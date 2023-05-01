@@ -3,28 +3,9 @@
   margin: 0 auto;
 }
 
-.header {
-  height: 100px;
-  background-color: #d57733;
-}
-
-.header img {
-  width: 100px;
-  height: 100px;
-}
-
 .menu-and-profile-wrapper {
   margin-top: 20px;
   display: flex;
   gap: 20px;
 }
 
-.menu {
-  background-color: #4cc7a4;
-  width: 20%;
-}
-
-.content {
-  background-color: grey;
-  width: 80%;
-}

@@ -1,0 +1,14 @@
+.content {
+    background-color: rgba(0, 0, 0, 0.68);
+    width: 80%;
+}
+
+.content .preview_img {
+    height: 200px;
+    width: 100%;
+}
+
+.about .about__avatar {
+    width: 250px;
+    height: 250px;
+}
