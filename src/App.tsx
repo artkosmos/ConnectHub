@@ -6,9 +6,9 @@ import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
-    <div className="app-wrapper">
+    <div className="appWrapper">
       <Header />
-      <div className="menu-and-profile-wrapper">
+      <div className="menuAndProfileWrapper">
         <Menu />
         <Profile />
       </div>

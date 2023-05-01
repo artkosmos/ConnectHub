@@ -1,9 +1,9 @@
 import React from "react";
-import s from "./Menu.module.scss"
+import style from "./Menu.module.scss"
 
 function Menu() {
   return (
-    <nav className={s.menu}>
+    <nav className={style.menu}>
       <div>
         <a href="src/components/Menu/Menu#">Profile</a>
       </div>

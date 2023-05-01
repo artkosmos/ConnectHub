@@ -1,20 +1,20 @@
 import React from "react";
-import s from "./MyPosts.module.scss"
+import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
 
 function MyPosts() {
   return (
-    <div className={s.my_posts}>
-      <div className={s.my_posts__title}>My posts</div>
-      <div className={`${s.my_posts__send} ${s.send_post}`}>
-        <div className={s.send_post__area}></div>
-        <button className={s.send_post__btn}>Send it</button>
+    <div className={style.myPosts}>
+      <div className={style.myPosts__title}>My posts</div>
+      <div className={`${style.sendForm} ${style.myPosts__sendForm}`}>
+        <div className={style.sendForm__area}></div>
+        <button className={style.sendForm__btn}>Send it</button>
       </div>
-      <div className={s.my_posts__published}>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+      <div className={style.myPosts__published}>
+        <Post message="Hey, how are you today?" likes={0} />
+        <Post message="The weather is sunny. Who want to go walking?" likes={4} />
+        <Post message="Let's meet the people)" likes={13} />
+        <Post message="That's my first post here!" likes={6} />
       </div>
     </div>
 )
