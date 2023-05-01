@@ -1,5 +1,6 @@
 import React from "react";
-import s from "./Profile.module.css"
+import s from "./Profile.module.scss"
+import MyPosts from "./MyPosts/MyPosts";
 
 function Profile() {
   return (
@@ -13,15 +14,7 @@ function Profile() {
            alt="avatar"/>
         <div className="about__info"></div>
       </div>
-      <div className="post">
-        <div className="post__title">My posts</div>
-        <div className="post__area"></div>
-        <button>Send it</button>
-      </div>
-      <div className="previous_posts">
-        <div className="previous_posts__1">Post 1</div>
-        <div className="previous_posts__2">Post 2</div>
-      </div>
+      < MyPosts />
     </div>
   )
 }
