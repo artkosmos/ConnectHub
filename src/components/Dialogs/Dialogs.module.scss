@@ -1,0 +1,31 @@
+.dialogsContent {
+  background-color: floralwhite;
+  display: flex;
+  height: 100%;
+
+  &__people {
+    width: 30%;
+  }
+
+  &__messages {
+    width: 70%;
+  }
+}
+
+.people {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 2rem;
+
+  &__item {
+    text-decoration: none;
+    font-weight: 600;
+    color: black;
+    letter-spacing: 0.05rem;
+
+    &_active {
+      color: rgb(85, 171, 236);
+    }
+  }
+}
