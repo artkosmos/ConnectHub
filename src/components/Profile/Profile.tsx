@@ -5,7 +5,7 @@ import MyPosts from "./MyPosts/MyPosts";
 function Profile() {
   return (
     <div className={style.content}>
-      <img className={style.preview_img}
+      <img className={style.previewPicture}
          src="https://mp2023.nyc3.digitaloceanspaces.com/689084892688/2021/06/24/thumbnails/a47tusiqw9d2au1a.jpg"
          alt="preview"/>
       <div className={style.about}>

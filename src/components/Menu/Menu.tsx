@@ -5,19 +5,19 @@ function Menu() {
   return (
     <nav className={style.menu}>
       <div>
-        <a href="src/components/Menu/Menu#">Profile</a>
+        <a href="/profile">Profile</a>
       </div>
       <div>
-        <a href="src/components/Menu/Menu#">Messages</a>
+        <a href="/dialogs">Messages</a>
       </div>
       <div>
-        <a href="src/components/Menu/Menu#">News</a>
+        <a href="/news">News</a>
       </div>
       <div>
-        <a href="src/components/Menu/Menu#">Music</a>
+        <a href="/music">Music</a>
       </div>
       <div>
-        <a href="src/components/Menu/Menu#">Settings</a>
+        <a href="/settings">Settings</a>
       </div>
     </nav>
   )

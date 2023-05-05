@@ -3,9 +3,13 @@
   margin: 0 auto;
 }
 
-.menuAndProfileWrapper {
+.menuAndContentWrapper {
   margin-top: 20px;
   display: flex;
   gap: 20px;
 }
 
+.contentWrapper {
+  background-color: beige;
+  width: 80%;
+}
