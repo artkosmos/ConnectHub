@@ -1,23 +1,49 @@
 import React from "react";
 import style from "./Menu.module.scss"
+import {NavLink} from "react-router-dom";
 
 function Menu() {
   return (
     <nav className={style.menu}>
       <div>
-        <a href="/profile">Profile</a>
+        <NavLink
+          to="/profile"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >Profile
+        </NavLink>
       </div>
       <div>
-        <a href="/dialogs">Messages</a>
+        <NavLink
+          to="/dialogs"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >Messages
+        </NavLink>
       </div>
       <div>
-        <a href="/news">News</a>
+        <NavLink
+          to="/news"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >News
+        </NavLink>
       </div>
       <div>
-        <a href="/music">Music</a>
+        <NavLink
+          to="/music"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >Music
+        </NavLink>
       </div>
       <div>
-        <a href="/settings">Settings</a>
+        <NavLink
+          to="/settings"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >Settings
+        </NavLink>
       </div>
     </nav>
   )
