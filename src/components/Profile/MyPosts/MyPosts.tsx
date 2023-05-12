@@ -1,22 +1,20 @@
 import React from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
+import {PostType} from "../../../index";
 
-function MyPosts() {
+type MyPostsPropsType = {
+  posts: PostType[]
+}
 
-  const posts = [
-    {id: 1, message: 'Hey, how are you today?', likes: 0},
-    {id: 1, message: 'The weather is sunny. Who want to go walking?', likes: 4},
-    {id: 1, message: 'Let\'s meet the people)', likes: 13},
-    {id: 1, message: 'That\'s my first post here!', likes: 6}
-  ]
 
-  const mappedPosts = posts.map((item) => {
+function MyPosts(props: MyPostsPropsType) {
+
+  const mappedPosts = props.posts.map((item: PostType) => {
     return (
       <Post message={item.message} likes={item.likes}/>
     )
   })
-
 
   return (
     <div className={style.myPosts}>

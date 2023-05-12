@@ -2,34 +2,22 @@ import React from "react";
 import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
+import {DialogType, MessageType} from "../../index";
 
+type DialogsPropsType  = {
+  messages: MessageType[]
+  dialogs: DialogType[]
+}
 
-function Dialogs() {
+function Dialogs(props: DialogsPropsType) {
 
-  const dialogs = [
-    {id: 1, name: 'Victor'},
-    {id: 2, name: 'Jon'},
-    {id: 3, name: 'Alex'},
-    {id: 4, name: 'Jasmine'},
-    {id: 5, name: 'Vladimir'},
-    {id: 6, name: 'Nicola'},
-  ]
-  const messages = [
-    {id: 1, message: 'Hello!'},
-    {id: 2, message: 'How are you doing?'},
-    {id: 3, message: 'I\'m fine, thanks!'},
-    {id: 4, message: 'What did you do at the weekend?'},
-    {id: 5, message: 'Did you see that movie?'},
-    {id: 6, message: 'I\'m hungry. Let\'s have lunch'},
-  ]
-
-  const mappedDialogs = dialogs.map((item) => {
+  const mappedDialogs = props.dialogs.map((item) => {
     return (
       <DialogItem name={item.name} id={item.id} />
     )
   })
 
-  const mappedMessages = messages.map((item) => {
+  const mappedMessages = props.messages.map((item) => {
     return (
       <MessageItem message={item.message} />
     )
