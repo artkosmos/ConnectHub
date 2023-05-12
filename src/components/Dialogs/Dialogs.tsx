@@ -1,48 +1,47 @@
 import React from "react";
 import style from "./Dialogs.module.scss"
-import {NavLink} from "react-router-dom";
-import {message} from "antd";
+import MessageItem from "./MessageItem/MessageItem";
+import DialogItem from "./DialogItem/DialogItem";
 
-type DialogPropsType = {
-  name: string
-  id: number
-}
-
-type MessagesPropsType = {
-  message: string
-}
-
-function DialogItem (props: DialogPropsType) {
-  return (
-    <div>
-      <NavLink
-        to={`/dialogs/${props.id}`}
-        className={style.people__item}
-        activeClassName={style.people__item_active}
-      >{props.name}
-      </NavLink>
-    </div>
-  )
-}
-
-function MessageItem (props: MessagesPropsType) {
-  return <div className={style.messages__item}>{props.message}</div>
-}
 
 function Dialogs() {
+
+  const dialogs = [
+    {id: 1, name: 'Victor'},
+    {id: 2, name: 'Jon'},
+    {id: 3, name: 'Alex'},
+    {id: 4, name: 'Jasmine'},
+    {id: 5, name: 'Vladimir'},
+    {id: 6, name: 'Nicola'},
+  ]
+  const messages = [
+    {id: 1, message: 'Hello!'},
+    {id: 2, message: 'How are you doing?'},
+    {id: 3, message: 'I\'m fine, thanks!'},
+    {id: 4, message: 'What did you do at the weekend?'},
+    {id: 5, message: 'Did you see that movie?'},
+    {id: 6, message: 'I\'m hungry. Let\'s have lunch'},
+  ]
+
+  const mappedDialogs = dialogs.map((item) => {
+    return (
+      <DialogItem name={item.name} id={item.id} />
+    )
+  })
+
+  const mappedMessages = messages.map((item) => {
+    return (
+      <MessageItem message={item.message} />
+    )
+  })
+
   return (
     <div className={style.dialogsContent}>
       <div className={`${style.people} ${style.dialogsContent__people}`}>
-        <DialogItem name={"Victor"} id={1} />
-        <DialogItem name={"Jon"} id={2} />
-        <DialogItem name={"Alex"} id={3} />
-        <DialogItem name={"Jasmine"} id={4} />
-        <DialogItem name={"Vladimir"} id={5} />
+        {mappedDialogs}
       </div>
       <div className={`${style.messages} ${style.dialogsContent__messages}`}>
-        <MessageItem message={"Hello!"} />
-        <MessageItem message={"How are you doing?"} />
-        <MessageItem message={"I'm fine, thanks!"} />
+        {mappedMessages}
       </div>
     </div>
   )

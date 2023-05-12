@@ -1,7 +1,5 @@
 .dialogsContent {
-  background-color: floralwhite;
   display: flex;
-  height: 100%;
 
   &__people {
     width: 30%;
@@ -13,9 +11,10 @@
 }
 
 .people {
+  margin-top: 20px;
   display: flex;
+  gap: 1.5rem;
   flex-direction: column;
-  justify-content: space-around;
   padding-left: 2rem;
 
   &__item {
@@ -28,4 +27,11 @@
       color: rgb(85, 171, 236);
     }
   }
+}
+
+.messages {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
