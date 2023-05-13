@@ -41,8 +41,10 @@ const state: StateType = {
       {id: 2, message: 'How are you doing?'},
       {id: 3, message: 'I\'m fine, thanks!'},
       {id: 4, message: 'What did you do at the weekend?'},
-      {id: 5, message: 'Did you see that movie?'},
-      {id: 6, message: 'I\'m hungry. Let\'s have lunch'},
+      {id: 5, message: 'I went to the cinema on Guardians of Galaxy. Did you see that movie?'},
+      {id: 6, message: 'Yes, I have already seen it) Good movie!'},
+      {id: 6, message: 'I\'m hungry. Let\'s have lunch.'},
+      {id: 6, message: 'Me either. Let\'s go.'},
     ]
   },
   profilePage: {

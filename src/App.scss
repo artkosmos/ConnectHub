@@ -3,20 +3,24 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+html {
+  font-size: 16px;
+}
+
 .appWrapper {
-  width: 1200px;
+  width: 75rem;
   margin: 0 auto;
 }
 
 .menuAndContentWrapper {
-  margin-top: 15px;
+  margin-top: 0.9rem;
   display: flex;
-  gap: 15px;
+  gap: 0.9rem;
 }
 
 .contentWrapper {
   background-color: whitesmoke;
   width: 80%;
-  height: 100vh;
   border-radius: 0.6rem;
+  overflow: hidden;
 }
