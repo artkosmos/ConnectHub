@@ -21,6 +21,7 @@ function MyPosts(props: MyPostsPropsType) {
   const onClickSendPostHandler = () => {
     if (post.current?.value) {
       props.addPostFn(post.current.value)
+      post.current.value = ''
     }
   }
 

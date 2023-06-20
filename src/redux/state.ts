@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../rerender";
+
 export type PostType = {
   id: number
   message: string
@@ -60,6 +62,7 @@ export const state: StateType = {
 export const addPost = (postValue: string) => {
   const newPost: PostType = {id: new Date().getDate(), message: postValue, likes: 0}
   state.profilePage.posts.unshift(newPost)
+  rerenderEntireTree(state)
 }
 
 
