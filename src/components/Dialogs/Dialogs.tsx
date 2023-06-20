@@ -1,4 +1,4 @@
-import React from "react";
+import React, {LegacyRef, useRef} from "react";
 import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
@@ -9,6 +9,10 @@ type DialogsPropsType  = {
 }
 
 function Dialogs(props: DialogsPropsType) {
+
+  // let message = React.createRef<HTMLTextAreaElement>()
+  let message = useRef<HTMLTextAreaElement>(null)
+
 
   const mappedDialogs = props.state.dialogs.map((item) => {
     return (
@@ -22,6 +26,10 @@ function Dialogs(props: DialogsPropsType) {
     )
   })
 
+  const onClickSendMessageHandler = () => {
+    // message.current?.value
+  }
+
   return (
     <div className={style.dialogsContent}>
       <div className={`${style.people} ${style.dialogsContent__people}`}>
@@ -29,6 +37,8 @@ function Dialogs(props: DialogsPropsType) {
       </div>
       <div className={`${style.messages} ${style.dialogsContent__messages}`}>
         {mappedMessages}
+        <textarea ref={message} placeholder={'Type message...'}></textarea>
+        <button onClick={onClickSendMessageHandler}>Send message</button>
       </div>
     </div>
   )
