@@ -12,6 +12,7 @@ import {StateType} from "./redux/state";
 
 type AppPropsType = {
   state: StateType
+  addPostFn: (postValue: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -22,7 +23,7 @@ function App(props: AppPropsType) {
         <div className="menuAndContentWrapper">
           <Menu />
           <div className="contentWrapper">
-            <Route path="/profile" render={() => <Profile state={props.state.profilePage}/>}/>
+            <Route path="/profile" render={() => <Profile state={props.state.profilePage} addPostFn={props.addPostFn}/>}/>
             <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogPage}/>}/>
             <Route path="/news" component={News}/>
             <Route path="/music" component={Music}/>

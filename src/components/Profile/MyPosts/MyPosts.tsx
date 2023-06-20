@@ -5,6 +5,7 @@ import {PostType} from "../../../redux/state";
 
 type MyPostsPropsType = {
   posts: PostType[]
+  addPostFn: (postValue: string) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
@@ -18,14 +19,16 @@ function MyPosts(props: MyPostsPropsType) {
   })
 
   const onClickSendPostHandler = () => {
-    // post.current?.value
+    if (post.current?.value) {
+      props.addPostFn(post.current.value)
+    }
   }
 
   return (
     <div className={style.myPosts}>
       <div className={style.myPosts__title}>My posts</div>
       <div className={`${style.sendForm} ${style.myPosts__sendForm}`}>
-        <textarea className={style.sendForm__area}></textarea>
+        <textarea ref={post} className={style.sendForm__area}></textarea>
         <button onClick={onClickSendPostHandler} className={style.sendForm__btn}>Send it</button>
       </div>
       <div className={style.myPosts__published}>

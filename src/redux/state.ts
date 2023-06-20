@@ -26,7 +26,7 @@ export type StateType = {
   profilePage: ProfilePageType
 }
 
-const state: StateType = {
+export const state: StateType = {
   dialogPage: {
     dialogs: [
       {id: 1, name: 'Victor'},
@@ -57,4 +57,9 @@ const state: StateType = {
   }
 }
 
-export default state;
+export const addPost = (postValue: string) => {
+  const newPost: PostType = {id: new Date().getDate(), message: postValue, likes: 0}
+  state.profilePage.posts.unshift(newPost)
+}
+
+
