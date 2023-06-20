@@ -21,6 +21,7 @@ export type DialogPageType = {
 
 export type ProfilePageType = {
   posts: PostType[]
+  newPost: string
 }
 
 export type StateType = {
@@ -55,13 +56,20 @@ export const state: StateType = {
       {id: 1, message: 'The weather is sunny. Who want to go walking?', likes: 4},
       {id: 1, message: 'Let\'s meet the people)', likes: 13},
       {id: 1, message: 'That\'s my first post here!', likes: 6}
-    ]
+    ],
+    newPost: ''
   }
 }
 
-export const addPost = (postValue: string) => {
-  const newPost: PostType = {id: new Date().getDate(), message: postValue, likes: 0}
+export const addPost = () => {
+  const newPost: PostType = {id: new Date().getDate(), message: state.profilePage.newPost, likes: 0}
   state.profilePage.posts.unshift(newPost)
+  state.profilePage.newPost = ''
+  rerenderEntireTree(state)
+}
+
+export const changePost = (value: string) => {
+  state.profilePage.newPost = value
   rerenderEntireTree(state)
 }
 

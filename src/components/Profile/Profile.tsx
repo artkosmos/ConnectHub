@@ -6,7 +6,9 @@ import {ProfilePageType} from "../../redux/state";
 
 type ProfilePropsType = {
   state: ProfilePageType
-  addPostFn: (postValue: string) => void
+  addPostCallback: () => void
+  changePostCallback: (value: string) => void
+  postValue: string
 }
 
 function Profile(props: ProfilePropsType) {
@@ -14,7 +16,12 @@ function Profile(props: ProfilePropsType) {
   return (
     <div className={style.content}>
       <ProfileInfo/>
-      <MyPosts posts={props.state.posts} addPostFn={props.addPostFn}/>
+      <MyPosts
+        posts={props.state.posts}
+        addPostCallback={props.addPostCallback}
+        changePostCallback={props.changePostCallback}
+        postValue={props.postValue}
+      />
     </div>
   )
 }
