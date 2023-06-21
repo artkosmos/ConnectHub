@@ -27,7 +27,16 @@ export type StateType = {
   profilePage: ProfilePageType
 }
 
-export const store = {
+export type StoreType = {
+  _state: StateType
+  _callSubscriber: (state: StateType) => void
+  addPost: () => void
+  changePost: (value: string) => void
+  getState: () => StateType
+  subscriber: (observer: () => void) => void
+}
+
+export const store: StoreType = {
   _state: {
     dialogPage: {
       dialogs: [
@@ -60,7 +69,6 @@ export const store = {
     }
   },
   addPost() {
-    debugger
     const newPost = {id: new Date().getDate(), message: this._state.profilePage.newPost, likes: 0}
     this._state.profilePage.posts.unshift(newPost)
     this._state.profilePage.newPost = ''
@@ -70,7 +78,7 @@ export const store = {
     this._state.profilePage.newPost = value
     this._callSubscriber(this._state)
   },
-  _callSubscriber (state: any) {
+  _callSubscriber (state: StateType) {
     console.log('Don\'t have any observers')
   },
   subscriber (observer: any) {
