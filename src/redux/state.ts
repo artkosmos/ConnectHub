@@ -33,7 +33,7 @@ export type StoreType = {
   addPost: () => void
   changePost: (value: string) => void
   getState: () => StateType
-  subscriber: (observer: () => void) => void
+  subscriber: (observer: (state: StateType) => void) => void
 }
 
 export const store: StoreType = {
