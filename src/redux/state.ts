@@ -1,5 +1,3 @@
-import {rerenderEntireTree} from "../rerender";
-
 export type PostType = {
   id: number
   message: string
@@ -59,6 +57,11 @@ export const state: StateType = {
     ],
     newPost: ''
   }
+}
+
+let rerenderEntireTree: (state: StateType) => void
+export const subscriber = (observer: (state: StateType) => void) => {
+  rerenderEntireTree = observer
 }
 
 export const addPost = () => {
