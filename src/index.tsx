@@ -9,6 +9,7 @@ export const renderEntireTree = (state: StateType) => {
       state={state}
       dispatch={store.dispatch.bind(store)}
       postValue={store.getState().profilePage.newPost}
+      messageValue={store.getState().dialogPage.newMessage}
     />,
     document.getElementById('root'));
 }

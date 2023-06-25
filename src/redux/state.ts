@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST"
 const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
+const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
 
 export type PostType = {
   id: number
@@ -18,6 +19,7 @@ export type MessageType = {
 export type DialogPageType = {
   dialogs: DialogType[]
   messages: MessageType[]
+  newMessage: string
 }
 
 export type ProfilePageType = {
@@ -39,7 +41,12 @@ export type ChangePostActionType = {
   value: string
 }
 
-export type ActionType = AddPostActionType | ChangePostActionType
+export type ChangeMessageActionType = {
+  type: typeof CHANGE_MESSAGE_TEXT
+  value: string
+}
+
+export type ActionType = AddPostActionType | ChangePostActionType | ChangeMessageActionType
 
 export type StoreType = {
   _state: StateType
@@ -69,7 +76,8 @@ export const store: StoreType = {
         {id: 6, message: 'Yes, I have already seen it) Good movie!'},
         {id: 6, message: 'I\'m hungry. Let\'s have lunch.'},
         {id: 6, message: 'Me either. Let\'s go.'},
-      ]
+      ],
+      newMessage: ''
     },
     profilePage: {
       posts: [
@@ -81,10 +89,10 @@ export const store: StoreType = {
       newPost: ''
     }
   },
-  _callSubscriber (state: StateType) {
+  _callSubscriber(state: StateType) {
     console.log('Don\'t have any observers')
   },
-  subscriber (observer: any) {
+  subscriber(observer: any) {
     this._callSubscriber = observer
   },
   getState() {
@@ -102,19 +110,32 @@ export const store: StoreType = {
         this._state.profilePage.newPost = action.value
         this._callSubscriber(this._state)
         return
+      case CHANGE_MESSAGE_TEXT:
+        this._state.dialogPage.newMessage = action.value
+        this._callSubscriber(this._state)
+        return
+      default:
+        return this._state
     }
   }
 }
 
-export const addPostAC = ():AddPostActionType => {
+export const addPostAC = (): AddPostActionType => {
   return {
     type: ADD_POST
   }
 }
 
-export const changePostTextAC = (value: string):ChangePostActionType => {
+export const changePostTextAC = (value: string): ChangePostActionType => {
   return {
     type: CHANGE_POST_TEXT,
+    value
+  }
+}
+
+export const changeMessageTextAC = (value: string): ChangeMessageActionType => {
+  return {
+    type: CHANGE_MESSAGE_TEXT,
     value
   }
 }

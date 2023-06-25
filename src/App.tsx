@@ -13,6 +13,7 @@ type AppPropsType = {
   state: StateType
   dispatch: (action: ActionType) => void
   postValue: string
+  messageValue: string
 }
 
 function App(props: AppPropsType) {
@@ -29,7 +30,11 @@ function App(props: AppPropsType) {
               dispatch={props.dispatch}
               postValue={props.postValue}
             />}/>
-            <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogPage}/>}/>
+            <Route path="/dialogs" render={() => <Dialogs
+              state={props.state.dialogPage}
+              dispatch={props.dispatch}
+              messageValue={props.messageValue}
+            />}/>
             <Route path="/news" component={News}/>
             <Route path="/music" component={Music}/>
             <Route path="/settings" component={Settings}/>

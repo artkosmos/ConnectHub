@@ -1,18 +1,18 @@
-import React, {LegacyRef, useRef} from "react";
 import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
-import {DialogPageType} from "../../redux/state";
+import {ActionType, changeMessageTextAC, DialogPageType} from "../../redux/state";
+import {ChangeEvent} from "react";
 
 type DialogsPropsType  = {
   state: DialogPageType
+  dispatch: (action: ActionType) => void
+  messageValue: string
 }
 
 function Dialogs(props: DialogsPropsType) {
 
-  // let message = React.createRef<HTMLTextAreaElement>()
-  let message = useRef<HTMLTextAreaElement>(null)
-
+  console.log(props.state)
 
   const mappedDialogs = props.state.dialogs.map((item) => {
     return (
@@ -30,6 +30,10 @@ function Dialogs(props: DialogsPropsType) {
     // message.current?.value
   }
 
+  const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    props.dispatch(changeMessageTextAC(event.currentTarget.value))
+  }
+
   return (
     <div className={style.dialogsContent}>
       <div className={`${style.people} ${style.dialogsContent__people}`}>
@@ -37,7 +41,7 @@ function Dialogs(props: DialogsPropsType) {
       </div>
       <div className={`${style.messages} ${style.dialogsContent__messages}`}>
         {mappedMessages}
-        <textarea ref={message} placeholder={'Type message...'}></textarea>
+        <textarea value={props.messageValue} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
         <button onClick={onClickSendMessageHandler}>Send message</button>
       </div>
     </div>
