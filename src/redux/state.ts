@@ -1,3 +1,6 @@
+const ADD_POST = "ADD-POST"
+const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
+
 export type PostType = {
   id: number
   message: string
@@ -28,11 +31,11 @@ export type StateType = {
 }
 
 export type AddPostActionType = {
-  type: "ADD-POST"
+  type: typeof ADD_POST
 }
 
 export type ChangePostActionType = {
-  type: "CHANGE-POST-TEXT"
+  type: typeof CHANGE_POST_TEXT
   value: string
 }
 
@@ -89,17 +92,30 @@ export const store: StoreType = {
   },
   dispatch(action) {
     switch (action.type) {
-      case "ADD-POST":
+      case ADD_POST:
         const newPost = {id: new Date().getDate(), message: this._state.profilePage.newPost, likes: 0}
         this._state.profilePage.posts.unshift(newPost)
         this._state.profilePage.newPost = ''
         this._callSubscriber(this._state)
         return
-      case "CHANGE-POST-TEXT":
+      case CHANGE_POST_TEXT:
         this._state.profilePage.newPost = action.value
         this._callSubscriber(this._state)
         return
     }
+  }
+}
+
+export const addPostAC = ():AddPostActionType => {
+  return {
+    type: ADD_POST
+  }
+}
+
+export const changePostTextAC = (value: string):ChangePostActionType => {
+  return {
+    type: CHANGE_POST_TEXT,
+    value
   }
 }
 
