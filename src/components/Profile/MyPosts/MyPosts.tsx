@@ -1,4 +1,4 @@
-import {ChangeEvent, useRef} from "react";
+import {ChangeEvent} from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
 import {ActionType, addPostAC, changePostTextAC, PostType} from "../../../redux/state";
@@ -11,7 +11,7 @@ type MyPostsPropsType = {
 
 function MyPosts(props: MyPostsPropsType) {
 
-  let post = useRef<HTMLTextAreaElement>(null)
+  // let post = useRef<HTMLTextAreaElement>(null)
 
   const mappedPosts = props.posts.map((item: PostType) => {
     return (
@@ -20,9 +20,10 @@ function MyPosts(props: MyPostsPropsType) {
   })
 
   const onClickSendPostHandler = () => {
-    if (post.current?.value) {
-      props.dispatch(addPostAC())
-    }
+    // if (post.current?.value) {
+    //   props.dispatch(addPostAC())
+    // }
+    props.dispatch(addPostAC())
   }
 
   const onChangeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,7 +34,7 @@ function MyPosts(props: MyPostsPropsType) {
     <div className={style.myPosts}>
       <div className={style.myPosts__title}>My posts</div>
       <div className={`${style.sendForm} ${style.myPosts__sendForm}`}>
-        <textarea value={props.postValue} onChange={onChangeTextHandler} ref={post} className={style.sendForm__area}></textarea>
+        <textarea value={props.postValue} onChange={onChangeTextHandler} className={style.sendForm__area}></textarea>
         <button onClick={onClickSendPostHandler} className={style.sendForm__btn}>Send it</button>
       </div>
       <div className={style.myPosts__published}>
