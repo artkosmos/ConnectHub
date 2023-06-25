@@ -7,16 +7,16 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StateType} from "./redux/state";
+import {ActionType, StateType, store} from "./redux/state";
 
 type AppPropsType = {
   state: StateType
-  addPostCallback: () => void
-  changePostCallback: (value: string) => void
+  dispatch: (action: ActionType) => void
   postValue: string
 }
 
 function App(props: AppPropsType) {
+
   return (
     <BrowserRouter>
       <div className="appWrapper">
@@ -26,8 +26,7 @@ function App(props: AppPropsType) {
           <div className="contentWrapper">
             <Route path="/profile" render={() => <Profile
               state={props.state.profilePage}
-              addPostCallback={props.addPostCallback}
-              changePostCallback={props.changePostCallback}
+              dispatch={props.dispatch}
               postValue={props.postValue}
             />}/>
             <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogPage}/>}/>

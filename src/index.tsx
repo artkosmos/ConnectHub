@@ -7,8 +7,7 @@ export const renderEntireTree = (state: StateType) => {
   ReactDOM.render(
     <App
       state={state}
-      addPostCallback={store.addPost.bind(store)}
-      changePostCallback={store.changePost.bind(store)}
+      dispatch={store.dispatch.bind(store)}
       postValue={store.getState().profilePage.newPost}
     />,
     document.getElementById('root'));

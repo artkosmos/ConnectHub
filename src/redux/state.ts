@@ -27,13 +27,23 @@ export type StateType = {
   profilePage: ProfilePageType
 }
 
+export type AddPostActionType = {
+  type: "ADD-POST"
+}
+
+export type ChangePostActionType = {
+  type: "CHANGE-POST-TEXT"
+  value: string
+}
+
+export type ActionType = AddPostActionType | ChangePostActionType
+
 export type StoreType = {
   _state: StateType
   _callSubscriber: (state: StateType) => void
-  addPost: () => void
-  changePost: (value: string) => void
   getState: () => StateType
   subscriber: (observer: (state: StateType) => void) => void
+  dispatch: (action: ActionType) => void
 }
 
 export const store: StoreType = {
@@ -68,16 +78,6 @@ export const store: StoreType = {
       newPost: ''
     }
   },
-  addPost() {
-    const newPost = {id: new Date().getDate(), message: this._state.profilePage.newPost, likes: 0}
-    this._state.profilePage.posts.unshift(newPost)
-    this._state.profilePage.newPost = ''
-    this._callSubscriber(this._state)
-  },
-  changePost (value: string) {
-    this._state.profilePage.newPost = value
-    this._callSubscriber(this._state)
-  },
   _callSubscriber (state: StateType) {
     console.log('Don\'t have any observers')
   },
@@ -86,6 +86,20 @@ export const store: StoreType = {
   },
   getState() {
     return this._state
+  },
+  dispatch(action) {
+    switch (action.type) {
+      case "ADD-POST":
+        const newPost = {id: new Date().getDate(), message: this._state.profilePage.newPost, likes: 0}
+        this._state.profilePage.posts.unshift(newPost)
+        this._state.profilePage.newPost = ''
+        this._callSubscriber(this._state)
+        return
+      case "CHANGE-POST-TEXT":
+        this._state.profilePage.newPost = action.value
+        this._callSubscriber(this._state)
+        return
+    }
   }
 }
 

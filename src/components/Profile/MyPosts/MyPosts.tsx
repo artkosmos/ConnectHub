@@ -1,12 +1,11 @@
 import {ChangeEvent, useRef} from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import {ActionType, PostType} from "../../../redux/state";
 
 type MyPostsPropsType = {
   posts: PostType[]
-  addPostCallback: () => void
-  changePostCallback: (value: string) => void
+  dispatch: (action: ActionType) => void
   postValue: string
 }
 
@@ -22,12 +21,12 @@ function MyPosts(props: MyPostsPropsType) {
 
   const onClickSendPostHandler = () => {
     if (post.current?.value) {
-      props.addPostCallback()
+      props.dispatch({type: "ADD-POST"})
     }
   }
 
   const onChangeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    props.changePostCallback(event.currentTarget.value)
+    props.dispatch({type: "CHANGE-POST", value: event.currentTarget.value})
   }
 
   return (
