@@ -1,6 +1,7 @@
 const ADD_POST = "ADD-POST"
 const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
 const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
+const SEND_MESSAGE = "SEND-MESSAGE"
 
 export type PostType = {
   id: number
@@ -35,6 +36,9 @@ export type StateType = {
 export type AddPostActionType = {
   type: typeof ADD_POST
 }
+export type SendMessageActionType = {
+  type: typeof SEND_MESSAGE
+}
 
 export type ChangePostActionType = {
   type: typeof CHANGE_POST_TEXT
@@ -46,7 +50,7 @@ export type ChangeMessageActionType = {
   value: string
 }
 
-export type ActionType = AddPostActionType | ChangePostActionType | ChangeMessageActionType
+export type ActionType = AddPostActionType | ChangePostActionType | ChangeMessageActionType | SendMessageActionType
 
 export type StoreType = {
   _state: StateType
@@ -114,6 +118,12 @@ export const store: StoreType = {
         this._state.dialogPage.newMessage = action.value
         this._callSubscriber(this._state)
         return
+      case SEND_MESSAGE:
+        const newMessage: MessageType = {id: 2, message: this._state.dialogPage.newMessage}
+        this._state.dialogPage.messages.push(newMessage)
+        this._state.dialogPage.newMessage = ''
+        this._callSubscriber(this._state)
+        return
       default:
         return this._state
     }
@@ -137,6 +147,11 @@ export const changeMessageTextAC = (value: string): ChangeMessageActionType => {
   return {
     type: CHANGE_MESSAGE_TEXT,
     value
+  }
+}
+export const sendMessageAC = (): SendMessageActionType => {
+  return {
+    type: SEND_MESSAGE
   }
 }
 
