@@ -1,7 +1,5 @@
-const ADD_POST = "ADD-POST"
-const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
-const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
-const SEND_MESSAGE = "SEND-MESSAGE"
+import {ActionDialogType, dialogsReducer} from "./dialogs-reducer";
+import {ActionProfileType, profileReducer} from "./profile-reducer";
 
 export type PostType = {
   id: number
@@ -31,26 +29,8 @@ export type ProfilePageType = {
 export type StateType = {
   dialogPage: DialogPageType
   profilePage: ProfilePageType
+  sidebar: {}
 }
-
-export type AddPostActionType = {
-  type: typeof ADD_POST
-}
-export type SendMessageActionType = {
-  type: typeof SEND_MESSAGE
-}
-
-export type ChangePostActionType = {
-  type: typeof CHANGE_POST_TEXT
-  value: string
-}
-
-export type ChangeMessageActionType = {
-  type: typeof CHANGE_MESSAGE_TEXT
-  value: string
-}
-
-export type ActionType = AddPostActionType | ChangePostActionType | ChangeMessageActionType | SendMessageActionType
 
 export type StoreType = {
   _state: StateType
@@ -59,6 +39,8 @@ export type StoreType = {
   subscriber: (observer: (state: StateType) => void) => void
   dispatch: (action: ActionType) => void
 }
+
+export type ActionType = ActionProfileType | ActionDialogType
 
 export const store: StoreType = {
   _state: {
@@ -91,9 +73,10 @@ export const store: StoreType = {
         {id: 1, message: 'That\'s my first post here!', likes: 6}
       ],
       newPost: ''
-    }
+    },
+    sidebar: {}
   },
-  _callSubscriber(state: StateType) {
+  _callSubscriber() {
     console.log('Don\'t have any observers')
   },
   subscriber(observer: any) {
@@ -102,57 +85,12 @@ export const store: StoreType = {
   getState() {
     return this._state
   },
-  dispatch(action) {
-    switch (action.type) {
-      case ADD_POST:
-        const newPost = {id: new Date().getDate(), message: this._state.profilePage.newPost, likes: 0}
-        this._state.profilePage.posts.unshift(newPost)
-        this._state.profilePage.newPost = ''
-        this._callSubscriber(this._state)
-        return
-      case CHANGE_POST_TEXT:
-        this._state.profilePage.newPost = action.value
-        this._callSubscriber(this._state)
-        return
-      case CHANGE_MESSAGE_TEXT:
-        this._state.dialogPage.newMessage = action.value
-        this._callSubscriber(this._state)
-        return
-      case SEND_MESSAGE:
-        const newMessage: MessageType = {id: 2, message: this._state.dialogPage.newMessage}
-        this._state.dialogPage.messages.push(newMessage)
-        this._state.dialogPage.newMessage = ''
-        this._callSubscriber(this._state)
-        return
-      default:
-        return this._state
-    }
+  dispatch(action: ActionType) {
+    this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
+    this._state.profilePage = profileReducer(this._state.profilePage, action)
+    this._callSubscriber(this._state)
   }
 }
 
-export const addPostAC = (): AddPostActionType => {
-  return {
-    type: ADD_POST
-  }
-}
-
-export const changePostTextAC = (value: string): ChangePostActionType => {
-  return {
-    type: CHANGE_POST_TEXT,
-    value
-  }
-}
-
-export const changeMessageTextAC = (value: string): ChangeMessageActionType => {
-  return {
-    type: CHANGE_MESSAGE_TEXT,
-    value
-  }
-}
-export const sendMessageAC = (): SendMessageActionType => {
-  return {
-    type: SEND_MESSAGE
-  }
-}
 
 
