@@ -2,7 +2,17 @@ import {ActionType, PostType, ProfilePageType} from "./store";
 
 export type ActionProfileType = AddPostActionACType | ChangePostActionACType
 
-export const profileReducer = (state: ProfilePageType, action: ActionType): ProfilePageType => {
+const initialState = {
+  posts: [
+    {id: 1, message: 'Hey, how are you today?', likes: 0},
+    {id: 1, message: 'The weather is sunny. Who want to go walking?', likes: 4},
+    {id: 1, message: 'Let\'s meet the people)', likes: 13},
+    {id: 1, message: 'That\'s my first post here!', likes: 6}
+  ],
+  newPost: ''
+}
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionType): ProfilePageType => {
   switch (action.type) {
     case "ADD-POST":
       const newPost: PostType = {id: new Date().getDate(), message: state.newPost, likes: 0}

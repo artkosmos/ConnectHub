@@ -1,4 +1,4 @@
-import {ActionDialogType, dialogsReducer} from "./dialogs-reducer";
+import {ActionDialogType, dialogReducer} from "./dialogs-reducer";
 import {ActionProfileType, profileReducer} from "./profile-reducer";
 
 export type PostType = {
@@ -36,7 +36,7 @@ export type StoreType = {
   _state: StateType
   _callSubscriber: (state: StateType) => void
   getState: () => StateType
-  subscriber: (observer: (state: StateType) => void) => void
+  subscribe: (observer: (state: StateType) => void) => void
   dispatch: (action: ActionType) => void
 }
 
@@ -79,14 +79,14 @@ export const store: StoreType = {
   _callSubscriber() {
     console.log('Don\'t have any observers')
   },
-  subscriber(observer: (state: StateType) => void) {
+  subscribe(observer: (state: StateType) => void) {
     this._callSubscriber = observer
   },
   getState() {
     return this._state
   },
   dispatch(action: ActionType) {
-    this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
+    this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
     this._state.profilePage = profileReducer(this._state.profilePage, action)
     this._callSubscriber(this._state)
   }
