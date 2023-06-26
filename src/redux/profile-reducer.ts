@@ -1,11 +1,11 @@
-import {ActionType, ProfilePageType} from "./state";
+import {ActionType, PostType, ProfilePageType} from "./store";
 
 export type ActionProfileType = AddPostActionACType | ChangePostActionACType
 
 export const profileReducer = (state: ProfilePageType, action: ActionType): ProfilePageType => {
   switch (action.type) {
     case "ADD-POST":
-      const newPost = {id: new Date().getDate(), message: state.newPost, likes: 0}
+      const newPost: PostType = {id: new Date().getDate(), message: state.newPost, likes: 0}
       state.posts.unshift(newPost)
       state.newPost = ''
       return state

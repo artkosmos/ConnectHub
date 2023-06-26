@@ -79,7 +79,7 @@ export const store: StoreType = {
   _callSubscriber() {
     console.log('Don\'t have any observers')
   },
-  subscriber(observer: any) {
+  subscriber(observer: (state: StateType) => void) {
     this._callSubscriber = observer
   },
   getState() {

@@ -1,7 +1,7 @@
 import './index.css';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {StateType, store} from "./redux/state";
+import {StateType, store} from "./redux/store";
 
 export const renderEntireTree = (state: StateType) => {
   ReactDOM.render(
@@ -15,4 +15,4 @@ export const renderEntireTree = (state: StateType) => {
 }
 
 renderEntireTree(store.getState()) // for first render with state
-store.subscriber(renderEntireTree) // for calling rerender in state.ts
+store.subscriber(renderEntireTree) // for calling rerender in store.ts

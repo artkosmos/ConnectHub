@@ -1,4 +1,4 @@
-import {ActionType, DialogPageType, MessageType} from "./state";
+import {ActionType, DialogPageType, MessageType} from "./store";
 
 export type ActionDialogType = ChangeMessageTextACType | SendMessageACType
 
