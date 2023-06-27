@@ -2,11 +2,13 @@ import {combineReducers, createStore} from "redux";
 import {ActionDialogType, dialogReducer} from "./dialogs-reducer";
 import {ActionProfileType, profileReducer} from "./profile-reducer";
 
-export type StoreType = ReturnType<typeof reduxStore.getState>
+export type StoreType = typeof reduxStore
 export type ActionType = ActionProfileType | ActionDialogType
+export type RootReducerType = typeof rootReducer
+export type StateType = ReturnType<RootReducerType>
 
-const reducers = combineReducers({ // объединение
+const rootReducer = combineReducers({ // объединение
   dialogPage: dialogReducer,
   profilePage: profileReducer
 })
-export const reduxStore = createStore(reducers)
+export const reduxStore = createStore(rootReducer)
