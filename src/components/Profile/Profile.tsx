@@ -1,13 +1,10 @@
 import style from "./Profile.module.scss"
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../redux/profile-reducer";
-import {ActionType} from "../../redux/redux-store";
+import {StoreType} from "../../redux/redux-store";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
-  state: ProfilePageType
-  dispatch: (action: ActionType) => void
-  postValue: string
+  store: StoreType
 }
 
 function Profile(props: ProfilePropsType) {
@@ -15,11 +12,7 @@ function Profile(props: ProfilePropsType) {
   return (
     <div className={style.content}>
       <ProfileInfo/>
-      <MyPosts
-        posts={props.state.posts}
-        dispatch={props.dispatch}
-        postValue={props.postValue}
-      />
+      <MyPostsContainer store={props.store}/>
     </div>
   )
 }

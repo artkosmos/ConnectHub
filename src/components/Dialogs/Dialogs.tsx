@@ -13,8 +13,6 @@ type DialogsPropsType  = {
 
 function Dialogs(props: DialogsPropsType) {
 
-  console.log(props.state)
-
   const mappedDialogs = props.state.dialogs.map((item) => {
     return (
       <DialogItem name={item.name} id={item.id} />

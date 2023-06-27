@@ -1,18 +1,16 @@
 import {ChangeEvent} from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
-import {addPostAC, changePostTextAC, PostType} from "../../../redux/profile-reducer";
-import {ActionType} from "../../../redux/redux-store";
+import {PostType} from "../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
   posts: PostType[]
-  dispatch: (action: ActionType) => void
   postValue: string
+  sendPost: () => void
+  changePost: (text: string) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
-
-  // let post = useRef<HTMLTextAreaElement>(null)
 
   const mappedPosts = props.posts.map((item: PostType) => {
     return (
@@ -21,14 +19,11 @@ function MyPosts(props: MyPostsPropsType) {
   })
 
   const onClickSendPostHandler = () => {
-    // if (post.current?.value) {
-    //   props.dispatch(addPostAC())
-    // }
-    props.dispatch(addPostAC())
+    props.sendPost()
   }
 
   const onChangeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(changePostTextAC(event.currentTarget.value))
+    props.changePost(event.currentTarget.value)
   }
 
   return (

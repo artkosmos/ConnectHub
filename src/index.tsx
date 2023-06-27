@@ -1,14 +1,14 @@
 import './index.css';
 import ReactDOM from "react-dom";
 import App from "./App";
-import {reduxStore, StoreType} from "./redux/redux-store";
+import {reduxStore, StateType} from "./redux/redux-store";
 
-export const renderEntireTree = (state: StoreType) => {
+export const renderEntireTree = (state: StateType) => {
   ReactDOM.render(
     <App
       state={state}
+      store={reduxStore}
       dispatch={reduxStore.dispatch.bind(reduxStore)}
-      postValue={reduxStore.getState().profilePage.newPost}
       messageValue={reduxStore.getState().dialogPage.newMessage}
     />,
     document.getElementById('root'));

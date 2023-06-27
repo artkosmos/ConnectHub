@@ -7,12 +7,12 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {ActionType, StoreType} from "./redux/redux-store";
+import {ActionType, StateType, StoreType} from "./redux/redux-store";
 
 type AppPropsType = {
-  state: StoreType
+  store: StoreType
+  state?: StateType
   dispatch: (action: ActionType) => void
-  postValue: string
   messageValue: string
 }
 
@@ -26,12 +26,10 @@ function App(props: AppPropsType) {
           <Menu />
           <div className="contentWrapper">
             <Route path="/profile" render={() => <Profile
-              state={props.state.profilePage}
-              dispatch={props.dispatch}
-              postValue={props.postValue}
+              store={props.store}
             />}/>
             <Route path="/dialogs" render={() => <Dialogs
-              state={props.state.dialogPage}
+              state={props.state!.dialogPage}
               dispatch={props.dispatch}
               messageValue={props.messageValue}
             />}/>
