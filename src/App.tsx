@@ -2,18 +2,15 @@ import './App.scss';
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {ActionType, StateType, StoreType} from "./redux/redux-store";
+import {StoreType} from "./redux/redux-store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
   store: StoreType
-  state?: StateType
-  dispatch: (action: ActionType) => void
-  messageValue: string
 }
 
 function App(props: AppPropsType) {
@@ -28,10 +25,8 @@ function App(props: AppPropsType) {
             <Route path="/profile" render={() => <Profile
               store={props.store}
             />}/>
-            <Route path="/dialogs" render={() => <Dialogs
-              state={props.state!.dialogPage}
-              dispatch={props.dispatch}
-              messageValue={props.messageValue}
+            <Route path="/dialogs" render={() => <DialogsContainer
+              store={props.store}
             />}/>
             <Route path="/news" component={News}/>
             <Route path="/music" component={Music}/>

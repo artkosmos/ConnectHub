@@ -2,13 +2,13 @@ import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
 import {ChangeEvent} from "react";
-import {changeMessageTextAC, DialogPageType, sendMessageAC} from "../../redux/dialogs-reducer";
-import {ActionType} from "../../redux/redux-store";
+import {DialogPageType} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType  = {
   state: DialogPageType
-  dispatch: (action: ActionType) => void
   messageValue: string
+  sendMessage: () => void
+  changeMessage: (text: string) => void
 }
 
 function Dialogs(props: DialogsPropsType) {
@@ -26,11 +26,11 @@ function Dialogs(props: DialogsPropsType) {
   })
 
   const onClickSendMessageHandler = () => {
-    props.dispatch(sendMessageAC())
+    props.sendMessage()
   }
 
   const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(changeMessageTextAC(event.currentTarget.value))
+    props.changeMessage(event.currentTarget.value)
   }
 
   return (

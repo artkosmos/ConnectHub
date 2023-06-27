@@ -5,12 +5,7 @@ import {reduxStore, StateType} from "./redux/redux-store";
 
 export const renderEntireTree = (state: StateType) => {
   ReactDOM.render(
-    <App
-      state={state}
-      store={reduxStore}
-      dispatch={reduxStore.dispatch.bind(reduxStore)}
-      messageValue={reduxStore.getState().dialogPage.newMessage}
-    />,
+    <App store={reduxStore}/>,
     document.getElementById('root'));
 }
 
