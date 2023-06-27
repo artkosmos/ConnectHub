@@ -1,6 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import {dialogReducer} from "./dialogs-reducer";
-import {profileReducer} from "./profile-reducer";
+import {ActionDialogType, dialogReducer} from "./dialogs-reducer";
+import {ActionProfileType, profileReducer} from "./profile-reducer";
+
+export type StoreType = ReturnType<typeof reduxStore.getState>
+export type ActionType = ActionProfileType | ActionDialogType
 
 const reducers = combineReducers({ // объединение
   dialogPage: dialogReducer,

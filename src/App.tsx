@@ -7,10 +7,10 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {ActionType, StateType} from "./redux/store";
+import {ActionType, StoreType} from "./redux/redux-store";
 
 type AppPropsType = {
-  state: StateType
+  state: StoreType
   dispatch: (action: ActionType) => void
   postValue: string
   messageValue: string

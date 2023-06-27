@@ -1,8 +1,22 @@
-import {ActionType, DialogPageType, MessageType} from "./store";
-
 export type ActionDialogType = ChangeMessageTextACType | SendMessageACType
 
-const initialState = {
+export type DialogType = {
+  id: number
+  name: string
+}
+
+export type MessageType = {
+  id: number
+  message: string
+}
+
+export type DialogPageType = {
+  dialogs: DialogType[]
+  messages: MessageType[]
+  newMessage: string
+}
+
+const initialState: DialogPageType = {
   dialogs: [
     {id: 1, name: 'Victor'},
     {id: 2, name: 'Jon'},
@@ -24,7 +38,7 @@ const initialState = {
   newMessage: ''
 }
 
-export const dialogReducer = (state: DialogPageType = initialState, action: ActionType): DialogPageType => {
+export const dialogReducer = (state: DialogPageType = initialState, action: ActionDialogType): DialogPageType => {
   switch (action.type) {
     case "SEND-MESSAGE":
       const newMessage: MessageType = {id: 2, message: state.newMessage}
