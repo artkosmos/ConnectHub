@@ -1,13 +1,10 @@
 import {ChangeEvent} from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
-import {PostType, ProfilePageType} from "../../../redux/profile-reducer";
+import {PostType} from "../../../redux/profile-reducer";
+import {CallBacksMyPostsPropsType, DataMyPostsPropsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-  state: ProfilePageType
-  sendPost: () => void
-  changePost: (text: string) => void
-}
+type MyPostsPropsType = DataMyPostsPropsType & CallBacksMyPostsPropsType
 
 function MyPosts(props: MyPostsPropsType) {
 
