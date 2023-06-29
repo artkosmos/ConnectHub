@@ -3,7 +3,6 @@ import {StoreType} from "../../../redux/redux-store";
 import MyPosts from "./MyPosts";
 
 type MyPostsContainerPropsType = {
-  store: StoreType
 }
 
 function MyPostsContainer(props: MyPostsContainerPropsType) {

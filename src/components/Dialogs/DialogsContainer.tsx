@@ -1,9 +1,7 @@
 import {changeMessageTextAC, sendMessageAC} from "../../redux/dialogs-reducer";
-import {StoreType} from "../../redux/redux-store";
 import Dialogs from "./Dialogs";
 
 type DialogsContainerPropsType  = {
-  store: StoreType
 }
 
 function DialogsContainer(props: DialogsContainerPropsType) {
