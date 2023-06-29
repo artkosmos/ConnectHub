@@ -1,31 +1,31 @@
-import {addPostAC, changePostTextAC} from "../../../redux/profile-reducer";
-import {StoreType} from "../../../redux/redux-store";
+import {addPostAC, changePostTextAC, ProfilePageType} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
+import {StateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
-type MyPostsContainerPropsType = {
+type DataPropsType = {
+  state: ProfilePageType
 }
 
-function MyPostsContainer(props: MyPostsContainerPropsType) {
-
-  const state = props.store.getState().profilePage
-  console.log(state)
-
-  const onClickSendPostHandler = () => {
-    props.store.dispatch(addPostAC())
-  }
-
-  const onChangeTextHandler = (text: string) => {
-    props.store.dispatch(changePostTextAC(text))
-  }
-
-  return (
-    <MyPosts
-      posts={state.posts}
-      sendPost={onClickSendPostHandler}
-      changePost={onChangeTextHandler}
-      postValue={state.newPost}
-    />
-  )
+type CallBacksPropsType = {
+  sendPost: () => void
+  changePost: (text: string) => void
 }
+
+const data = (state: StateType): DataPropsType  => {
+  return {
+    state: state.profilePage
+  }
+}
+
+const callBacks = (dispatch: Dispatch): CallBacksPropsType => {
+  return {
+    sendPost: () => dispatch(addPostAC()),
+    changePost: (text: string) => dispatch(changePostTextAC(text))
+  }
+}
+
+const MyPostsContainer = connect(data, callBacks)(MyPosts)
 
 export default MyPostsContainer;

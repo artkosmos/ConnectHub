@@ -2,8 +2,7 @@ import style from "./Profile.module.scss"
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-type ProfilePropsType = {
-}
+type ProfilePropsType = {}
 
 function Profile(props: ProfilePropsType) {
 
