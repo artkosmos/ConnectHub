@@ -42,12 +42,9 @@ export const dialogReducer = (state: DialogPageType = initialState, action: Acti
   switch (action.type) {
     case "SEND-MESSAGE":
       const newMessage: MessageType = {id: 2, message: state.newMessage}
-      state.messages.push(newMessage)
-      state.newMessage = ''
-      return state
+      return {...state, messages: [...state.messages, newMessage], newMessage: ''}
     case "CHANGE-MESSAGE-TEXT":
-      state.newMessage = action.value
-      return state
+      return {...state, newMessage: action.value}
     default:
       return state
   }
