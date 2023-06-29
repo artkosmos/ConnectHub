@@ -2,14 +2,9 @@ import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
 import {ChangeEvent} from "react";
-import {DialogPageType} from "../../redux/dialogs-reducer";
+import {CallBacksDialogsPropsType, DataDialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType  = {
-  state: DialogPageType
-  messageValue: string
-  sendMessage: () => void
-  changeMessage: (text: string) => void
-}
+type DialogsPropsType  = DataDialogsPropsType & CallBacksDialogsPropsType
 
 function Dialogs(props: DialogsPropsType) {
 
@@ -40,7 +35,7 @@ function Dialogs(props: DialogsPropsType) {
       </div>
       <div className={`${style.messages} ${style.dialogsContent__messages}`}>
         {mappedMessages}
-        <textarea value={props.messageValue} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
+        <textarea value={props.state.newMessage} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
         <button onClick={onClickSendMessageHandler}>Send message</button>
       </div>
     </div>
