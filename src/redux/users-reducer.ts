@@ -1,5 +1,3 @@
-import avatar from '../components/Dialogs/DialogItem/avatar1.png'
-
 export type UsersPageType = {
   users: UserType[]
 }
@@ -16,11 +14,7 @@ export type UserType = {
 type ActionType = FollowUserACType | UnfollowUserACType | SetUsersACType
 
 const initialState: UsersPageType = {
-  users: [
-    { id: 1, photo: avatar, followed: true, name: 'Alex', status: "", location: { city: "Minsk", country: "Belarus" } },
-    { id: 2, photo: avatar, followed: false, name: 'Igor', status: "", location: { city: "Moscow", country: "Russia" } },
-    { id: 3, photo: avatar, followed: false, name: 'Artem', status: "", location: { city: "Kiev", country: "Ukraine" } },
-  ],
+  users: []
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType ): UsersPageType => {

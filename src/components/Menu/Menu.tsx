@@ -42,7 +42,7 @@ function Menu() {
           to="/users"
           className={style.menu__link}
           activeClassName={style.menu__link_active}
-        >Music
+        >Users
         </NavLink>
       </div>
       <div>
