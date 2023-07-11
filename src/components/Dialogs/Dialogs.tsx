@@ -10,13 +10,13 @@ function Dialogs(props: DialogsPropsType) {
 
   const mappedDialogs = props.state.dialogs.map((item) => {
     return (
-      <DialogItem name={item.name} id={item.id} />
+      <DialogItem key={item.id} name={item.name} id={item.id} />
     )
   })
 
   const mappedMessages = props.state.messages.map((item) => {
     return (
-      <MessageItem message={item.message} />
+      <MessageItem key={item.id} message={item.message} />
     )
   })
 

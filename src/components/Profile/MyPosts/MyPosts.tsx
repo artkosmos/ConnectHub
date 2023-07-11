@@ -10,7 +10,7 @@ function MyPosts(props: MyPostsPropsType) {
 
   const mappedPosts = props.state.posts.map((item: PostType) => {
     return (
-      <Post message={item.message} likes={item.likes}/>
+      <Post key={item.id} message={item.message} likes={item.likes}/>
     )
   })
 
