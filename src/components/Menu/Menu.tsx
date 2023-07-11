@@ -39,6 +39,14 @@ function Menu() {
       </div>
       <div>
         <NavLink
+          to="/users"
+          className={style.menu__link}
+          activeClassName={style.menu__link_active}
+        >Music
+        </NavLink>
+      </div>
+      <div>
+        <NavLink
           to="/settings"
           className={style.menu__link}
           activeClassName={style.menu__link_active}

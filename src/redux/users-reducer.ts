@@ -1,10 +1,10 @@
 import avatar from '../components/Dialogs/DialogItem/avatar1.png'
 
-type UsersPageType = {
+export type UsersPageType = {
   users: UserType[]
 }
 
-type UserType = {
+export type UserType = {
   id: number
   photo: string
   followed: boolean
@@ -36,24 +36,24 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
   }
 }
 
-type FollowUserACType = ReturnType<typeof followUser>
-const followUser = (userID: number) => {
+type FollowUserACType = ReturnType<typeof followUserAC>
+export const followUserAC = (userID: number) => {
   return {
     type: "FOLLOW-TO-USER",
     userID,
   } as const
 }
 
-type UnfollowUserACType = ReturnType<typeof unfollowUser>
-const unfollowUser = (userID: number) => {
+type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
+export const unfollowUserAC = (userID: number) => {
   return {
     type: "UNFOLLOW-TO-USER",
     userID,
   } as const
 }
 
-type SetUsersACType = ReturnType<typeof setUsers>
-const setUsers = (users: UserType[]) => {
+type SetUsersACType = ReturnType<typeof setUsersAC>
+export const setUsersAC = (users: UserType[]) => {
   return {
     type: "SET-USERS",
     users
