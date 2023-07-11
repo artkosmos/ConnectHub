@@ -1,0 +1,66 @@
+.users {
+  height: 80vh;
+  padding: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.userContent {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+
+  .avatarAndFollow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+
+    .photo {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 100%;
+    }
+
+    .button {
+      background-color: #55abec;
+      height: 30px;
+      border-radius: 20px;
+      border: none;
+      font-size: 16px;
+      color: whitesmoke;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .followed {
+      color: black;
+      border: 2px solid;
+      background-color: transparent;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background-color: #55abec;
+    border-radius: 1.25rem;
+    padding: 0.625rem 1.25rem;
+    max-width: 31.25rem;
+    width: 100%;
+    color: whitesmoke;
+    box-shadow: 10px 10px 15px 10px rgba(34, 60, 80, 0.2);
+
+    .nameAndLocation {
+      font-size: 1.125rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+
+  }
+}
