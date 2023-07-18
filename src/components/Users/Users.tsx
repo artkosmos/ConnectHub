@@ -4,23 +4,49 @@ import avatar from "../Dialogs/DialogItem/avatar1.png";
 import axios from "axios";
 import React from "react";
 
-
 export class Users extends React.Component<UsersPropsType> { // принимает типизацию props и state
   constructor(props: UsersPropsType) {
     super(props)
-    axios.get('https://social-network.samuraijs.com/api/1.0/users')
+  }
+
+  componentDidMount() {
+    axios.get(
+      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${this.props.state.currentUsersPage}`
+    )
       .then(response => this.props.setUsers(response.data.items))
       .catch(error => alert(error + '\nusers request was failed'))
   }
 
+  changeCurrentPage = (page: number) => {
+    this.props.setCurrentPage(page)
+
+    axios.get(
+      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${page}`
+    )
+      .then(response => this.props.setUsers(response.data.items))
+      .catch(error => alert(error + '\nusers request was failed'))
+  }
   render = () => {
+
+    const pagesCount = Math.ceil(this.props.state.totalUsersCount / this.props.state.countUsers)
+
+    const pagesArray = Array.from({length: pagesCount}, (_, index) => index + 1)
+
     return (
-      <>
-        <div className={style.users}>
+      <div className={style.users}>
+        <div className={style.pages}>
+          {pagesArray.map(item =>
+            <span
+              key={item}
+              className={this.props.state.currentUsersPage === item ? `${style.page} ${style.currentPage}` : style.page}
+              onClick={() => this.changeCurrentPage(item)}
+            >{item}
+          </span>)}
+        </div>
+        <div className={style.usersList}>
           {this.props.state.users.map(item => {
 
             const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
-
             const onClickHandler = () => {
               if (item.followed) {
                 this.props.unfollow(item.id)
@@ -49,7 +75,7 @@ export class Users extends React.Component<UsersPropsType> { // принимае
             )
           })}
         </div>
-      </>
+      </div>
     )
   }
 }

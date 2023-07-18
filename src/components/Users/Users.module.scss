@@ -2,70 +2,96 @@
   min-height: 80vh;
   padding: 1.875rem;
   display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
+  flex-direction: row-reverse;
+  justify-content: space-between;
 
-.userContent {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  font-family: 'Montserrat', sans-serif;
-
-  .avatarAndFollow {
+  .pages {
+    width: 20%;
     display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    row-gap: 1.25rem;
+    column-gap: 1.25rem;
+    height: max-content;
 
-    .photo {
-      width: 5rem;
-      height: 5rem;
-      border-radius: 100%;
-    }
-
-    .button {
-      background-color: #55abec;
-      height: 30px;
-      border-radius: 20px;
-      border: none;
-      font-size: 16px;
-      color: whitesmoke;
+    .page {
+      font-size: 1.125rem;
+      height: max-content;
 
       &:hover {
         cursor: pointer;
       }
     }
 
-    .followed {
-      color: black;
-      border: 2px solid;
-      background-color: transparent;
+    .currentPage {
+      font-weight: bold;
+      font-size: 1.3rem;
     }
   }
 
-  .userInfo {
+  .usersList {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    background-color: #55abec;
-    border-radius: 1.25rem;
-    padding: 0.625rem 1.25rem;
-    max-width: 31.25rem;
-    width: 100%;
-    color: whitesmoke;
-    box-shadow: 10px 10px 15px 10px rgba(34, 60, 80, 0.2);
+    gap: 2.5rem;
+    width: 80%;
+  }
 
-    .nameAndLocation {
-      font-size: 1.125rem;
-      font-weight: bold;
+  .userContent {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+
+    .avatarAndFollow {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.625rem;
+
+      .photo {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 100%;
+      }
+
+      .button {
+        background-color: #55abec;
+        height: 30px;
+        border-radius: 20px;
+        border: none;
+        font-size: 16px;
+        color: whitesmoke;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .followed {
+        color: black;
+        border: 2px solid;
+        background-color: transparent;
+      }
     }
 
-  }
-}
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      background-color: #55abec;
+      border-radius: 1.25rem;
+      padding: 0.625rem 1.25rem;
+      max-width: 31.25rem;
+      width: 100%;
+      color: whitesmoke;
+      box-shadow: 10px 10px 15px 10px rgba(34, 60, 80, 0.2);
 
-.buttonUsers {
-  margin-top: 10px;
-  margin-left: 10px;
+      .nameAndLocation {
+        font-size: 1.125rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+      }
+
+    }
+  }
 }
