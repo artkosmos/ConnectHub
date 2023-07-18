@@ -1,5 +1,5 @@
 .users {
-  height: 80vh;
+  min-height: 80vh;
   padding: 1.875rem;
   display: flex;
   flex-direction: column;
@@ -63,4 +63,9 @@
     }
 
   }
+}
+
+.buttonUsers {
+  margin-top: 10px;
+  margin-left: 10px;
 }
