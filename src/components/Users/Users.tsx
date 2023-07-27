@@ -8,8 +8,8 @@ type UsersPropsType = {
   pages: number[]
   currentUsersPage: number
   changeCurrentPage: (page: number) => void
-  follow: (userID: number) => void
-  unfollow: (userID: number) => void
+  followUser: (userID: number) => void
+  unfollowUser: (userID: number) => void
   users: UserType[]
   preloader: boolean
 }
@@ -33,9 +33,9 @@ export const Users = (props: UsersPropsType) => {
           const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
           const onClickHandler = () => {
             if (item.followed) {
-              props.unfollow(item.id)
+              props.unfollowUser(item.id)
             } else {
-              props.follow(item.id)
+              props.followUser(item.id)
             }
           }
 

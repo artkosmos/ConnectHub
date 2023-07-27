@@ -42,40 +42,40 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
   }
 }
 
-type FollowUserACType = ReturnType<typeof followUserAC>
-export const followUserAC = (userID: number) => {
+type FollowUserACType = ReturnType<typeof followUser>
+export const followUser = (userID: number) => {
   return {
     type: "FOLLOW-TO-USER",
     userID,
   } as const
 }
 
-type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
-export const unfollowUserAC = (userID: number) => {
+type UnfollowUserACType = ReturnType<typeof unfollowUser>
+export const unfollowUser = (userID: number) => {
   return {
     type: "UNFOLLOW-TO-USER",
     userID,
   } as const
 }
 
-type SetUsersACType = ReturnType<typeof setUsersAC>
-export const setUsersAC = (users: UserType[]) => {
+type SetUsersACType = ReturnType<typeof setUsers>
+export const setUsers = (users: UserType[]) => {
   return {
     type: "SET-USERS",
     users
   } as const
 }
 
-type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export const setCurrentPageAC = (currentPage: number) => {
+type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+export const setCurrentPage = (currentPage: number) => {
   return {
     type: "SET-CURRENT-PAGE",
     currentPage
   } as const
 }
 
-type SetPreloaderACType = ReturnType<typeof setPreloaderAC>
-export const setPreloaderAC = (value: boolean) => {
+type SetPreloaderACType = ReturnType<typeof setPreloader>
+export const setPreloader = (value: boolean) => {
   return {
     type: "SET-PRELOADER",
     value

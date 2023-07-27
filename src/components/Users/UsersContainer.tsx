@@ -1,11 +1,10 @@
 import {StateType} from "../../redux/redux-store";
 import {
-  followUserAC, setCurrentPageAC, setPreloaderAC,
-  setUsersAC,
-  unfollowUserAC, UsersPageType,
+  followUser, setCurrentPage, setPreloader,
+  setUsers,
+  unfollowUser, UsersPageType,
   UserType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import React from "react";
 import axios from "axios";
@@ -46,8 +45,8 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
         pages={pages}
         currentUsersPage={this.props.state.currentUsersPage}
         changeCurrentPage={this.changeCurrentPage}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
+        followUser={this.props.follow}
+        unfollowUser={this.props.unfollow}
         users={this.props.state.users}
       />
     )
@@ -74,17 +73,17 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-  return {
-    follow: (userID: number) => dispatch(followUserAC(userID)),
-    unfollow: (userID: number) => dispatch(unfollowUserAC(userID)),
-    setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-    setCurrentPage: (page: number) => dispatch(setCurrentPageAC(page)),
-    setPreloader: (value: boolean) => dispatch(setPreloaderAC(value))
-  }
+// connect автоматически принимает dispatch, обворачивает свойства в callback и диспатчит AC с переданным значением
+// вместо setUsers: (users: UserType[]) => dispatch(setUsersAC(users))
+const actionCreators = {
+  followUser,
+  unfollowUser,
+  setUsers,
+  setCurrentPage,
+  setPreloader
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
+const UsersContainer = connect(mapStateToProps, actionCreators)(UsersAPI)
 
 export default UsersContainer
 
