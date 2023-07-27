@@ -1,18 +1,17 @@
 .users {
-  min-height: 80vh;
   padding: 1.875rem;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
   justify-content: space-between;
 
   .pages {
-    width: 20%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     row-gap: 1.25rem;
     column-gap: 1.25rem;
     height: max-content;
+    align-self: center;
 
     .page {
       font-size: 1.125rem;
@@ -34,6 +33,7 @@
     flex-direction: column;
     gap: 2.5rem;
     width: 80%;
+    align-self: center;
   }
 
   .userContent {

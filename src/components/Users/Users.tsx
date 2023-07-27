@@ -1,7 +1,8 @@
 import style from "./Users.module.scss";
 import avatar from "../Dialogs/DialogItem/avatar1.png";
 import React from "react";
-import {followUserAC, unfollowUserAC, UserType} from "../../redux/users-reducer";
+import {UserType} from "../../redux/users-reducer";
+import {Preloader} from "../Preloader/Preloader";
 
 type UsersPropsType = {
   pages: number[]
@@ -10,6 +11,7 @@ type UsersPropsType = {
   follow: (userID: number) => void
   unfollow: (userID: number) => void
   users: UserType[]
+  preloader: boolean
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -24,6 +26,7 @@ export const Users = (props: UsersPropsType) => {
           >{item}
           </span>)}
       </div>
+      <Preloader preloader={props.preloader}/>
       <div className={style.usersList}>
         {props.users.map(item => {
 

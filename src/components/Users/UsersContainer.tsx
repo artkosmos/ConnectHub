@@ -1,6 +1,6 @@
 import {StateType} from "../../redux/redux-store";
 import {
-  followUserAC, setCurrentPageAC,
+  followUserAC, setCurrentPageAC, setPreloaderAC,
   setUsersAC,
   unfollowUserAC, UsersPageType,
   UserType
@@ -26,11 +26,15 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
 
   changeCurrentPage = (page: number) => {
     this.props.setCurrentPage(page)
+    this.props.setPreloader(true)
 
     axios.get(
       `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${page}`
     )
-      .then(response => this.props.setUsers(response.data.items))
+      .then(response => {
+        this.props.setUsers(response.data.items)
+        this.props.setPreloader(false)
+      })
       .catch(error => alert(error + '\nusers request was failed'))
   }
   render = () => {
@@ -38,6 +42,7 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
     const pages = Array.from({length: pagesCount}, (_, index) => index + 1)
     return (
       <Users
+        preloader={this.props.state.preloader}
         pages={pages}
         currentUsersPage={this.props.state.currentUsersPage}
         changeCurrentPage={this.changeCurrentPage}
@@ -58,22 +63,24 @@ type mapDispatchToPropsType = {
   unfollow: (userID: number) => void
   setUsers: (users: UserType[]) => void
   setCurrentPage: (page: number) => void
+  setPreloader: (value: boolean) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-const mapStateToProps = (state: StateType): mapStateToPropsType  => {
+const mapStateToProps = (state: StateType): mapStateToPropsType => {
   return {
     state: state.usersPage,
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType  => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
     follow: (userID: number) => dispatch(followUserAC(userID)),
     unfollow: (userID: number) => dispatch(unfollowUserAC(userID)),
     setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-    setCurrentPage: (page: number) => dispatch(setCurrentPageAC(page))
+    setCurrentPage: (page: number) => dispatch(setCurrentPageAC(page)),
+    setPreloader: (value: boolean) => dispatch(setPreloaderAC(value))
   }
 }
 

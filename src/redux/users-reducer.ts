@@ -2,7 +2,8 @@ export type UsersPageType = {
   users: UserType[],
   countUsers: number,
   totalUsersCount: number,
-  currentUsersPage: number
+  currentUsersPage: number,
+  preloader: boolean
 }
 
 export type UserType = {
@@ -14,13 +15,14 @@ export type UserType = {
   location: {city: string, country: string}
 }
 
-type ActionType = FollowUserACType | UnfollowUserACType | SetUsersACType | SetCurrentPageACType
+type ActionType = FollowUserACType | UnfollowUserACType | SetUsersACType | SetCurrentPageACType | SetPreloaderACType
 
 const initialState: UsersPageType = {
   users: [],
   countUsers: 5,
   totalUsersCount: 50,
-  currentUsersPage: 1
+  currentUsersPage: 1,
+  preloader: false
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
@@ -33,6 +35,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
       return {...state, users: [...action.users]}
     case "SET-CURRENT-PAGE":
       return {...state, currentUsersPage: action.currentPage}
+    case "SET-PRELOADER":
+      return {...state, preloader: action.value}
     default:
       return state
   }
@@ -67,5 +71,13 @@ export const setCurrentPageAC = (currentPage: number) => {
   return {
     type: "SET-CURRENT-PAGE",
     currentPage
+  } as const
+}
+
+type SetPreloaderACType = ReturnType<typeof setPreloaderAC>
+export const setPreloaderAC = (value: boolean) => {
+  return {
+    type: "SET-PRELOADER",
+    value
   } as const
 }
