@@ -1,9 +1,4 @@
 .preloader {
   width: 60px;
   align-self: center;
-  visibility: hidden;
-
-  &_active {
-    visibility: visible;
-  }
 }

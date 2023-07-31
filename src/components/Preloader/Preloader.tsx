@@ -2,14 +2,11 @@ import style from "./Preloader.module.scss";
 import preloader from "./preloader.svg";
 import React from "react";
 
-type PreloaderPropsType = {
-  preloader: boolean
-}
 
-export const Preloader = (props: PreloaderPropsType) => {
+export const Preloader = () => {
   return (
       <img
-        className={props.preloader ? `${style.preloader} ${style.preloader_active}` : style.preloader}
+        className={style.preloader}
         src={preloader}
         alt="preloader"
       />
