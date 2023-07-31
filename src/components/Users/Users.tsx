@@ -26,39 +26,40 @@ export const Users = (props: UsersPropsType) => {
           >{item}
           </span>)}
       </div>
-      <Preloader preloader={props.preloader}/>
-      <div className={style.usersList}>
-        {props.users.map(item => {
+      {props.preloader
+        ? <Preloader/>
+        : <div className={style.usersList}>
+          {props.users.map(item => {
 
-          const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
-          const onClickHandler = () => {
-            if (item.followed) {
-              props.unfollowUser(item.id)
-            } else {
-              props.followUser(item.id)
+            const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
+            const onClickHandler = () => {
+              if (item.followed) {
+                props.unfollowUser(item.id)
+              } else {
+                props.followUser(item.id)
+              }
             }
-          }
 
-          return (
-            <div key={item.id} className={style.userContent}>
-              <div className={style.avatarAndFollow}>
-                <img className={style.photo} src={avatar} alt="photo"/>
-                <button
-                  onClick={onClickHandler}
-                  className={buttonClassName}>{item.followed ? 'Unfollow' : 'Follow'}
-                </button>
-              </div>
-              <div className={style.userInfo}>
-                <div className={style.nameAndLocation}>
-                  <span className={style.name}>{item.name}</span>
-                  <span className={style.location}>{'country'}, {'city'}</span>
+            return (
+              <div key={item.id} className={style.userContent}>
+                <div className={style.avatarAndFollow}>
+                  <img className={style.photo} src={avatar} alt="photo"/>
+                  <button
+                    onClick={onClickHandler}
+                    className={buttonClassName}>{item.followed ? 'Unfollow' : 'Follow'}
+                  </button>
                 </div>
-                <span className={style.status}>{item.status}</span>
+                <div className={style.userInfo}>
+                  <div className={style.nameAndLocation}>
+                    <span className={style.name}>{item.name}</span>
+                    <span className={style.location}>{'country'}, {'city'}</span>
+                  </div>
+                  <span className={style.status}>{item.status}</span>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>}
     </div>
   )
 }
