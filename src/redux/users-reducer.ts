@@ -8,7 +8,10 @@ export type UsersPageType = {
 
 export type UserType = {
   id: number
-  photo: string
+  photos: {
+    large: string | null
+    small: string | null
+  }
   followed: boolean
   name: string
   status: string

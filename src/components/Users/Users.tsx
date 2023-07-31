@@ -3,6 +3,7 @@ import avatar from "../Dialogs/DialogItem/avatar1.png";
 import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
   pages: number[]
@@ -43,7 +44,9 @@ export const Users = (props: UsersPropsType) => {
             return (
               <div key={item.id} className={style.userContent}>
                 <div className={style.avatarAndFollow}>
-                  <img className={style.photo} src={avatar} alt="photo"/>
+                  <NavLink to={`/profile/${item.id}`}>
+                    <img className={style.photo} src={item.photos.large ? item.photos.large : avatar} alt="photo"/>
+                  </NavLink>
                   <button
                     onClick={onClickHandler}
                     className={buttonClassName}>{item.followed ? 'Unfollow' : 'Follow'}

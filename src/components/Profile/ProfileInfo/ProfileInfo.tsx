@@ -2,6 +2,7 @@ import React from 'react';
 import style from "../Profile.module.scss";
 import {ProfilePropsType} from "../ProfileContainer";
 import {Preloader} from "../../Preloader/Preloader";
+import avatar from "../../Dialogs/DialogItem/avatar1.png";
 
 const ProfileInfo = (props: ProfilePropsType) => {
 
@@ -21,7 +22,7 @@ const ProfileInfo = (props: ProfilePropsType) => {
       <div className={style.profileInfoWrapper}>
         <div className={style.aboutPerson}>
           <img className={style.avatar}
-               src={props.userProfile.photos.large}
+               src={props.userProfile.photos.large ? props.userProfile.photos.large : avatar}
                alt="avatar"/>
           <div className={style.info}>
             <span className={style.name}>{props.userProfile.fullName}</span>
