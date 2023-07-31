@@ -45,8 +45,8 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
         pages={pages}
         currentUsersPage={this.props.state.currentUsersPage}
         changeCurrentPage={this.changeCurrentPage}
-        followUser={this.props.follow}
-        unfollowUser={this.props.unfollow}
+        followUser={this.props.followUser}
+        unfollowUser={this.props.unfollowUser}
         users={this.props.state.users}
       />
     )
@@ -58,8 +58,8 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-  follow: (userID: number) => void
-  unfollow: (userID: number) => void
+  followUser: (userID: number) => void
+  unfollowUser: (userID: number) => void
   setUsers: (users: UserType[]) => void
   setCurrentPage: (page: number) => void
   setPreloader: (value: boolean) => void
