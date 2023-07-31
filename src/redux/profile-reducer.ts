@@ -1,4 +1,4 @@
-export type ActionProfileType = AddPostActionACType | ChangePostActionACType
+export type ActionProfileType = AddPostActionACType | ChangePostActionACType | SetUserProfileACType
 
 export type PostType = {
   id: number
@@ -9,6 +9,7 @@ export type PostType = {
 export type ProfilePageType = {
   posts: PostType[]
   newPost: string
+  userProfile: any
 }
 
 const initialState: ProfilePageType = {
@@ -18,7 +19,8 @@ const initialState: ProfilePageType = {
     {id: 3, message: 'Let\'s meet the people)', likes: 13},
     {id: 4, message: 'That\'s my first post here!', likes: 6}
   ],
-  newPost: ''
+  newPost: '',
+  userProfile: undefined
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
@@ -28,6 +30,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return {...state, posts: [...state.posts, newPost], newPost: ''}
     case "CHANGE-POST-TEXT":
       return {...state, newPost: action.value}
+    case "SET-USER-PROFILE":
+      return {...state, userProfile: action.profile}
     default:
       return state
   }
@@ -46,5 +50,13 @@ export const changePostTextAC = (value: string) => {
   return {
     type: "CHANGE-POST-TEXT",
     value
+  } as const
+}
+
+export type SetUserProfileACType = ReturnType<typeof setUserProfile>
+export const setUserProfile = (profile: any) => {
+  return {
+    type: "SET-USER-PROFILE",
+    profile
   } as const
 }
