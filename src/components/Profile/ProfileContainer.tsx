@@ -3,19 +3,16 @@ import {StateType} from "../../redux/redux-store";
 import React from "react";
 import {ProfilePageType, setUserProfile} from "../../redux/profile-reducer";
 import Profile from "./Profile";
-import axios, {AxiosResponse} from "axios";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {socialNetworkApi} from "../../API/social-network-api";
 
 
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
 
   componentDidMount() {
     const userId = this.props.match.params.userId
-    axios.get<null, AxiosResponse<ResponseProfileType>, {userId: number}>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then(response => {
-        this.props.setUserProfile(response.data)
-      })
-      .catch(error => console.warn(error))
+    socialNetworkApi.getProfile(userId)
+      .then(data => this.props.setUserProfile(data))
   }
 
   render = () => {

@@ -5,6 +5,7 @@ import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {socialNetworkApi} from "../../API/social-network-api";
 
 type UsersPropsType = {
   pages: number[]
@@ -36,16 +37,16 @@ export const Users = (props: UsersPropsType) => {
             const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
             const onClickHandler = () => {
               if (item.followed) {
-                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {withCredentials: true})
-                  .then(response => {
-                    if (response.data.resultCode === 0) {
+                socialNetworkApi.unfollow(item.id)
+                  .then(data => {
+                    if (data.resultCode === 0) {
                       props.unfollowUser(item.id)
                     }
                   })
               } else {
-                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {}, {withCredentials: true})
-                  .then(response => {
-                    if (response.data.resultCode === 0) {
+                socialNetworkApi.follow(item.id)
+                  .then(data => {
+                    if (data.resultCode === 0) {
                       props.followUser(item.id)
                     }
                   })

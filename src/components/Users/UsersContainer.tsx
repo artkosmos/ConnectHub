@@ -7,8 +7,8 @@ import {
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import React from "react";
-import axios from "axios";
 import {Users} from "./Users";
+import {socialNetworkApi} from "../../API/social-network-api";
 
 export class UsersAPI extends React.Component<UsersPropsType> { // принимает типизацию props и state
   constructor(props: UsersPropsType) {
@@ -16,25 +16,17 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
   }
 
   componentDidMount() {
-    axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${this.props.state.currentUsersPage}`,
-      {withCredentials: true})
-      .then(response => this.props.setUsers(response.data.items))
-      .catch(error => alert(error + '\nusers request was failed'))
+    socialNetworkApi.getUsers(this.props.state.countUsers, this.props.state.currentUsersPage)
+      .then(data => this.props.setUsers(data))
   }
 
   changeCurrentPage = (page: number) => {
     this.props.setCurrentPage(page)
     this.props.setPreloader(true)
 
-    axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${page}`,
-      {withCredentials: true})
-      .then(response => {
-        this.props.setUsers(response.data.items)
-        this.props.setPreloader(false)
-      })
-      .catch(error => alert(error + '\nusers request was failed'))
+    socialNetworkApi.getUsers(this.props.state.countUsers, page)
+      .then(data => this.props.setUsers(data))
+      .finally(() => this.props.setPreloader(false))
   }
   render = () => {
     const pagesCount = Math.ceil(this.props.state.totalUsersCount / this.props.state.countUsers)
