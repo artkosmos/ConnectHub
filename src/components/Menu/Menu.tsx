@@ -7,7 +7,7 @@ function Menu() {
     <nav className={style.menu}>
       <div>
         <NavLink
-          to="/profile"
+          exact to="/profile"
           className={style.menu__link}
           activeClassName={style.menu__link_active}
         >Profile

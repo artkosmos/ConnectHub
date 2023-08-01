@@ -1,6 +1,6 @@
 import './App.scss';
 import Menu from "./components/Menu/Menu";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -19,7 +19,9 @@ function App() {
         <div className="menuAndContentWrapper">
           <Menu />
           <div className="contentWrapper">
-            <Route path="/profile/:userId" component={RouterProfileContainer}/>
+            <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
+            <Route exact path="/profile" component={RouterProfileContainer}/>
+            <Route exact path="/profile/:userId" component={RouterProfileContainer}/>
             <Route path="/dialogs" component={DialogsContainer}/>
             <Route path="/news" component={News}/>
             <Route path="/music" component={Music}/>

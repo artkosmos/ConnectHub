@@ -10,7 +10,10 @@ import {socialNetworkApi} from "../../API/social-network-api";
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
 
   componentDidMount() {
-    const userId = this.props.match.params.userId
+    let userId = this.props.match.params.userId
+    if (!userId) {
+      userId = '29283'
+    }
     socialNetworkApi.getProfile(userId)
       .then(data => this.props.setUserProfile(data))
   }
