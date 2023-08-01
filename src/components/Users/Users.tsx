@@ -4,6 +4,7 @@ import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsType = {
   pages: number[]
@@ -35,9 +36,19 @@ export const Users = (props: UsersPropsType) => {
             const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
             const onClickHandler = () => {
               if (item.followed) {
-                props.unfollowUser(item.id)
+                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {withCredentials: true})
+                  .then(response => {
+                    if (response.data.resultCode === 0) {
+                      props.unfollowUser(item.id)
+                    }
+                  })
               } else {
-                props.followUser(item.id)
+                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${item.id}`, {}, {withCredentials: true})
+                  .then(response => {
+                    if (response.data.resultCode === 0) {
+                      props.followUser(item.id)
+                    }
+                  })
               }
             }
 

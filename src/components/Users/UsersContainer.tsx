@@ -17,8 +17,8 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
 
   componentDidMount() {
     axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${this.props.state.currentUsersPage}`
-    )
+      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${this.props.state.currentUsersPage}`,
+      {withCredentials: true})
       .then(response => this.props.setUsers(response.data.items))
       .catch(error => alert(error + '\nusers request was failed'))
   }
@@ -28,8 +28,8 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
     this.props.setPreloader(true)
 
     axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${page}`
-    )
+      `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.countUsers}&page=${page}`,
+      {withCredentials: true})
       .then(response => {
         this.props.setUsers(response.data.items)
         this.props.setPreloader(false)
