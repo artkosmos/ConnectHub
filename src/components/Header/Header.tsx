@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 import {HeaderPropsType} from "./HeaderContainer";
 
 function  Header(props: HeaderPropsType) {
-  console.log(props)
+
   return (
     <header className={style.header}>
       <div className={style.brand}>

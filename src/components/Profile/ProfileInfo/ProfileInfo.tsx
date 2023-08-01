@@ -11,8 +11,8 @@ const ProfileInfo = (props: ProfilePropsType) => {
   }
 
   const socialMedia = Object.entries(props.userProfile.contacts)
-    .filter(([key, value]) => value)
-    .map(item => <li>{item[0]}: {item[1]}</li>)
+    .filter(([_, value]) => value)
+    .map((item, index) => <li key={index}>{item[0]}: {item[1]}</li>)
 
   return (
     <>
