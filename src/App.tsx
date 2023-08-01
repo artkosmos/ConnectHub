@@ -1,5 +1,4 @@
 import './App.scss';
-import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
 import {BrowserRouter, Route} from "react-router-dom";
 import News from "./components/News/News";
@@ -8,6 +7,7 @@ import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import RouterProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="appWrapper">
-        <Header />
+        <HeaderContainer/>
         <div className="menuAndContentWrapper">
           <Menu />
           <div className="contentWrapper">
