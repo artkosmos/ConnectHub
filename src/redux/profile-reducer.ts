@@ -1,4 +1,8 @@
-export type ActionProfileType = AddPostActionACType | ChangePostActionACType | SetUserProfileACType
+export type ActionProfileType =
+  AddPostActionACType
+  | ChangePostActionACType
+  | SetUserProfileACType
+  | SetProfilePreloaderACType
 
 export type PostType = {
   id: number
@@ -10,6 +14,7 @@ export type ProfilePageType = {
   posts: PostType[]
   newPost: string
   userProfile: any
+  preloader: boolean
 }
 
 const initialState: ProfilePageType = {
@@ -20,7 +25,8 @@ const initialState: ProfilePageType = {
     {id: 4, message: 'That\'s my first post here!', likes: 6}
   ],
   newPost: '',
-  userProfile: undefined
+  userProfile: undefined,
+  preloader: true
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
@@ -32,6 +38,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return {...state, newPost: action.value}
     case "SET-USER-PROFILE":
       return {...state, userProfile: action.profile}
+    case "SET-PROFILE-PRELOADER":
+      return {...state, preloader: action.value}
     default:
       return state
   }
@@ -58,5 +66,13 @@ export const setUserProfile = (profile: any) => {
   return {
     type: "SET-USER-PROFILE",
     profile
+  } as const
+}
+
+type SetProfilePreloaderACType = ReturnType<typeof setProfilePreloader>
+export const setProfilePreloader = (value: boolean) => {
+  return {
+    type: "SET-PROFILE-PRELOADER",
+    value
   } as const
 }
