@@ -1,3 +1,6 @@
+import {socialNetworkApi} from "../API/social-network-api";
+import {AppDispatch, AppThunk} from "./redux-store";
+
 export type UsersPageType = {
   users: UserType[]
   countUsers: number
@@ -112,4 +115,32 @@ export const removeDisableButton = (userId: number) => {
     type: "REMOVE-DISABLE-BUTTON",
     userId
   } as const
+}
+
+
+export const followTC = (userId: number): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(setDisableButton(userId))
+  socialNetworkApi.follow(userId)
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(followUser(userId))
+      }})
+    .finally(() => dispatch(removeDisableButton(userId)))
+}
+
+export const unfollowTC = (userId: number): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(setDisableButton(userId))
+  socialNetworkApi.unfollow(userId)
+    .then(data => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowUser(userId))
+      }})
+    .finally(() => dispatch(removeDisableButton(userId)))
+}
+
+export const getUsersTC = (count: number, page: number): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(setPreloader(true))
+  socialNetworkApi.getUsers(count, page)
+    .then(data => dispatch(setUsers(data)))
+    .finally(() => dispatch(setPreloader(false)))
 }

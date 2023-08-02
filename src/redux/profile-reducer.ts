@@ -1,3 +1,7 @@
+import {AppDispatch, AppThunk} from "./redux-store";
+import {socialNetworkApi} from "../API/social-network-api";
+import {ResponseProfileType} from "../components/Profile/ProfileContainer";
+
 export type ActionProfileType =
   AddPostActionACType
   | ChangePostActionACType
@@ -62,7 +66,7 @@ export const changePostTextAC = (value: string) => {
 }
 
 export type SetUserProfileACType = ReturnType<typeof setUserProfile>
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ResponseProfileType) => {
   return {
     type: "SET-USER-PROFILE",
     profile
@@ -75,4 +79,11 @@ export const setProfilePreloader = (value: boolean) => {
     type: "SET-PROFILE-PRELOADER",
     value
   } as const
+}
+
+export const getProfileTC = (userId: string): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(setProfilePreloader(true))
+  socialNetworkApi.getProfile(userId)
+    .then(data => dispatch(setUserProfile(data)))
+    .finally(() => dispatch(setProfilePreloader(false)))
 }

@@ -1,23 +1,19 @@
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import React from "react";
-import {ProfilePageType, setProfilePreloader, setUserProfile} from "../../redux/profile-reducer";
+import {getProfileTC, ProfilePageType} from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {socialNetworkApi} from "../../API/social-network-api";
 
 
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
 
   componentDidMount() {
-    this.props.setProfilePreloader(true)
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = '29283'
     }
-    socialNetworkApi.getProfile(userId)
-      .then(data => this.props.setUserProfile(data))
-      .finally(() => this.props.setProfilePreloader(false))
+    this.props.getProfileTC(userId)
   }
 
   render = () => {
@@ -27,7 +23,7 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
  }
 }
 
-type ResponseProfileType = {
+export type ResponseProfileType = {
   userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: string
@@ -61,8 +57,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToProps = {
-  setUserProfile: (profile: ResponseProfileType) => void
-  setProfilePreloader: (value: boolean) => void
+  getProfileTC: (userId: string) => void
 }
 
 export type ProfilePropsType = mapDispatchToProps & mapStateToPropsType
@@ -73,8 +68,7 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
 })
 
 const actionCreators = {
-  setUserProfile,
-  setProfilePreloader
+  getProfileTC
 }
 
 const RouterProfileContainer = withRouter(ProfileContainer)

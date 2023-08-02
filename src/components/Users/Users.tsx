@@ -4,19 +4,16 @@ import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {socialNetworkApi} from "../../API/social-network-api";
 
 type UsersPropsType = {
   pages: number[]
   currentUsersPage: number
   changeCurrentPage: (page: number) => void
-  followUser: (userID: number) => void
-  unfollowUser: (userID: number) => void
   users: UserType[]
   preloader: boolean
   followingInProgress: number[]
-  setDisableButton: (userId: number) => void
-  removeDisableButton: (userId: number) => void
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -38,23 +35,10 @@ export const Users = (props: UsersPropsType) => {
 
             const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
             const onClickHandler = () => {
-              props.setDisableButton(item.id)
               if (item.followed) {
-                socialNetworkApi.unfollow(item.id)
-                  .then(data => {
-                    if (data.resultCode === 0) {
-                      props.unfollowUser(item.id)
-                    }
-                  })
-                  .finally(() => props.removeDisableButton(item.id))
+                props.unfollow(item.id)
               } else {
-                socialNetworkApi.follow(item.id)
-                  .then(data => {
-                    if (data.resultCode === 0) {
-                      props.followUser(item.id)
-                    }
-                  })
-                  .finally(() => props.removeDisableButton(item.id))
+                props.follow(item.id)
               }
             }
 

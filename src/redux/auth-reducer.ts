@@ -1,3 +1,7 @@
+import {AppDispatch, AppThunk} from "./redux-store";
+import {socialNetworkApi} from "../API/social-network-api";
+import {setPreloader, setUsers} from "./users-reducer";
+
 type ActionType = setLoginUserACType
 
 export type AuthStateType = {
@@ -33,4 +37,14 @@ export const setLoginUser = (userId: number, email: string, login: string) => {
       login
     }
   } as const
+}
+
+export const checkAuthTC = (): AppThunk => (dispatch: AppDispatch) => {
+  socialNetworkApi.checkAuth()
+    .then(data => {
+      if (data.resultCode === 0) {
+        const {id, email, login} = data.data
+        dispatch(setLoginUser(id, email, login))
+      }
+    })
 }
