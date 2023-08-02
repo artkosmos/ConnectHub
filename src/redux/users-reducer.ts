@@ -1,9 +1,10 @@
 export type UsersPageType = {
-  users: UserType[],
-  countUsers: number,
-  totalUsersCount: number,
-  currentUsersPage: number,
+  users: UserType[]
+  countUsers: number
+  totalUsersCount: number
+  currentUsersPage: number
   preloader: boolean
+  followingInProgress: number[]
 }
 
 export type UserType = {
@@ -15,20 +16,28 @@ export type UserType = {
   followed: boolean
   name: string
   status: string
-  location: {city: string, country: string}
+  location: { city: string, country: string }
 }
 
-type ActionType = FollowUserACType | UnfollowUserACType | SetUsersACType | SetCurrentPageACType | SetPreloaderACType
+type ActionType =
+  FollowUserACType
+  | UnfollowUserACType
+  | SetUsersACType
+  | SetCurrentPageACType
+  | SetPreloaderACType
+  | setDisableButtonACType
+  | removeDisableButtonACType
 
 const initialState: UsersPageType = {
   users: [],
   countUsers: 5,
   totalUsersCount: 50,
   currentUsersPage: 1,
-  preloader: false
+  preloader: false,
+  followingInProgress: []
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: ActionType ): UsersPageType => {
+export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
   switch (action.type) {
     case "FOLLOW-TO-USER":
       return {...state, users: state.users.map(item => item.id === action.userID ? {...item, followed: true} : item)}
@@ -40,6 +49,10 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
       return {...state, currentUsersPage: action.currentPage}
     case "SET-PRELOADER":
       return {...state, preloader: action.value}
+    case "SET-DISABLE-BUTTON":
+      return {...state, followingInProgress: [...state.followingInProgress, action.userId]}
+    case "REMOVE-DISABLE-BUTTON":
+      return {...state, followingInProgress: state.followingInProgress.filter(item => item !== action.userId)}
     default:
       return state
   }
@@ -82,5 +95,21 @@ export const setPreloader = (value: boolean) => {
   return {
     type: "SET-PRELOADER",
     value
+  } as const
+}
+
+type setDisableButtonACType = ReturnType<typeof setDisableButton>
+export const setDisableButton = (userId: number) => {
+  return {
+    type: "SET-DISABLE-BUTTON",
+    userId
+  } as const
+}
+
+type removeDisableButtonACType = ReturnType<typeof removeDisableButton>
+export const removeDisableButton = (userId: number) => {
+  return {
+    type: "REMOVE-DISABLE-BUTTON",
+    userId
   } as const
 }

@@ -4,7 +4,6 @@ import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {socialNetworkApi} from "../../API/social-network-api";
 
 type UsersPropsType = {
@@ -15,6 +14,9 @@ type UsersPropsType = {
   unfollowUser: (userID: number) => void
   users: UserType[]
   preloader: boolean
+  followingInProgress: number[]
+  setDisableButton: (userId: number) => void
+  removeDisableButton: (userId: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -36,6 +38,7 @@ export const Users = (props: UsersPropsType) => {
 
             const buttonClassName = item.followed ? `${style.button} ${style.followed}` : `${style.button}`
             const onClickHandler = () => {
+              props.setDisableButton(item.id)
               if (item.followed) {
                 socialNetworkApi.unfollow(item.id)
                   .then(data => {
@@ -43,6 +46,7 @@ export const Users = (props: UsersPropsType) => {
                       props.unfollowUser(item.id)
                     }
                   })
+                  .finally(() => props.removeDisableButton(item.id))
               } else {
                 socialNetworkApi.follow(item.id)
                   .then(data => {
@@ -50,6 +54,7 @@ export const Users = (props: UsersPropsType) => {
                       props.followUser(item.id)
                     }
                   })
+                  .finally(() => props.removeDisableButton(item.id))
               }
             }
 
@@ -60,6 +65,7 @@ export const Users = (props: UsersPropsType) => {
                     <img className={style.photo} src={item.photos.large ? item.photos.large : avatar} alt="photo"/>
                   </NavLink>
                   <button
+                    disabled={props.followingInProgress.includes(item.id)}
                     onClick={onClickHandler}
                     className={buttonClassName}>{item.followed ? 'Unfollow' : 'Follow'}
                   </button>

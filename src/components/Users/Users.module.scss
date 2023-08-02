@@ -64,6 +64,13 @@
         &:hover {
           cursor: pointer;
         }
+
+        &:disabled {
+          background-color: grey;
+          opacity: 0.5;
+          border: none;
+          color: black;
+        }
       }
 
       .followed {
@@ -91,7 +98,6 @@
         display: flex;
         justify-content: space-between;
       }
-
     }
   }
 }

@@ -1,6 +1,6 @@
 import {StateType} from "../../redux/redux-store";
 import {
-  followUser, setCurrentPage, setPreloader,
+  followUser, removeDisableButton, setCurrentPage, setDisableButton, setPreloader,
   setUsers,
   unfollowUser, UsersPageType,
   UserType
@@ -40,6 +40,9 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
         followUser={this.props.followUser}
         unfollowUser={this.props.unfollowUser}
         users={this.props.state.users}
+        followingInProgress={this.props.state.followingInProgress}
+        setDisableButton={this.props.setDisableButton}
+        removeDisableButton={this.props.removeDisableButton}
       />
     )
   }
@@ -55,6 +58,8 @@ type mapDispatchToPropsType = {
   setUsers: (users: UserType[]) => void
   setCurrentPage: (page: number) => void
   setPreloader: (value: boolean) => void
+  setDisableButton: (userId: number) => void
+  removeDisableButton: (userId: number) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -72,7 +77,9 @@ const actionCreators = {
   unfollowUser,
   setUsers,
   setCurrentPage,
-  setPreloader
+  setPreloader,
+  removeDisableButton,
+  setDisableButton
 }
 
 const UsersContainer = connect(mapStateToProps, actionCreators)(UsersAPI)
