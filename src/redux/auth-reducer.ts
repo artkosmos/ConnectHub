@@ -1,6 +1,5 @@
 import {AppDispatch, AppThunk} from "./redux-store";
 import {socialNetworkApi} from "../API/social-network-api";
-import {setPreloader, setUsers} from "./users-reducer";
 
 type ActionType = setLoginUserACType
 

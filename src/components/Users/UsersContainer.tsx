@@ -1,12 +1,12 @@
 import {StateType} from "../../redux/redux-store";
 import {
+  AppUserType,
   followTC, getUsersTC,
   setCurrentPage,
   setPreloader,
   setUsers,
   unfollowTC,
   UsersPageType,
-  UserType
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import React from "react";
@@ -54,7 +54,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-  setUsers: (users: UserType[]) => void
+  setUsers: (users: AppUserType[]) => void
   setCurrentPage: (page: number) => void
   setPreloader: (value: boolean) => void
   followTC: (userId: number) => void

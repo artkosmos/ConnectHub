@@ -4,6 +4,7 @@ import React from "react";
 import {getProfileTC, ProfilePageType} from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {ResponseProfileType} from "../../API/social-network-api";
 
 
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
@@ -24,28 +25,6 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
      <Profile {...this.props}/>
    )
  }
-}
-
-export type ResponseProfileType = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  aboutMe: string
-  contacts: {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-  }
-  photos: {
-    small: string | null
-    large: string | null
-  }
 }
 
 type PathParamsType = {

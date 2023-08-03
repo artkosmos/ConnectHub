@@ -1,6 +1,5 @@
 import {AppDispatch, AppThunk} from "./redux-store";
-import {socialNetworkApi} from "../API/social-network-api";
-import {ResponseProfileType} from "../components/Profile/ProfileContainer";
+import {ResponseProfileType, socialNetworkApi} from "../API/social-network-api";
 
 export type ActionProfileType =
   AddPostActionACType

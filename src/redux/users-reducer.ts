@@ -1,25 +1,16 @@
-import {socialNetworkApi} from "../API/social-network-api";
+import {socialNetworkApi, UserType} from "../API/social-network-api";
 import {AppDispatch, AppThunk} from "./redux-store";
 
 export type UsersPageType = {
-  users: UserType[]
+  users: AppUserType[]
   countUsers: number
   totalUsersCount: number
   currentUsersPage: number
   preloader: boolean
   followingInProgress: number[]
 }
-
-export type UserType = {
-  id: number
-  photos: {
-    large: string | null
-    small: string | null
-  }
-  followed: boolean
-  name: string
-  status: string
-  location: { city: string, country: string }
+export type AppUserType = UserType & {
+  location: {country: string}
 }
 
 type ActionType =
@@ -33,8 +24,8 @@ type ActionType =
 
 const initialState: UsersPageType = {
   users: [],
-  countUsers: 5,
-  totalUsersCount: 50,
+  countUsers: 10,
+  totalUsersCount: 200,
   currentUsersPage: 1,
   preloader: false,
   followingInProgress: []
@@ -47,7 +38,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     case "UNFOLLOW-TO-USER":
       return {...state, users: state.users.map(item => item.id === action.userID ? {...item, followed: false} : item)}
     case "SET-USERS":
-      return {...state, users: [...action.users]}
+      return {...state, users: action.users.map(item => ({...item, location:{country: 'Belarus'}}))}
     case "SET-CURRENT-PAGE":
       return {...state, currentUsersPage: action.currentPage}
     case "SET-PRELOADER":
