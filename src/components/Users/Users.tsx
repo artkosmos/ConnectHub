@@ -1,15 +1,15 @@
 import style from "./Users.module.scss";
 import avatar from "../Dialogs/DialogItem/avatar1.png";
 import React from "react";
-import {UserType} from "../../redux/users-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import {AppUserType} from "../../redux/users-reducer";
 
 type UsersPropsType = {
   pages: number[]
   currentUsersPage: number
   changeCurrentPage: (page: number) => void
-  users: UserType[]
+  users: AppUserType[]
   preloader: boolean
   followingInProgress: number[]
   follow: (userId: number) => void
@@ -57,7 +57,7 @@ export const Users = (props: UsersPropsType) => {
                 <div className={style.userInfo}>
                   <div className={style.nameAndLocation}>
                     <span className={style.name}>{item.name}</span>
-                    <span className={style.location}>{'country'}, {'city'}</span>
+                    <span className={style.location}>{item.location.country}</span>
                   </div>
                   <span className={style.status}>{item.status}</span>
                 </div>
