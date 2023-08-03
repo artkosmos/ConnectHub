@@ -15,16 +15,6 @@ class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
   }
 }
 
-type ResponseAuthType = {
-  data: {
-    id: number
-    email: string
-    login: string
-  }
-  resultCode: number
-  messages: string[]
-}
-
 type mapStateToPropsType = {
   login: string | undefined
   isAuth: boolean
