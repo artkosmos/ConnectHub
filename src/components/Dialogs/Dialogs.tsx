@@ -1,12 +1,17 @@
 import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
-import {ChangeEvent} from "react";
+import React, {ChangeEvent} from "react";
 import {CallBacksDialogsPropsType, DataDialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 type DialogsPropsType  = DataDialogsPropsType & CallBacksDialogsPropsType
 
 function Dialogs(props: DialogsPropsType) {
+
+  if (!props.isAuth) {
+    return <Redirect to={'/login'}/>
+  }
 
   const mappedDialogs = props.state.dialogs.map((item) => {
     return (

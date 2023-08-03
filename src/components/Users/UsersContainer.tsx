@@ -11,6 +11,7 @@ import {
 import {connect} from "react-redux";
 import React from "react";
 import {Users} from "./Users";
+import {Redirect} from "react-router-dom";
 
 export class UsersAPI extends React.Component<UsersPropsType> { // принимает типизацию props и state
   constructor(props: UsersPropsType) {
@@ -27,6 +28,9 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
 
   }
   render = () => {
+    if (!this.props.isAuth) {
+      return <Redirect to={'/login'}/>
+    }
     const pagesCount = Math.ceil(this.props.state.totalUsersCount / this.props.state.countUsers)
     const pages = Array.from({length: pagesCount}, (_, index) => index + 1)
     return (
@@ -46,6 +50,7 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
 
 type mapStateToPropsType = {
   state: UsersPageType
+  isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -62,6 +67,7 @@ export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 const mapStateToProps = (state: StateType): mapStateToPropsType => {
   return {
     state: state.usersPage,
+    isAuth: state.auth.isLogIn
   }
 }
 

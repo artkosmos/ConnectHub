@@ -3,7 +3,7 @@ import {StateType} from "../../redux/redux-store";
 import React from "react";
 import {getProfileTC, ProfilePageType} from "../../redux/profile-reducer";
 import Profile from "./Profile";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 
 
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
@@ -17,6 +17,9 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
   }
 
   render = () => {
+    if (!this.props.isAuth) {
+      return <Redirect to={'/login'}/>
+    }
    return (
      <Profile {...this.props}/>
    )
@@ -54,6 +57,7 @@ type CommonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 type mapStateToPropsType = {
   userProfile: ResponseProfileType
   preloader: boolean
+  isAuth: boolean
 }
 
 type mapDispatchToProps = {
@@ -64,7 +68,8 @@ export type ProfilePropsType = mapDispatchToProps & mapStateToPropsType
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
   userProfile: state.profilePage.userProfile,
-  preloader: state.profilePage.preloader
+  preloader: state.profilePage.preloader,
+  isAuth: state.auth.isLogIn
 })
 
 const actionCreators = {

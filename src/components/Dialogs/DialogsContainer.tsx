@@ -6,6 +6,7 @@ import {Dispatch} from "redux";
 
 export type DataDialogsPropsType = {
   state: DialogPageType
+  isAuth: boolean
 }
 
 export type CallBacksDialogsPropsType = {
@@ -15,7 +16,8 @@ export type CallBacksDialogsPropsType = {
 
 const data = (state: StateType): DataDialogsPropsType => {
   return {
-    state: state.dialogPage
+    state: state.dialogPage,
+    isAuth: state.auth.isLogIn
   }
 }
 const callBacks = (dispatch: Dispatch): CallBacksDialogsPropsType => {
