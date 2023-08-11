@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import React from "react";
-import {getProfileTC, ProfilePageType} from "../../redux/profile-reducer";
+import {getProfileStatusTC, getProfileTC, ProfilePageType, updateProfileStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ResponseProfileType} from "../../API/social-network-api";
 import {compose} from "redux";
@@ -18,6 +18,7 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
       userId = '29283'
     }
     this.props.getProfileTC(userId)
+    this.props.getProfileStatusTC(userId)
   }
 
   render = () => withRedirect(<Profile {...this.props}/>)
@@ -33,10 +34,13 @@ type mapStateToPropsType = {
   userProfile: ResponseProfileType
   preloader: boolean
   isAuth: boolean
+  status: string
 }
 
 type mapDispatchToProps = {
   getProfileTC: (userId: string) => void
+  getProfileStatusTC: (userId: string) => void
+  updateProfileStatusTC: (status: string) => void
 }
 
 export type ProfilePropsType = mapDispatchToProps & mapStateToPropsType
@@ -44,11 +48,14 @@ export type ProfilePropsType = mapDispatchToProps & mapStateToPropsType
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
   userProfile: state.profilePage.userProfile,
   preloader: state.profilePage.preloader,
-  isAuth: state.auth.isLogIn
+  isAuth: state.auth.isLogIn,
+  status: state.profilePage.status
 })
 
 const actionCreators = {
-  getProfileTC
+  getProfileTC,
+  getProfileStatusTC,
+  updateProfileStatusTC
 }
 
 export default compose<any>(

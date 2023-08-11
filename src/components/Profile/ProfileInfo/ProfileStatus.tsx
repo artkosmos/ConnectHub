@@ -1,27 +1,48 @@
-import React from "react"
+import React, {ChangeEvent} from "react"
 import style from './ProfileStatus.module.scss'
 
 type StatusStateType = {
   isEdit: boolean
+  status: string
 }
 
-export class ProfileStatus extends React.Component<any, StatusStateType> {
+type StatusPropsType = {
+  status: string
+  callBack: (status: string) => void
+}
+
+export class ProfileStatus extends React.Component<StatusPropsType, StatusStateType> {
   constructor(props: any) {
     super(props)
     this.state = {
-      isEdit: false
+      isEdit: false,
+      status: this.props.status
     }
   }
 
-  editStatusToggle = () => {
-    this.setState({isEdit: !this.state.isEdit})
+  editStatusOn = () => {
+    this.setState({isEdit: true})
+  }
+
+  editStatusOff = () => {
+    this.setState({isEdit: false})
+    this.props.callBack(this.state.status)
+  }
+
+  onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({status: event.currentTarget.value})
   }
 
   render = () => {
     return (
       <div className={style.statusWrapper}>
-        {!this.state.isEdit && <span onDoubleClick={this.editStatusToggle}>Some text</span>}
-        {this.state.isEdit && <input autoFocus={true} onBlur={this.editStatusToggle} type="text"/>}
+        {!this.state.isEdit && <span onDoubleClick={this.editStatusOn}>{this.props.status}</span>}
+        {this.state.isEdit && <input
+        onChange={this.onChangeInput}
+          value={this.state.status}
+          autoFocus={true}
+          onBlur={this.editStatusOff}
+          type="text"/>}
       </div>
     )
   }

@@ -29,7 +29,7 @@ const ProfileInfo = (props: ProfilePropsType) => {
                  alt="avatar"/>
             <div className={style.info}>
               <span className={style.name}>{props.userProfile.fullName}</span>
-              <ProfileStatus/>
+              <ProfileStatus status={props.status} callBack={props.updateProfileStatusTC}/>
               <span><b>About me:</b> {props.userProfile.aboutMe}</span>
               <span><b>Looking for a job:</b> {props.userProfile.lookingForAJobDescription}</span>
               <ul className={style.socialMediaList}>

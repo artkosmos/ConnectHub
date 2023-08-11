@@ -46,6 +46,22 @@ export const socialNetworkApi = {
     } catch (error) {
       throw new Error('Something went wrong\n' + error)
     }
+  },
+  async getProfileStatus(userId: string) {
+    try {
+      const response = await instance.get<string>(`profile/status/${userId}`)
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
+  },
+  async updateProfileStatus(status: string) {
+    try {
+      const response = await instance.put<ResponseType>(`profile/status`, {status})
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
   }
 }
 

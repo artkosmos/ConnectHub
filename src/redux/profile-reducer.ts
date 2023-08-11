@@ -6,6 +6,7 @@ export type ActionProfileType =
   | ChangePostActionACType
   | SetUserProfileACType
   | SetProfilePreloaderACType
+  | SetProfileStatusACType
 
 export type PostType = {
   id: number
@@ -17,7 +18,8 @@ export type ProfilePageType = {
   posts: PostType[]
   newPost: string
   userProfile: any
-  preloader: boolean
+  preloader: boolean,
+  status: string
 }
 
 const initialState: ProfilePageType = {
@@ -29,7 +31,8 @@ const initialState: ProfilePageType = {
   ],
   newPost: '',
   userProfile: undefined,
-  preloader: true
+  preloader: true,
+  status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
@@ -43,6 +46,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return {...state, userProfile: action.profile}
     case "SET-PROFILE-PRELOADER":
       return {...state, preloader: action.value}
+    case "SET-PROFILE-STATUS":
+      return {...state, status: action.status}
     default:
       return state
   }
@@ -80,9 +85,37 @@ export const setProfilePreloader = (value: boolean) => {
   } as const
 }
 
+type SetProfileStatusACType = ReturnType<typeof setProfileStatus>
+export const setProfileStatus = (status: string) => {
+  return {
+    type: "SET-PROFILE-STATUS",
+    status
+  } as const
+}
+
 export const getProfileTC = (userId: string): AppThunk => (dispatch: AppDispatch) => {
   dispatch(setProfilePreloader(true))
   socialNetworkApi.getProfile(userId)
     .then(data => dispatch(setUserProfile(data)))
     .finally(() => dispatch(setProfilePreloader(false)))
+}
+
+export const getProfileStatusTC = (userId: string): AppThunk => (dispatch: AppDispatch) => {
+  socialNetworkApi.getProfileStatus(userId)
+    .then(data => {
+      if (data === null) {
+        dispatch(setProfileStatus('-'))
+      } else {
+        dispatch(setProfileStatus(data))
+      }
+    })
+}
+
+export const updateProfileStatusTC = (status: string): AppThunk => (dispatch: AppDispatch) => {
+  socialNetworkApi.updateProfileStatus(status)
+    .then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(setProfileStatus(status))
+      }
+    })
 }
