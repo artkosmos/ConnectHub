@@ -3,6 +3,7 @@ import style from "../Profile.module.scss";
 import {ProfilePropsType} from "../ProfileContainer";
 import {Preloader} from "../../Preloader/Preloader";
 import avatar from "../../Dialogs/DialogItem/avatar1.png";
+import {ProfileStatus} from "./ProfileStatus";
 
 const ProfileInfo = (props: ProfilePropsType) => {
 
@@ -28,6 +29,7 @@ const ProfileInfo = (props: ProfilePropsType) => {
                  alt="avatar"/>
             <div className={style.info}>
               <span className={style.name}>{props.userProfile.fullName}</span>
+              <ProfileStatus/>
               <span><b>About me:</b> {props.userProfile.aboutMe}</span>
               <span><b>Looking for a job:</b> {props.userProfile.lookingForAJobDescription}</span>
               <ul className={style.socialMediaList}>
