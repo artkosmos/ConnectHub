@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import React from "react";
 import {Users} from "./Users";
 import {Redirect} from "react-router-dom";
+import {compose} from "redux";
 
 export class UsersAPI extends React.Component<UsersPropsType> { // принимает типизацию props и state
   constructor(props: UsersPropsType) {
@@ -82,7 +83,7 @@ const actionCreators = {
   getUsersTC
 }
 
-const UsersContainer = connect(mapStateToProps, actionCreators)(UsersAPI)
-
-export default UsersContainer
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, actionCreators)
+)(UsersAPI)
 

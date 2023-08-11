@@ -2,7 +2,7 @@ import {changeMessageTextAC, DialogPageType, sendMessageAC} from "../../redux/di
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 
 export type DataDialogsPropsType = {
   state: DialogPageType
@@ -27,6 +27,6 @@ const callBacks = (dispatch: Dispatch): CallBacksDialogsPropsType => {
   }
 }
 
-const DialogsContainer = connect(data, callBacks)(Dialogs)
-
-export default DialogsContainer;
+export default compose(
+  connect(data, callBacks)
+)(Dialogs)

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Header from "./Header";
 import {StateType} from "../../redux/redux-store";
 import {AuthStateType, checkAuthTC} from "../../redux/auth-reducer";
+import {compose} from "redux";
 
 class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
   
@@ -35,4 +36,6 @@ const actionCreators = {
   checkAuthTC
 }
 
-export default connect (mapStateToProps, actionCreators)(HeaderContainer)
+export default compose<React.ComponentType>(
+  connect (mapStateToProps, actionCreators)
+)(HeaderContainer)

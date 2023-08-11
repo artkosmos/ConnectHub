@@ -5,6 +5,7 @@ import {getProfileTC, ProfilePageType} from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {ResponseProfileType} from "../../API/social-network-api";
+import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
@@ -19,7 +20,7 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
 
   render = () => {
     if (!this.props.isAuth) {
-      return <Redirect to={'/login'}/>
+        return <Redirect to={'/login'}/>
     }
    return (
      <Profile {...this.props}/>
@@ -55,6 +56,8 @@ const actionCreators = {
   getProfileTC
 }
 
-const RouterProfileContainer = withRouter(ProfileContainer)
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, actionCreators),
+  withRouter
+)(ProfileContainer)
 
-export default connect (mapStateToProps, actionCreators)(RouterProfileContainer)
