@@ -1,8 +1,9 @@
-import {ChangeEvent} from "react";
+import React from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/profile-reducer";
 import {CallBacksMyPostsPropsType, DataMyPostsPropsType} from "./MyPostsContainer";
+import {Field, Form} from "react-final-form";
 
 type MyPostsPropsType = DataMyPostsPropsType & CallBacksMyPostsPropsType
 
@@ -14,21 +15,24 @@ function MyPosts(props: MyPostsPropsType) {
     )
   })
 
-  const onClickSendPostHandler = () => {
-    props.sendPost()
+  const onClickSendPostHandler = (message: string) => {
+    props.sendPost(message)
   }
 
-  const onChangeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    props.changePost(event.currentTarget.value)
-  }
 
   return (
     <div className={style.myPosts}>
-      <div className={style.myPosts__title}>My posts</div>
-      <div className={`${style.sendForm} ${style.myPosts__sendForm}`}>
-        <textarea value={props.state.newPost} onChange={onChangeTextHandler} className={style.sendForm__area}></textarea>
-        <button onClick={onClickSendPostHandler} className={style.sendForm__btn}>Send it</button>
-      </div>
+      <div className={style.title}>My posts 📝</div>
+      <Form
+        onSubmit={(data: { postMessage: string }) => onClickSendPostHandler(data.postMessage)}
+        render={({handleSubmit}) => (
+          <form onSubmit={handleSubmit} className={style.formWrapper}>
+            <Field className={style.textArea} name="postMessage" component={'textarea'}
+                   placeholder={'Type message...'}/>
+            <button className={style.sendButton} type="submit">Send message</button>
+          </form>
+        )}
+      />
       <div className={style.myPosts__published}>
         {mappedPosts}
       </div>

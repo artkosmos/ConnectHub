@@ -1,4 +1,4 @@
-import {addPostAC, changePostTextAC, ProfilePageType} from "../../../redux/profile-reducer";
+import {addPostAC, ProfilePageType} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
@@ -9,8 +9,7 @@ export type DataMyPostsPropsType = {
 }
 
 export type CallBacksMyPostsPropsType = {
-  sendPost: () => void
-  changePost: (text: string) => void
+  sendPost: (message: string) => void
 }
 
 const data = (state: StateType): DataMyPostsPropsType  => {
@@ -21,8 +20,7 @@ const data = (state: StateType): DataMyPostsPropsType  => {
 
 const callBacks = (dispatch: Dispatch): CallBacksMyPostsPropsType => {
   return {
-    sendPost: () => dispatch(addPostAC()),
-    changePost: (text: string) => dispatch(changePostTextAC(text))
+    sendPost: (message: string) => dispatch(addPostAC(message)),
   }
 }
 
