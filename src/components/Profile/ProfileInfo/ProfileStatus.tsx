@@ -20,6 +20,15 @@ export class ProfileStatus extends React.Component<StatusPropsType, StatusStateT
     }
   }
 
+  componentDidUpdate(prevProps: Readonly<StatusPropsType>, prevState: Readonly<StatusStateType>) {
+    console.log('componentDidUpdate')
+    let a = this.props
+    let b = this.state
+    if (prevProps.status !== this.props.status) {
+      this.setState({status: this.props.status})
+    }
+  }
+
   editStatusOn = () => {
     this.setState({isEdit: true})
   }
@@ -34,9 +43,12 @@ export class ProfileStatus extends React.Component<StatusPropsType, StatusStateT
   }
 
   render = () => {
+    console.log('localState:' + this.state.status)
+    debugger
+    console.log('render')
     return (
       <div className={style.statusWrapper}>
-        {!this.state.isEdit && <span onDoubleClick={this.editStatusOn}>{this.props.status}</span>}
+        {!this.state.isEdit && <span onDoubleClick={this.editStatusOn}>{this.props.status || '-'}</span>}
         {this.state.isEdit && <input
         onChange={this.onChangeInput}
           value={this.state.status}

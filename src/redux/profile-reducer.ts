@@ -104,7 +104,7 @@ export const getProfileStatusTC = (userId: string): AppThunk => (dispatch: AppDi
   socialNetworkApi.getProfileStatus(userId)
     .then(data => {
       if (data === null) {
-        dispatch(setProfileStatus('-'))
+        dispatch(setProfileStatus(''))
       } else {
         dispatch(setProfileStatus(data))
       }
