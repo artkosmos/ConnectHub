@@ -15,7 +15,6 @@ export type MessageType = {
 export type DialogPageType = {
   dialogs: DialogType[]
   messages: MessageType[]
-  newMessage: string
 }
 
 const initialState: DialogPageType = {
@@ -37,14 +36,13 @@ const initialState: DialogPageType = {
     {id: v1(), message: 'I\'m hungry. Let\'s have lunch.'},
     {id: v1(), message: 'Me either. Let\'s go.'},
   ],
-  newMessage: ''
 }
 
 export const dialogReducer = (state: DialogPageType = initialState, action: ActionDialogType): DialogPageType => {
   switch (action.type) {
     case "SEND-MESSAGE":
       const newMessage: MessageType = {id: v1(), message: action.message}
-      return {...state, messages: [...state.messages, newMessage], newMessage: ''}
+      return {...state, messages: [...state.messages, newMessage]}
     default:
       return state
   }
