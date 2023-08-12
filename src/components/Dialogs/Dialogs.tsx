@@ -1,9 +1,10 @@
 import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {CallBacksDialogsPropsType, DataDialogsPropsType} from "./DialogsContainer";
 import {Redirect} from "react-router-dom";
+import {Field, Form} from "react-final-form";
 
 type DialogsPropsType  = DataDialogsPropsType & CallBacksDialogsPropsType
 
@@ -25,12 +26,8 @@ function Dialogs(props: DialogsPropsType) {
     )
   })
 
-  const onClickSendMessageHandler = () => {
-    props.sendMessage()
-  }
-
-  const onChangeMessageHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    props.changeMessage(event.currentTarget.value)
+  const onClickSendMessageHandler = (message: string) => {
+    props.sendMessage(message)
   }
 
   return (
@@ -38,10 +35,19 @@ function Dialogs(props: DialogsPropsType) {
       <div className={`${style.people} ${style.dialogsContent__people}`}>
         {mappedDialogs}
       </div>
-      <div className={`${style.messages} ${style.dialogsContent__messages}`}>
-        {mappedMessages}
-        <textarea value={props.state.newMessage} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
-        <button onClick={onClickSendMessageHandler}>Send message</button>
+      <div className={style.dialogsContent__messagesWrapper}>
+        <div className={style.messages}>{mappedMessages}</div>
+        <Form
+          onSubmit={(data: {textMessage: string}) => onClickSendMessageHandler(data.textMessage)}
+          render={({ handleSubmit }) => (
+            <form onSubmit={handleSubmit} className={style.formWrapper}>
+              <Field className={style.textArea}  name="textMessage" component={'textarea'} placeholder={'Type message...'} />
+              <button type="submit">Send message</button>
+            </form>
+          )}
+        />
+        {/*<textarea value={props.state.newMessage} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
+        <button onClick={onClickSendMessageHandler}>Send message</button>*/}
       </div>
     </div>
   )

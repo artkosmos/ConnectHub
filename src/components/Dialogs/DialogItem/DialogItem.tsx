@@ -5,7 +5,7 @@ import avatar from './avatar1.png'
 
 type DialogPropsType = {
   name: string
-  id: number
+  id: string
 }
 
 function DialogItem (props: DialogPropsType) {

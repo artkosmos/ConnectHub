@@ -1,4 +1,4 @@
-import {changeMessageTextAC, DialogPageType, sendMessageAC} from "../../redux/dialogs-reducer";
+import {DialogPageType, sendMessageAC} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
@@ -10,8 +10,7 @@ export type DataDialogsPropsType = {
 }
 
 export type CallBacksDialogsPropsType = {
-  sendMessage: () => void
-  changeMessage: (text: string) => void
+  sendMessage: (message: string) => void
 }
 
 const data = (state: StateType): DataDialogsPropsType => {
@@ -22,8 +21,7 @@ const data = (state: StateType): DataDialogsPropsType => {
 }
 const callBacks = (dispatch: Dispatch): CallBacksDialogsPropsType => {
   return {
-    sendMessage: () => dispatch(sendMessageAC()),
-    changeMessage: (text: string) => dispatch(changeMessageTextAC(text))
+    sendMessage: (message: string) => dispatch(sendMessageAC(message)),
   }
 }
 
