@@ -5,6 +5,7 @@ import React from "react";
 import {CallBacksDialogsPropsType, DataDialogsPropsType} from "./DialogsContainer";
 import {Redirect} from "react-router-dom";
 import {Field, Form} from "react-final-form";
+import {SendMessageForm} from "../SenMessageForm/SendMessageForm";
 
 type DialogsPropsType  = DataDialogsPropsType & CallBacksDialogsPropsType
 
@@ -37,17 +38,7 @@ function Dialogs(props: DialogsPropsType) {
       </div>
       <div className={style.dialogsContent__messagesWrapper}>
         <div className={style.messages}>{mappedMessages}</div>
-        <Form
-          onSubmit={(data: {textMessage: string}) => onClickSendMessageHandler(data.textMessage)}
-          render={({ handleSubmit }) => (
-            <form onSubmit={handleSubmit} className={style.formWrapper}>
-              <Field className={style.textArea}  name="textMessage" component={'textarea'} placeholder={'Type message...'} />
-              <button type="submit">Send message</button>
-            </form>
-          )}
-        />
-        {/*<textarea value={props.state.newMessage} onChange={onChangeMessageHandler} placeholder={'Type message...'}></textarea>
-        <button onClick={onClickSendMessageHandler}>Send message</button>*/}
+        <SendMessageForm callBack={onClickSendMessageHandler}/>
       </div>
     </div>
   )
