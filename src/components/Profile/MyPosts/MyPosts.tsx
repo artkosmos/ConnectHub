@@ -3,7 +3,7 @@ import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/profile-reducer";
 import {CallBacksMyPostsPropsType, DataMyPostsPropsType} from "./MyPostsContainer";
-import {Field, Form} from "react-final-form";
+import {SendPostForm} from "../../SendPostForm/SendPostForm";
 
 type MyPostsPropsType = DataMyPostsPropsType & CallBacksMyPostsPropsType
 
@@ -19,20 +19,10 @@ function MyPosts(props: MyPostsPropsType) {
     props.sendPost(message)
   }
 
-
   return (
     <div className={style.myPosts}>
       <div className={style.title}>My posts 📝</div>
-      <Form
-        onSubmit={(data: { postMessage: string }) => onClickSendPostHandler(data.postMessage)}
-        render={({handleSubmit}) => (
-          <form onSubmit={handleSubmit} className={style.formWrapper}>
-            <Field className={style.textArea} name="postMessage" component={'textarea'}
-                   placeholder={'Type message...'}/>
-            <button className={style.sendButton} type="submit">Send message</button>
-          </form>
-        )}
-      />
+      <SendPostForm callBack={onClickSendPostHandler}/>
       <div className={style.myPosts__published}>
         {mappedPosts}
       </div>
