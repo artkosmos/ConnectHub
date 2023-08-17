@@ -1,0 +1,28 @@
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.875rem;
+
+  .textArea {
+    padding: 0.3125rem;
+    width: 50%;
+    height: 1.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .error {
+    background-color: #FFFFFF;
+    color: red;
+    font-weight: bold;
+  }
+
+  .button {
+    height: 1.9rem;
+    color: #FFFFFF;
+    background-color: #55aaea;
+    border-radius: 0.3125rem;
+    border-color: #FFF;
+  }
+}
