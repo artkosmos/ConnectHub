@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Header from "./Header";
 import {StateType} from "../../redux/redux-store";
-import {AuthStateType, checkAuthTC} from "../../redux/auth-reducer";
+import {AuthStateType, checkAuthTC, logOutTC} from "../../redux/auth-reducer";
 import {compose} from "redux";
 
 class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
@@ -23,6 +23,7 @@ type mapStateToPropsType = {
 
 type mapDispatchToPropsType = {
   checkAuthTC: () => void
+  logOutTC: () => void
 }
 
 export type HeaderPropsType = mapDispatchToPropsType & mapStateToPropsType
@@ -33,9 +34,10 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 const actionCreators = {
-  checkAuthTC
+  checkAuthTC,
+  logOutTC
 }
 
-export default compose<React.ComponentType>(
+export default compose<any>(
   connect (mapStateToProps, actionCreators)
 )(HeaderContainer)

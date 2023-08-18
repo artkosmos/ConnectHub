@@ -48,6 +48,22 @@ export const socialNetworkApi = {
       throw new Error('Something went wrong\n' + error)
     }
   },
+  async logIn(data: LoginFormSubmitType) {
+    try {
+      const response = await instance.post<ResponseType<{userId: number}>>(`auth/login`, data)
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
+  },
+  async logOut() {
+    try {
+      const response = await instance.delete<ResponseType>(`auth/login`)
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
+  },
   async getProfileStatus(userId: string) {
     try {
       const response = await instance.get<string>(`profile/status/${userId}`)

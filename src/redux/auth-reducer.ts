@@ -41,12 +41,15 @@ export const setLoginUser = (userId: number | undefined, email: string | undefin
 }
 
 export const checkAuthTC = (): AppThunk => (dispatch: AppDispatch) => {
+  debugger
   socialNetworkApi.checkAuth()
     .then(data => {
       if (data.resultCode === 0) {
+        debugger
         const {id, email, login} = data.data
         dispatch(setLoginUser(id, email, login, true))
       } else {
+        debugger
         dispatch(setLoginUser(undefined, undefined, undefined, false))
       }
     })
@@ -64,10 +67,11 @@ export const logInTC = (data: LoginFormSubmitType): AppThunk => (dispatch: AppDi
 }
 
 export const logOutTC = (): AppThunk => (dispatch: AppDispatch) => {
+  debugger
   socialNetworkApi.logOut()
     .then(data => {
       if (data.resultCode === 0) {
-        dispatch(checkAuthTC)
+        dispatch(checkAuthTC())
       } else {
         alert(data.messages[0])
       }
