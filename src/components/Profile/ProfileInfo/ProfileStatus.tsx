@@ -21,7 +21,6 @@ export class ProfileStatus extends React.Component<StatusPropsType, StatusStateT
   }
 
   componentDidUpdate(prevProps: Readonly<StatusPropsType>, prevState: Readonly<StatusStateType>) {
-    console.log('componentDidUpdate')
     let a = this.props
     let b = this.state
     if (prevProps.status !== this.props.status) {
@@ -43,8 +42,6 @@ export class ProfileStatus extends React.Component<StatusPropsType, StatusStateT
   }
 
   render = () => {
-    console.log('localState:' + this.state.status)
-    console.log('render')
     return (
       <div className={style.statusWrapper}>
         {!this.state.isEdit && <span onDoubleClick={this.editStatusOn}>{this.props.status || '-'}</span>}

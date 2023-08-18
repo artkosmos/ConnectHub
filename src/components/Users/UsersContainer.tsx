@@ -83,7 +83,7 @@ const actionCreators = {
   getUsersTC
 }
 
-export default compose<React.ComponentType>(
+export default compose<any>(
   connect(mapStateToProps, actionCreators)
 )(UsersAPI)
 

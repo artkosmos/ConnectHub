@@ -41,15 +41,12 @@ export const setLoginUser = (userId: number | undefined, email: string | undefin
 }
 
 export const checkAuthTC = (): AppThunk => (dispatch: AppDispatch) => {
-  debugger
   socialNetworkApi.checkAuth()
     .then(data => {
       if (data.resultCode === 0) {
-        debugger
         const {id, email, login} = data.data
         dispatch(setLoginUser(id, email, login, true))
       } else {
-        debugger
         dispatch(setLoginUser(undefined, undefined, undefined, false))
       }
     })

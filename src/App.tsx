@@ -8,13 +8,9 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import RouterProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {useSelector} from "react-redux";
-import {StateType} from "./redux/redux-store";
 import Login from "./components/Login/Login";
 
 function App() {
-
-  const isAuth = useSelector<StateType, boolean>(state => state.auth.isLogIn)
 
   return (
     <BrowserRouter>
