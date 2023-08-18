@@ -8,10 +8,9 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import RouterProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
 import {useSelector} from "react-redux";
 import {StateType} from "./redux/redux-store";
-import {Preloader} from "./components/Preloader/Preloader";
+import Login from "./components/Login/Login";
 
 function App() {
 
@@ -23,19 +22,17 @@ function App() {
         <HeaderContainer/>
         <div className="menuAndContentWrapper">
           <Menu/>
-          {isAuth
-            ? <div className="contentWrapper">
-              <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
-              <Route exact path="/profile" component={RouterProfileContainer}/>
-              <Route exact path="/profile/:userId" component={RouterProfileContainer}/>
-              <Route path="/dialogs" component={DialogsContainer}/>
-              <Route path="/news" component={News}/>
-              <Route path="/music" component={Music}/>
-              <Route path="/users" component={UsersContainer}/>
-              <Route path="/settings" component={Settings}/>
-              <Route path="/login" component={Login}/>
-            </div>
-            : <Preloader/>}
+          <div className="contentWrapper">
+            <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
+            <Route exact path="/profile" component={RouterProfileContainer}/>
+            <Route exact path="/profile/:userId" component={RouterProfileContainer}/>
+            <Route path="/dialogs" component={DialogsContainer}/>
+            <Route path="/news" component={News}/>
+            <Route path="/music" component={Music}/>
+            <Route path="/users" component={UsersContainer}/>
+            <Route path="/settings" component={Settings}/>
+            <Route path="/login" component={Login}/>
+          </div>
         </div>
       </div>
     </BrowserRouter>

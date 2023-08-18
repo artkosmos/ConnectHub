@@ -1,4 +1,5 @@
 import axios from "axios";
+import {LoginFormSubmitType} from "../components/Login/LoginForm";
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',

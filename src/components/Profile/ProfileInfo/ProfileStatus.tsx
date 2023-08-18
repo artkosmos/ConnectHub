@@ -44,7 +44,6 @@ export class ProfileStatus extends React.Component<StatusPropsType, StatusStateT
 
   render = () => {
     console.log('localState:' + this.state.status)
-    debugger
     console.log('render')
     return (
       <div className={style.statusWrapper}>

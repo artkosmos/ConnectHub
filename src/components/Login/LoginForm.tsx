@@ -8,13 +8,21 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import {LoginFormPropsType} from "./Login";
+import {Redirect} from "react-router-dom";
 
 type ValidateFieldType = {
   email?: string
   password?: string
 }
 
-export function LoginForm() {
+export type LoginFormSubmitType = {
+  email: string
+  password: string
+  rememberMe: boolean
+}
+
+export function LoginForm(props: LoginFormPropsType) {
 
   const formik = useFormik({
     initialValues: {
@@ -23,6 +31,7 @@ export function LoginForm() {
       rememberMe: false
     },
     onSubmit: values => {
+      props.logInTC(values)
       formik.resetForm()
     },
     validate: (values => {
@@ -45,6 +54,10 @@ export function LoginForm() {
       return errors
     })
   })
+
+  if (props.isAuth) {
+    return <Redirect to={'/profile'}/>
+  }
 
   return (
   <Grid container justifyContent={'center'}>
