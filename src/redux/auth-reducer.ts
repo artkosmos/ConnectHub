@@ -2,26 +2,30 @@ import {AppDispatch, AppThunk} from "./redux-store";
 import {socialNetworkApi} from "../API/social-network-api";
 import {LoginFormSubmitType} from "../components/Login/LoginForm";
 
-type ActionType = setLoginUserACType
+type ActionType = setLoginUserACType | setErrorACType
 
 export type AuthStateType = {
   userId: number | undefined
   email: string | undefined
   login: string | undefined
   isLogIn: boolean
+  authError: null | string
 }
 
 const initialState = {
   userId: undefined,
   email: undefined,
   login: undefined,
-  isLogIn: false
+  isLogIn: false,
+  authError: null
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionType): AuthStateType => {
   switch (action.type) {
     case "SET-LOGIN-USER":
       return {...state,...action.payload}
+    case "SET-AUTH-ERROR":
+      return {...state, authError: action.payload.error}
     default:
       return state
   }
@@ -36,6 +40,16 @@ export const setLoginUser = (userId: number | undefined, email: string | undefin
       email,
       login,
       isLogIn
+    }
+  } as const
+}
+
+type setErrorACType = ReturnType<typeof setErrorAC>
+export const setErrorAC = (error: null | string) => {
+  return {
+    type: "SET-AUTH-ERROR",
+    payload: {
+      error
     }
   } as const
 }
@@ -57,8 +71,9 @@ export const logInTC = (data: LoginFormSubmitType): AppThunk => (dispatch: AppDi
     .then(data => {
       if (data.resultCode === 0) {
         dispatch(checkAuthTC())
+        dispatch(setErrorAC(null))
       } else {
-        alert(data.messages[0])
+        dispatch(setErrorAC(data.messages[0]))
       }
     })
 }

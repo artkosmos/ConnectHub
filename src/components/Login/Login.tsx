@@ -6,11 +6,11 @@ import {logInTC} from "../../redux/auth-reducer";
 import {StateType} from "../../redux/redux-store";
 
 
-
 function Login(props: LoginFormPropsType) {
   return (
-    <div>
+    <div className={style.loginContent}>
       <h3 className={style.title}>You're not in the system. Please log in</h3>
+      {props.authError && <span className={style.authError}>{props.authError}</span>}
       <LoginForm {...props}/>
     </div>
   )
@@ -18,6 +18,7 @@ function Login(props: LoginFormPropsType) {
 
 type mapStateToPropsType = {
   isAuth: boolean
+  authError: null | string
 }
 
 type mapDispatchToPropsType = {
@@ -27,7 +28,8 @@ type mapDispatchToPropsType = {
 export type LoginFormPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps= (state: StateType) => ({
-  isAuth: state.auth.isLogIn
+  isAuth: state.auth.isLogIn,
+  authError: state.auth.authError
 })
 
 const actionCreators = {

@@ -89,7 +89,7 @@ export function LoginForm(props: LoginFormPropsType) {
               checked={formik.values.rememberMe}
               {...formik.getFieldProps('rememberMe')}
             />
-            <Button type={'submit'} variant={'contained'} color={'primary'}>
+            <Button sx={{backgroundColor: '#55abec'}} type={'submit'} variant={'contained'} color={'primary'}>
               Login
             </Button>
           </FormGroup>
