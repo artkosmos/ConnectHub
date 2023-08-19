@@ -4,6 +4,7 @@ import {ProfilePropsType} from "../ProfileContainer";
 import {Preloader} from "../../Preloader/Preloader";
 import avatar from "../../Dialogs/DialogItem/avatar1.png";
 import {ProfileStatus} from "./ProfileStatus";
+import MyPostsContainer from "../MyPosts/MyPostsContainer";
 
 const ProfileInfo = (props: ProfilePropsType) => {
 
@@ -39,6 +40,7 @@ const ProfileInfo = (props: ProfilePropsType) => {
             </div>
           </div>
         </div>
+        <MyPostsContainer/>
       </>
   )
 }

@@ -6,10 +6,6 @@ import {AuthStateType, checkAuthTC, logOutTC} from "../../redux/auth-reducer";
 import {compose} from "redux";
 
 class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
-  
-  componentDidMount() {
-    this.props.checkAuthTC()
-  }
 
   render() {
     return <Header {...this.props}/>

@@ -15,7 +15,7 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
   componentDidMount() {
     let userId = this.props.match.params.userId
     if (!userId) {
-      userId = '29283'
+      userId = `${this.props.userId}`
     }
     this.props.getProfileTC(userId)
     this.props.getProfileStatusTC(userId)
@@ -35,6 +35,7 @@ type mapStateToPropsType = {
   preloader: boolean
   isAuth: boolean
   status: string
+  userId: number | undefined
 }
 
 type mapDispatchToProps = {
@@ -49,7 +50,8 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
   userProfile: state.profilePage.userProfile,
   preloader: state.profilePage.preloader,
   isAuth: state.auth.isLogIn,
-  status: state.profilePage.status
+  status: state.profilePage.status,
+  userId: state.auth.userId
 })
 
 const actionCreators = {
