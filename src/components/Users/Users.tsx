@@ -4,6 +4,7 @@ import React from "react";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import {AppUserType} from "../../redux/users-reducer";
+import {Pagination} from "@mui/material";
 
 type UsersPropsType = {
   pages: number[]
@@ -17,16 +18,22 @@ type UsersPropsType = {
 }
 
 export const Users = (props: UsersPropsType) => {
+
+  const paginationHandler = (event: React.ChangeEvent<unknown>, page: number) => {
+    props.changeCurrentPage(page)
+  }
+
   return (
     <div className={style.users}>
       <div className={style.pages}>
-        {props.pages.map(item =>
-          <span
-            key={item}
-            className={props.currentUsersPage === item ? `${style.page} ${style.currentPage}` : style.page}
-            onClick={() => props.changeCurrentPage(item)}
-          >{item}
-          </span>)}
+        <Pagination
+          count={props.pages.length}
+          variant="outlined"
+          shape="rounded"
+          color={"primary"}
+          onChange={paginationHandler}
+          boundaryCount={3}
+        />
       </div>
       {props.preloader
         ? <Preloader/>
