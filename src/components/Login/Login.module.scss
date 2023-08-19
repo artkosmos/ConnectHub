@@ -1,4 +1,18 @@
-.title {
-  text-align: center;
-  margin: 30px 0;
+.loginContent {
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .title {
+    text-align: center;
+    margin: 0 0 10px;
+  }
+
+  .authError {
+    color: red;
+    font-weight: bold;
+  }
 }
