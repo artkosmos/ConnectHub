@@ -1,6 +1,7 @@
 import {AppDispatch, AppThunk} from "./redux-store";
 import {socialNetworkApi} from "../API/social-network-api";
 import {LoginFormSubmitType} from "../components/Login/LoginForm";
+import {setAppStatus} from "./app-reducer";
 
 type ActionType = setLoginUserACType | setErrorACType
 
@@ -54,16 +55,16 @@ export const setErrorAC = (error: null | string) => {
   } as const
 }
 
-export const checkAuthTC = (): AppThunk => (dispatch: AppDispatch) => {
-  socialNetworkApi.checkAuth()
-    .then(data => {
-      if (data.resultCode === 0) {
-        const {id, email, login} = data.data
-        dispatch(setLoginUser(id, email, login, true))
-      } else {
-        dispatch(setLoginUser(undefined, undefined, undefined, false))
-      }
-    })
+export const checkAuthTC = (): AppThunk => async (dispatch: AppDispatch) => {
+  const data = await socialNetworkApi.checkAuth();
+  if (data.resultCode === 0) {
+    const {id, email, login} = data.data;
+    dispatch(setLoginUser(id, email, login, true));
+    dispatch(setAppStatus('succeed'))
+  } else {
+    dispatch(setLoginUser(undefined, undefined, undefined, false));
+    dispatch(setAppStatus('failed'))
+  }
 }
 
 export const logInTC = (data: LoginFormSubmitType): AppThunk => (dispatch: AppDispatch) => {

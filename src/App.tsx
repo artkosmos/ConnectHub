@@ -1,4 +1,4 @@
-import './App.scss';
+import style from './App.module.scss';
 import Menu from "./components/Menu/Menu";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import News from "./components/News/News";
@@ -9,16 +9,36 @@ import UsersContainer from "./components/Users/UsersContainer";
 import RouterProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, StateType} from "./redux/redux-store";
+import {checkAuthTC} from "./redux/auth-reducer";
+import {InitializationAppStatusType} from "./redux/app-reducer";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function App() {
 
+  const dispatch = useDispatch<AppDispatch>()
+  const initialization = useSelector<StateType, InitializationAppStatusType>(
+    state => state.app.initialization)
+
+  useEffect(() => {
+    dispatch(checkAuthTC())
+  })
+
+  if (initialization === 'process') {
+    return <div className={style.preloader}>
+      <CircularProgress sx={{width: '100%'}}/>
+    </div>
+  }
+
   return (
     <BrowserRouter>
-      <div className="appWrapper">
+      <div className={style.appWrapper}>
         <HeaderContainer/>
-        <div className="menuAndContentWrapper">
+        <div className={style.menuAndContentWrapper}>
           <Menu/>
-          <div className="contentWrapper">
+          <div className={style.contentWrapper}>
             <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
             <Route exact path="/profile" component={RouterProfileContainer}/>
             <Route exact path="/profile/:userId" component={RouterProfileContainer}/>
