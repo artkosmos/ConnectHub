@@ -1,30 +1,33 @@
-import {DialogPageType, sendMessageAC} from "../../redux/dialogs-reducer";
+import {DialogType, MessageType, sendMessage} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {compose, Dispatch} from "redux";
+import {compose} from "redux";
+import {getDialogs, getMessages, isAuthorized} from "../../selectors/selectors";
 
-export type DataDialogsPropsType = {
-  state: DialogPageType
+type MapStateToPropsType = {
   isAuth: boolean
+  dialogs: DialogType[]
+  messages: MessageType[]
 }
 
-export type CallBacksDialogsPropsType = {
+type MapDispatchToPropsType = {
   sendMessage: (message: string) => void
 }
 
-const data = (state: StateType): DataDialogsPropsType => {
+export type DialogsPropsType  = MapStateToPropsType & MapDispatchToPropsType
+
+const mapDispatchToProps = (state: StateType) => {
   return {
-    state: state.dialogPage,
-    isAuth: state.auth.isLogIn
+    dialogs: getDialogs(state),
+    messages: getMessages(state),
+    isAuth: isAuthorized(state)
   }
 }
-const callBacks = (dispatch: Dispatch): CallBacksDialogsPropsType => {
-  return {
-    sendMessage: (message: string) => dispatch(sendMessageAC(message)),
-  }
+const actionCreators = {
+  sendMessage
 }
 
 export default compose(
-  connect(data, callBacks)
+  connect(mapDispatchToProps, actionCreators)
 )(Dialogs)

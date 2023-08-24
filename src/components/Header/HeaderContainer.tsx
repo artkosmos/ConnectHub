@@ -4,6 +4,7 @@ import Header from "./Header";
 import {StateType} from "../../redux/redux-store";
 import {AuthStateType, checkAuthTC, logOutTC} from "../../redux/auth-reducer";
 import {compose} from "redux";
+import {getAuthUserLogin, isAuthorized} from "../../selectors/selectors";
 
 class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
 
@@ -12,21 +13,21 @@ class HeaderContainer extends React.Component<HeaderPropsType, AuthStateType> {
   }
 }
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
   login: string | undefined
   isAuth: boolean
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
   checkAuthTC: () => void
   logOutTC: () => void
 }
 
-export type HeaderPropsType = mapDispatchToPropsType & mapStateToPropsType
+export type HeaderPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-const mapStateToProps = (state: StateType) => ({
-  login: state.auth.login,
-  isAuth: state.auth.isLogIn
+const mapStateToProps = (state: StateType): MapStateToPropsType => ({
+  login: getAuthUserLogin(state),
+  isAuth: isAuthorized(state)
 })
 
 const actionCreators = {

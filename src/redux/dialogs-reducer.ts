@@ -48,8 +48,8 @@ export const dialogReducer = (state: DialogPageType = initialState, action: Acti
   }
 }
 
-export type SendMessageACType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = (message: string) => {
+export type SendMessageACType = ReturnType<typeof sendMessage>
+export const sendMessage = (message: string) => {
   return {
     type: "SEND-MESSAGE",
     message

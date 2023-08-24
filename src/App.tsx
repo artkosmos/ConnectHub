@@ -8,13 +8,14 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import RouterProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
+import Login from "./components/Login/LoginContainer";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, StateType} from "./redux/redux-store";
 import {checkAuthTC} from "./redux/auth-reducer";
 import {InitializationAppStatusType} from "./redux/app-reducer";
-import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 function App() {
 
@@ -27,9 +28,7 @@ function App() {
   })
 
   if (initialization === 'process') {
-    return <div className={style.preloader}>
-      <CircularProgress sx={{width: '100%'}}/>
-    </div>
+    return <LinearProgress sx={{height: '10px'}} />
   }
 
   return (

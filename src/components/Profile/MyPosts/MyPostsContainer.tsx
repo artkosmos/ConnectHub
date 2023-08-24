@@ -1,29 +1,29 @@
-import {addPostAC, ProfilePageType} from "../../../redux/profile-reducer";
+import {addPost, PostType} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
+import {getProfilePosts} from "../../../selectors/selectors";
 
-export type DataMyPostsPropsType = {
-  state: ProfilePageType
+type MapStateToPropsType = {
+  posts:  PostType[]
 }
 
-export type CallBacksMyPostsPropsType = {
-  sendPost: (message: string) => void
+type MapDispatchToPropsType = {
+  addPost: (message: string) => void
 }
 
-const data = (state: StateType): DataMyPostsPropsType  => {
+export type MyPostsPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: StateType): MapStateToPropsType  => {
   return {
-    state: state.profilePage
+    posts: getProfilePosts(state)
   }
 }
 
-const callBacks = (dispatch: Dispatch): CallBacksMyPostsPropsType => {
-  return {
-    sendPost: (message: string) => dispatch(addPostAC(message)),
-  }
+const actionCreators = {
+  addPost
 }
 
-const MyPostsContainer = connect(data, callBacks)(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, actionCreators)(MyPosts)
 
 export default MyPostsContainer;

@@ -6,13 +6,18 @@ import {
   setPreloader,
   setUsers,
   unfollowTC,
-  UsersPageType,
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import React from "react";
 import {Users} from "./Users";
 import {Redirect} from "react-router-dom";
 import {compose} from "redux";
+import {
+  getCurrentUsersPage, getFollowingInProgress, getTotalUsersCount, getUsers,
+  getUsersCountToDisplay,
+  getUsersPagePreloader,
+  isAuthorized
+} from "../../selectors/selectors";
 
 export class UsersAPI extends React.Component<UsersPropsType> { // принимает типизацию props и state
   constructor(props: UsersPropsType) {
@@ -20,28 +25,28 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
   }
 
   componentDidMount() {
-    this.props.getUsersTC(this.props.state.countUsers, this.props.state.currentUsersPage)
+    this.props.getUsersTC(this.props.countUsers, this.props.currentUsersPage)
   }
 
   changeCurrentPage = (page: number) => {
     this.props.setCurrentPage(page)
-    this.props.getUsersTC(this.props.state.countUsers, page)
+    this.props.getUsersTC(this.props.countUsers, page)
 
   }
   render = () => {
     if (!this.props.isAuth) {
       return <Redirect to={'/login'}/>
     }
-    const pagesCount = Math.ceil(this.props.state.totalUsersCount / this.props.state.countUsers)
+    const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.countUsers)
     const pages = Array.from({length: pagesCount}, (_, index) => index + 1)
     return (
       <Users
-        preloader={this.props.state.preloader}
+        preloader={this.props.preloader}
         pages={pages}
-        currentUsersPage={this.props.state.currentUsersPage}
+        currentUsersPage={this.props.currentUsersPage}
         changeCurrentPage={this.changeCurrentPage}
-        users={this.props.state.users}
-        followingInProgress={this.props.state.followingInProgress}
+        users={this.props.users}
+        followingInProgress={this.props.followingInProgress}
         follow={this.props.followTC}
         unfollow={this.props.unfollowTC}
       />
@@ -49,12 +54,17 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
   }
 }
 
-type mapStateToPropsType = {
-  state: UsersPageType
+type MapStateToPropsType = {
   isAuth: boolean
+  countUsers: number
+  currentUsersPage: number
+  preloader: boolean
+  totalUsersCount: number
+  followingInProgress: number[]
+  users: AppUserType[]
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
   setUsers: (users: AppUserType[]) => void
   setCurrentPage: (page: number) => void
   setPreloader: (value: boolean) => void
@@ -63,12 +73,17 @@ type mapDispatchToPropsType = {
   getUsersTC: (count: number, page: number) => void
 }
 
-export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const mapStateToProps = (state: StateType): mapStateToPropsType => {
+const mapStateToProps = (state: StateType): MapStateToPropsType => {
   return {
-    state: state.usersPage,
-    isAuth: state.auth.isLogIn
+    countUsers: getUsersCountToDisplay(state),
+    currentUsersPage: getCurrentUsersPage(state),
+    preloader: getUsersPagePreloader(state),
+    totalUsersCount: getTotalUsersCount(state),
+    users: getUsers(state),
+    followingInProgress: getFollowingInProgress(state),
+    isAuth: isAuthorized(state)
   }
 }
 

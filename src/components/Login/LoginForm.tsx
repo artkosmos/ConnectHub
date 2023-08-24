@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {LoginFormPropsType} from "./Login";
+import {LoginFormPropsType} from "./LoginContainer";
 import {Redirect} from "react-router-dom";
 
 type ValidateFieldType = {

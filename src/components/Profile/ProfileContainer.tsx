@@ -7,6 +7,13 @@ import {ResponseProfileType} from "../../API/social-network-api";
 import {compose} from "redux";
 import {withRedirect} from "../../utils/redirectHOC";
 import Profile from "./Profile";
+import {
+  getAuthUserId,
+  getProfilePreloader,
+  getProfileStatus,
+  getUserProfile,
+  isAuthorized
+} from "../../selectors/selectors";
 
 
 
@@ -30,7 +37,7 @@ type PathParamsType = {
 
 type CommonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
   userProfile: ResponseProfileType
   preloader: boolean
   isAuth: boolean
@@ -38,20 +45,20 @@ type mapStateToPropsType = {
   userId: number | undefined
 }
 
-type mapDispatchToProps = {
+type MapDispatchToProps = {
   getProfileTC: (userId: string) => void
   getProfileStatusTC: (userId: string) => void
   updateProfileStatusTC: (status: string) => void
 }
 
-export type ProfilePropsType = mapDispatchToProps & mapStateToPropsType
+export type ProfilePropsType = MapDispatchToProps & MapStateToPropsType
 
-const mapStateToProps = (state: StateType): mapStateToPropsType => ({
-  userProfile: state.profilePage.userProfile,
-  preloader: state.profilePage.preloader,
-  isAuth: state.auth.isLogIn,
-  status: state.profilePage.status,
-  userId: state.auth.userId
+const mapStateToProps = (state: StateType): MapStateToPropsType => ({
+  userProfile: getUserProfile(state),
+  preloader: getProfilePreloader(state),
+  isAuth: isAuthorized(state),
+  status: getProfileStatus(state),
+  userId: getAuthUserId(state)
 })
 
 const actionCreators = {

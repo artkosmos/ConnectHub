@@ -49,8 +49,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 
 
-export type AddPostActionACType = ReturnType<typeof addPostAC>
-export const addPostAC = (message: string) => {
+export type AddPostActionACType = ReturnType<typeof addPost>
+export const addPost = (message: string) => {
   return {
     type: "ADD-POST",
     message

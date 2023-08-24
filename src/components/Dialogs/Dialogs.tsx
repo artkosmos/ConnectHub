@@ -2,12 +2,11 @@ import style from "./Dialogs.module.scss"
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
 import React from "react";
-import {CallBacksDialogsPropsType, DataDialogsPropsType} from "./DialogsContainer";
 import {Redirect} from "react-router-dom";
-import {Field, Form} from "react-final-form";
 import {SendMessageForm} from "../SenMessageForm/SendMessageForm";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType  = DataDialogsPropsType & CallBacksDialogsPropsType
+
 
 function Dialogs(props: DialogsPropsType) {
 
@@ -15,13 +14,13 @@ function Dialogs(props: DialogsPropsType) {
     return <Redirect to={'/login'}/>
   }
 
-  const mappedDialogs = props.state.dialogs.map((item) => {
+  const mappedDialogs = props.dialogs.map((item) => {
     return (
       <DialogItem key={item.id} name={item.name} id={item.id} />
     )
   })
 
-  const mappedMessages = props.state.messages.map((item) => {
+  const mappedMessages = props.messages.map((item) => {
     return (
       <MessageItem key={item.id} message={item.message} />
     )

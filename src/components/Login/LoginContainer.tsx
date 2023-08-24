@@ -4,9 +4,10 @@ import {LoginForm, LoginFormSubmitType} from "./LoginForm";
 import {connect} from "react-redux";
 import {logInTC} from "../../redux/auth-reducer";
 import {StateType} from "../../redux/redux-store";
+import {getAuthError, isAuthorized} from "../../selectors/selectors";
 
 
-function Login(props: LoginFormPropsType) {
+function LoginContainer(props: LoginFormPropsType) {
   return (
     <div className={style.loginContent}>
       <h3 className={style.title}>You're not in the system. Please log in</h3>
@@ -16,24 +17,24 @@ function Login(props: LoginFormPropsType) {
   )
 }
 
-type mapStateToPropsType = {
+type MapStateToPropsType = {
   isAuth: boolean
   authError: null | string
 }
 
-type mapDispatchToPropsType = {
+type MapDispatchToPropsType = {
   logInTC: (data: LoginFormSubmitType) => void
 }
 
-export type LoginFormPropsType = mapStateToPropsType & mapDispatchToPropsType
+export type LoginFormPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const mapStateToProps= (state: StateType) => ({
-  isAuth: state.auth.isLogIn,
-  authError: state.auth.authError
+const mapStateToProps= (state: StateType): MapStateToPropsType => ({
+  isAuth: isAuthorized(state),
+  authError: getAuthError(state)
 })
 
 const actionCreators = {
   logInTC
 }
 
-export default connect(mapStateToProps, actionCreators)(Login)
+export default connect(mapStateToProps, actionCreators)(LoginContainer)

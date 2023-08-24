@@ -2,21 +2,21 @@ import React from "react";
 import style from "./MyPosts.module.scss"
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/profile-reducer";
-import {CallBacksMyPostsPropsType, DataMyPostsPropsType} from "./MyPostsContainer";
 import {SendPostForm} from "../../SendPostForm/SendPostForm";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = DataMyPostsPropsType & CallBacksMyPostsPropsType
+
 
 function MyPosts(props: MyPostsPropsType) {
 
-  const mappedPosts = props.state.posts.map((item: PostType) => {
+  const mappedPosts = props.posts.map((item: PostType) => {
     return (
       <Post key={item.id} message={item.message} likes={item.likes}/>
     )
   })
 
   const onClickSendPostHandler = (message: string) => {
-    props.sendPost(message)
+    props.addPost(message)
   }
 
   return (
