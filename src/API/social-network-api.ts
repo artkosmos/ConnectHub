@@ -11,7 +11,7 @@ export const socialNetworkApi = {
     try {
       const response = await instance.get<ResponseUsersType>(
         `users?count=${count}&page=${currentPage}`)
-      return response.data.items;
+      return response.data;
     } catch (error) {
       throw new Error('Something went wrong\n' + error)
     }

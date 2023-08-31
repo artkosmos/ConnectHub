@@ -7,7 +7,7 @@ import {AppUserType} from "../../redux/users-reducer";
 import {Pagination} from "@mui/material";
 
 type UsersPropsType = {
-  pages: number[]
+  pages: number
   currentUsersPage: number
   changeCurrentPage: (page: number) => void
   users: AppUserType[]
@@ -27,7 +27,7 @@ export const Users = (props: UsersPropsType) => {
     <div className={style.users}>
       <div className={style.pages}>
         <Pagination
-          count={props.pages.length}
+          count={props.pages}
           variant="outlined"
           shape="rounded"
           color={"primary"}

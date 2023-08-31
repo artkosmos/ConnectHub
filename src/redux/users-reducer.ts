@@ -19,13 +19,14 @@ type ActionType =
   | SetUsersACType
   | SetCurrentPageACType
   | SetPreloaderACType
-  | setDisableButtonACType
-  | removeDisableButtonACType
+  | SetDisableButtonACType
+  | RemoveDisableButtonACType
+  | SetTotalCountUserACType
 
 const initialState: UsersPageType = {
   users: [],
   countUsers: 10,
-  totalUsersCount: 200,
+  totalUsersCount: 0,
   currentUsersPage: 1,
   preloader: false,
   followingInProgress: []
@@ -47,6 +48,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
       return {...state, followingInProgress: [...state.followingInProgress, action.userId]}
     case "REMOVE-DISABLE-BUTTON":
       return {...state, followingInProgress: state.followingInProgress.filter(item => item !== action.userId)}
+    case "SET-TOTAL-COUNT-USER":
+      return {...state, totalUsersCount: action.totalCount}
     default:
       return state
   }
@@ -92,7 +95,7 @@ export const setPreloader = (value: boolean) => {
   } as const
 }
 
-type setDisableButtonACType = ReturnType<typeof setDisableButton>
+type SetDisableButtonACType = ReturnType<typeof setDisableButton>
 export const setDisableButton = (userId: number) => {
   return {
     type: "SET-DISABLE-BUTTON",
@@ -100,11 +103,19 @@ export const setDisableButton = (userId: number) => {
   } as const
 }
 
-type removeDisableButtonACType = ReturnType<typeof removeDisableButton>
+type RemoveDisableButtonACType = ReturnType<typeof removeDisableButton>
 export const removeDisableButton = (userId: number) => {
   return {
     type: "REMOVE-DISABLE-BUTTON",
     userId
+  } as const
+}
+
+type SetTotalCountUserACType = ReturnType<typeof setTotalCountUser>
+export const setTotalCountUser = (totalCount: number) => {
+  return {
+    type: "SET-TOTAL-COUNT-USER",
+    totalCount
   } as const
 }
 
@@ -132,6 +143,9 @@ export const unfollowTC = (userId: number): AppThunk => (dispatch: AppDispatch) 
 export const getUsersTC = (count: number, page: number): AppThunk => (dispatch: AppDispatch) => {
   dispatch(setPreloader(true))
   socialNetworkApi.getUsers(count, page)
-    .then(data => dispatch(setUsers(data)))
+    .then(data => {
+      dispatch(setUsers(data.items))
+      dispatch(setTotalCountUser(data.totalCount))
+    })
     .finally(() => dispatch(setPreloader(false)))
 }

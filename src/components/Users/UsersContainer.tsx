@@ -37,12 +37,14 @@ export class UsersAPI extends React.Component<UsersPropsType> { // приним�
     if (!this.props.isAuth) {
       return <Redirect to={'/login'}/>
     }
+
     const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.countUsers)
-    const pages = Array.from({length: pagesCount}, (_, index) => index + 1)
+
     return (
+
       <Users
         preloader={this.props.preloader}
-        pages={pages}
+        pages={pagesCount}
         currentUsersPage={this.props.currentUsersPage}
         changeCurrentPage={this.changeCurrentPage}
         users={this.props.users}
