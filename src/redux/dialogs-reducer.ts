@@ -31,8 +31,8 @@ const initialState: DialogPageType = {
     {id: v1(), message: 'How are you doing?'},
     {id: v1(), message: 'I\'m fine, thanks!'},
     {id: v1(), message: 'What did you do at the weekend?'},
-    {id: v1(), message: 'I went to the cinema on Guardians of Galaxy. Did you see that movie?'},
-    {id: v1(), message: 'Yes, I have already seen it) Good movie!'},
+    {id: v1(), message: 'I went to the cinema'},
+    {id: v1(), message: 'Yes, I have already seen it)'},
     {id: v1(), message: 'I\'m hungry. Let\'s have lunch.'},
     {id: v1(), message: 'Me either. Let\'s go.'},
   ],
@@ -42,7 +42,7 @@ export const dialogReducer = (state: DialogPageType = initialState, action: Acti
   switch (action.type) {
     case "SEND-MESSAGE":
       const newMessage: MessageType = {id: v1(), message: action.message}
-      return {...state, messages: [...state.messages, newMessage]}
+      return {...state, messages: [newMessage, ...state.messages]}
     default:
       return state
   }

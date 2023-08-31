@@ -37,7 +37,9 @@ function Dialogs(props: DialogsPropsType) {
       </div>
       <div className={style.dialogsContent__messagesWrapper}>
         <div className={style.messages}>{mappedMessages}</div>
-        <SendMessageForm callBack={onClickSendMessageHandler}/>
+        <div className={style.sendForm}>
+          <SendMessageForm callBack={onClickSendMessageHandler}/>
+        </div>
       </div>
     </div>
   )
