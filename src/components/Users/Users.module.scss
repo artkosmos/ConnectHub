@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 0.625rem;
 
   .pages {
     display: flex;
@@ -17,7 +17,7 @@
     gap: 2.5rem;
     width: 80%;
     align-self: center;
-    margin-top: 40px;
+    margin-top: 2.5rem;
   }
 
   .userContent {
@@ -29,6 +29,7 @@
     .avatarAndFollow {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 0.625rem;
 
       .photo {
@@ -38,29 +39,29 @@
       }
 
       .button {
+        width: 6.875rem;
+        height: 1.875rem;
         background-color: #55abec;
-        height: 30px;
-        border-radius: 20px;
-        border: none;
-        font-size: 16px;
+        border-radius: 0.625rem;
+        font-size: 0.875rem;
         color: whitesmoke;
 
         &:hover {
-          cursor: pointer;
+          background-color: #1565c0;
         }
 
         &:disabled {
-          background-color: grey;
           opacity: 0.5;
-          border: none;
-          color: black;
         }
       }
 
       .followed {
         color: black;
-        border: 2px solid;
         background-color: transparent;
+
+        &:hover {
+          background-color: rgba(21, 101, 192, 0.1);
+        }
       }
     }
 
@@ -68,16 +69,16 @@
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
-      background-color: #55abec;
-      border-radius: 1.25rem;
-      padding: 0.625rem 1.25rem;
       max-width: 31.25rem;
       width: 100%;
-      color: whitesmoke;
-      box-shadow: 10px 10px 15px 10px rgba(34, 60, 80, 0.2);
+      color: black;
+      height: max-content;
+      min-height: 3.125rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: 10px;
 
-      .nameAndLocation {
-        font-size: 1.125rem;
+      .name {
+        font-size: 1.25rem;
         font-weight: bold;
         display: flex;
         justify-content: space-between;

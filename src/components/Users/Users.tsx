@@ -4,7 +4,8 @@ import React from "react";
 import {Preloader} from "../Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import {AppUserType} from "../../redux/users-reducer";
-import {Pagination} from "@mui/material";
+import {Pagination, Paper} from "@mui/material";
+import Button from "@mui/material/Button";
 
 type UsersPropsType = {
   pages: number
@@ -55,19 +56,21 @@ export const Users = (props: UsersPropsType) => {
                   <NavLink to={`/profile/${item.id}`}>
                     <img className={style.photo} src={item.photos.large ? item.photos.large : avatar} alt="photo"/>
                   </NavLink>
-                  <button
+                  <Button
+                    className={buttonClassName}
                     disabled={props.followingInProgress.includes(item.id)}
                     onClick={onClickHandler}
-                    className={buttonClassName}>{item.followed ? 'Unfollow' : 'Follow'}
-                  </button>
+                    variant={item.followed ? 'outlined' : 'contained'}>
+                    {item.followed ? 'Unfollow' : 'Follow'}
+                  </Button>
                 </div>
-                <div className={style.userInfo}>
-                  <div className={style.nameAndLocation}>
-                    <span className={style.name}>{item.name}</span>
-                    <span className={style.location}>{item.location.country}</span>
-                  </div>
+                <Paper
+                  className={style.userInfo}
+                  elevation={8}
+                >
+                  <span className={style.name}>{item.name}</span>
                   <span className={style.status}>{item.status}</span>
-                </div>
+                </Paper>
               </div>
             )
           })}
