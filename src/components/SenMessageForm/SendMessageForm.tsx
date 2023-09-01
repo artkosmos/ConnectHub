@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './SendMessageForm.module.scss'
 import {useFormik} from "formik";
+import Button from "@mui/material/Button";
 
 type ErrorsType = {
   text?: string
@@ -34,11 +35,12 @@ export const SendMessageForm = ({callBack}: SendMessageFormType) => {
     <form onSubmit={formik.handleSubmit} className={style.formWrapper}>
       <textarea
         className={style.textArea}
+        placeholder={'Write a message...'}
         id="text"
         {...formik.getFieldProps('text')}
       />
-      {formik.errors.text ? <div className={style.error}>{formik.errors.text}</div> : null}
-      <button className={style.button} type="submit">Send message</button>
+      {/*{formik.errors.text ? <div className={style.error}>{formik.errors.text}</div> : null}*/}
+      <Button type={'submit'} className={style.button} size="small" variant="contained">Send</Button>
     </form>
   )
 }

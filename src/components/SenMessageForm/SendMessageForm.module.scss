@@ -10,6 +10,11 @@
     width: 70%;
     height: 1.25rem;
     border-radius: 0.5rem;
+    resize: none;
+    overflow: hidden;
+    &:focus {
+      outline: none;
+    }
   }
 
   .error {
@@ -19,10 +24,9 @@
   }
 
   .button {
-    height: 1.9rem;
-    color: #FFFFFF;
-    background-color: #55aaea;
-    border-radius: 0.3125rem;
-    border-color: #FFF;
+    background-color: #55abec;
+    color: whitesmoke;
+    width: 80px;
+    font-weight: bold;
   }
 }
