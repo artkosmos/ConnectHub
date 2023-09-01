@@ -25,7 +25,7 @@ type ActionType =
 
 const initialState: UsersPageType = {
   users: [],
-  countUsers: 10,
+  countUsers: 20,
   totalUsersCount: 0,
   currentUsersPage: 1,
   preloader: false,

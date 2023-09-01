@@ -1,5 +1,5 @@
 .users {
-  padding: 1.875rem;
+  padding: 1.875rem 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,14 +13,16 @@
 
   .usersList {
     display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    row-gap: 3.125rem;
     align-self: center;
     margin-top: 2.5rem;
+    flex-wrap: wrap ;
   }
 
   .userContent {
+    width: 45%;
     display: flex;
     gap: 3rem;
     align-items: center;
@@ -69,13 +71,12 @@
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
-      max-width: 31.25rem;
       width: 100%;
       color: black;
       height: max-content;
       min-height: 3.125rem;
       padding: 0.625rem 1.25rem;
-      border-radius: 10px;
+      border-radius: 0.625rem;
 
       .name {
         font-size: 1.25rem;

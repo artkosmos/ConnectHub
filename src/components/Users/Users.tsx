@@ -28,6 +28,7 @@ export const Users = (props: UsersPropsType) => {
     <div className={style.users}>
       <div className={style.pages}>
         <Pagination
+          page={props.currentUsersPage}
           count={props.pages}
           variant="outlined"
           shape="rounded"
