@@ -6,6 +6,7 @@ export type ActionProfileType =
   | SetUserProfileACType
   | SetProfilePreloaderACType
   | SetProfileStatusACType
+  | DeletePostACType
 
 export type PostType = {
   id: number
@@ -15,7 +16,7 @@ export type PostType = {
 
 export type ProfilePageType = {
   posts: PostType[]
-  userProfile: any
+  userProfile: null | ResponseProfileType
   preloader: boolean,
   status: string
 }
@@ -27,7 +28,7 @@ const initialState: ProfilePageType = {
     {id: 3, message: 'Let\'s meet the people)', likes: 13},
     {id: 4, message: 'That\'s my first post here!', likes: 6}
   ],
-  userProfile: undefined,
+  userProfile: null,
   preloader: true,
   status: ''
 }
@@ -43,6 +44,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return {...state, preloader: action.value}
     case "SET-PROFILE-STATUS":
       return {...state, status: action.status}
+    case "DELETE-POST":
+      return {...state, posts: state.posts.filter(post => post.id !== action.postId)}
     default:
       return state
   }
@@ -78,6 +81,14 @@ export const setProfileStatus = (status: string) => {
   return {
     type: "SET-PROFILE-STATUS",
     status
+  } as const
+}
+
+type DeletePostACType = ReturnType<typeof deletePost>
+export const deletePost = (postId: number) => {
+  return {
+    type: "DELETE-POST",
+    postId
   } as const
 }
 
