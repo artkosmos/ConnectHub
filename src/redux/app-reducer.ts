@@ -29,9 +29,3 @@ export const setAppStatus = (status: InitializationAppStatusType) => {
     }
   } as const
 }
-
-// export const initializeTC = (): AppThunk => async (dispatch: AppDispatch) => {
-//   dispatch(setAppStatus('process'))
-//   const response = dispatch(checkAuthTC())
-//     .then()
-// }

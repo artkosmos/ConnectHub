@@ -92,29 +92,25 @@ export const deletePost = (postId: number) => {
   } as const
 }
 
-export const getProfileTC = (userId: string): AppThunk => (dispatch: AppDispatch) => {
+export const getProfileTC = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setProfilePreloader(true))
-  socialNetworkApi.getProfile(userId)
-    .then(data => dispatch(setUserProfile(data)))
-    .finally(() => dispatch(setProfilePreloader(false)))
+  const response = await socialNetworkApi.getProfile(userId)
+  dispatch(setUserProfile(response))
+  dispatch(setProfilePreloader(false))
 }
 
-export const getProfileStatusTC = (userId: string): AppThunk => (dispatch: AppDispatch) => {
-  socialNetworkApi.getProfileStatus(userId)
-    .then(data => {
-      if (data === null) {
-        dispatch(setProfileStatus(''))
-      } else {
-        dispatch(setProfileStatus(data))
-      }
-    })
+export const getProfileStatusTC = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
+  const response = await socialNetworkApi.getProfileStatus(userId)
+  if (response === null) {
+    dispatch(setProfileStatus(''))
+  } else {
+    dispatch(setProfileStatus(response))
+  }
 }
 
-export const updateProfileStatusTC = (status: string): AppThunk => (dispatch: AppDispatch) => {
-  socialNetworkApi.updateProfileStatus(status)
-    .then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setProfileStatus(status))
-      }
-    })
+export const updateProfileStatusTC = (status: string): AppThunk => async (dispatch: AppDispatch) => {
+  const response = await socialNetworkApi.updateProfileStatus(status)
+  if (response.resultCode === 0) {
+    dispatch(setProfileStatus(status))
+  }
 }

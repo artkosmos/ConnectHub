@@ -10,7 +10,7 @@ export type UsersPageType = {
   followingInProgress: number[]
 }
 export type AppUserType = UserType & {
-  location: {country: string}
+  location: { country: string }
 }
 
 type ActionType =
@@ -39,7 +39,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     case "UNFOLLOW-TO-USER":
       return {...state, users: state.users.map(item => item.id === action.userID ? {...item, followed: false} : item)}
     case "SET-USERS":
-      return {...state, users: action.users.map(item => ({...item, location:{country: 'Belarus'}}))}
+      return {...state, users: action.users.map(item => ({...item, location: {country: 'Belarus'}}))}
     case "SET-CURRENT-PAGE":
       return {...state, currentUsersPage: action.currentPage}
     case "SET-PRELOADER":
@@ -119,33 +119,28 @@ export const setTotalCountUser = (totalCount: number) => {
   } as const
 }
 
-
-export const followTC = (userId: number): AppThunk => (dispatch: AppDispatch) => {
+export const followTC = (userId: number): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setDisableButton(userId))
-  socialNetworkApi.follow(userId)
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(followUser(userId))
-      }})
-    .finally(() => dispatch(removeDisableButton(userId)))
+  const response = await socialNetworkApi.follow(userId)
+  if (response.resultCode === 0) {
+    dispatch(followUser(userId))
+  }
+  dispatch(removeDisableButton(userId))
 }
 
-export const unfollowTC = (userId: number): AppThunk => (dispatch: AppDispatch) => {
+export const unfollowTC = (userId: number): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setDisableButton(userId))
-  socialNetworkApi.unfollow(userId)
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowUser(userId))
-      }})
-    .finally(() => dispatch(removeDisableButton(userId)))
+  const response = await socialNetworkApi.unfollow(userId)
+  if (response.resultCode === 0) {
+    dispatch(unfollowUser(userId))
+  }
+  dispatch(removeDisableButton(userId))
 }
 
-export const getUsersTC = (count: number, page: number): AppThunk => (dispatch: AppDispatch) => {
+export const getUsersTC = (count: number, page: number): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setPreloader(true))
-  socialNetworkApi.getUsers(count, page)
-    .then(data => {
-      dispatch(setUsers(data.items))
-      dispatch(setTotalCountUser(data.totalCount))
-    })
-    .finally(() => dispatch(setPreloader(false)))
+  const response = await socialNetworkApi.getUsers(count, page)
+  dispatch(setUsers(response.items))
+  dispatch(setTotalCountUser(response.totalCount))
+  dispatch(setPreloader(false))
 }

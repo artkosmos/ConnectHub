@@ -24,7 +24,7 @@ const initialState = {
 export const authReducer = (state: AuthStateType = initialState, action: ActionType): AuthStateType => {
   switch (action.type) {
     case "SET-LOGIN-USER":
-      return {...state,...action.payload}
+      return {...state, ...action.payload}
     case "SET-AUTH-ERROR":
       return {...state, authError: action.payload.error}
     default:
@@ -67,26 +67,21 @@ export const checkAuthTC = (): AppThunk => async (dispatch: AppDispatch) => {
   }
 }
 
-export const logInTC = (data: LoginFormSubmitType): AppThunk => (dispatch: AppDispatch) => {
-  socialNetworkApi.logIn(data)
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(checkAuthTC())
-        dispatch(setErrorAC(null))
-      } else {
-        dispatch(setErrorAC(data.messages[0]))
-      }
-    })
+export const logInTC = (data: LoginFormSubmitType): AppThunk => async (dispatch: AppDispatch) => {
+  const response = await socialNetworkApi.logIn(data)
+  if (response.resultCode === 0) {
+    dispatch(checkAuthTC())
+    dispatch(setErrorAC(null))
+  } else {
+    dispatch(setErrorAC(response.messages[0]))
+  }
 }
 
-export const logOutTC = (): AppThunk => (dispatch: AppDispatch) => {
-  debugger
-  socialNetworkApi.logOut()
-    .then(data => {
-      if (data.resultCode === 0) {
-        dispatch(checkAuthTC())
-      } else {
-        alert(data.messages[0])
-      }
-    })
+export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
+  const response = await socialNetworkApi.logOut()
+  if (response.resultCode === 0) {
+    dispatch(checkAuthTC())
+  } else {
+    alert(response.messages[0])
+  }
 }
