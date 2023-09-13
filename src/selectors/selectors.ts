@@ -4,7 +4,7 @@ import {AppUserType} from "../redux/users-reducer";
 import {PostType} from "../redux/profile-reducer";
 import {DialogType, MessageType} from "../redux/dialogs-reducer";
 
-export const getUserProfile = (state: StateType): ResponseProfileType => state.profilePage.userProfile
+export const getUserProfile = (state: StateType): ResponseProfileType | null => state.profilePage.userProfile
 export const getProfilePreloader = (state: StateType): boolean => state.profilePage.preloader
 export const getProfileStatus = (state: StateType): string => state.profilePage.status
 export const getProfilePosts = (state: StateType): PostType[] => state.profilePage.posts

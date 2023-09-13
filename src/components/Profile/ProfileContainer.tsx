@@ -15,8 +15,6 @@ import {
   isAuthorized
 } from "../../selectors/selectors";
 
-
-
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
 
   componentDidMount() {
@@ -38,7 +36,7 @@ type PathParamsType = {
 type CommonPropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
 type MapStateToPropsType = {
-  userProfile: ResponseProfileType
+  userProfile: ResponseProfileType | null
   preloader: boolean
   isAuth: boolean
   status: string
