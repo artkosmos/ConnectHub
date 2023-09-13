@@ -1,5 +1,6 @@
 import {socialNetworkApi, UserType} from "../API/social-network-api";
 import {AppDispatch, AppThunk} from "./redux-store";
+import {handleFollowUnfollow} from "../utils/handle_follow_unfollow";
 
 export type UsersPageType = {
   users: AppUserType[]
@@ -35,9 +36,9 @@ const initialState: UsersPageType = {
 export const usersReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
   switch (action.type) {
     case "FOLLOW-TO-USER":
-      return {...state, users: state.users.map(item => item.id === action.userID ? {...item, followed: true} : item)}
+      return handleFollowUnfollow(state, action.userID, true)
     case "UNFOLLOW-TO-USER":
-      return {...state, users: state.users.map(item => item.id === action.userID ? {...item, followed: false} : item)}
+      return handleFollowUnfollow(state, action.userID, false)
     case "SET-USERS":
       return {...state, users: action.users.map(item => ({...item, location: {country: 'Belarus'}}))}
     case "SET-CURRENT-PAGE":
