@@ -14,25 +14,25 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const editProfileInfoHandler = () => {
-    setIsEdit(!isEdit)
+    setIsEdit(true)
   }
 
   const socialMedia = Object.entries(props.userInfo.contacts)
     .filter(([_, value]) => value)
-    .map((item, index) => <li key={index}>{item[0]}: {item[1]}</li>)
+    .map((item, index) => <li key={index}><span className={style.contactName}>{item[0]}</span>: {item[1]}</li>)
 
   return (
     <>
-      {isEdit && <SendProfileInfoForm callBack={props.updateProfile} userInfo={props.userInfo} />}
+      {isEdit && <SendProfileInfoForm updateProfile={props.updateProfile} isEdit={setIsEdit} userInfo={props.userInfo} />}
       {!isEdit && <>
         <span><b>About me:</b> {props.userInfo.aboutMe}</span>
         {props.userInfo.lookingForAJob &&
           <span><b>Looking for a job:</b> {props.userInfo.lookingForAJobDescription}</span>}
-        <button onClick={editProfileInfoHandler}>Edit</button>
         <ul className={style.socialMediaList}>
           <b>My contacts:</b>
           {socialMedia}
         </ul>
+        <button onClick={editProfileInfoHandler}>Edit profile</button>
       </>}
     </>
   )

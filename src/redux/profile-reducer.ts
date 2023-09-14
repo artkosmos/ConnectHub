@@ -1,4 +1,4 @@
-import {AppDispatch, AppThunk, StateType} from "./redux-store";
+import {AppDispatch, AppThunk} from "./redux-store";
 import {ResponseProfileType, socialNetworkApi} from "../API/social-network-api";
 
 export type ActionProfileType =
