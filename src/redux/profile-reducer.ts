@@ -1,4 +1,4 @@
-import {AppDispatch, AppThunk} from "./redux-store";
+import {AppDispatch, AppThunk, StateType} from "./redux-store";
 import {ResponseProfileType, socialNetworkApi} from "../API/social-network-api";
 
 export type ActionProfileType =
@@ -129,9 +129,19 @@ export const updateProfileStatusTC = (status: string): AppThunk => async (dispat
   }
 }
 
-export const updateProfilePhotoTC = (photo: File): AppThunk => async (dispatch: AppDispatch) => {
+export const updateProfilePhotoTC = (photo: File): AppThunk => async (dispatch: AppDispatch, getState) => {
+  const userId = String(getState().profilePage.userProfile?.userId)
   const response = await socialNetworkApi.uploadPhoto(photo)
   if (response.resultCode === 0) {
     dispatch(setPhoto(response.data))
+    dispatch(getProfileTC(userId))
+  }
+}
+
+export const updateProfileInfoTC = (profile: any): AppThunk => async (dispatch: AppDispatch, getState) => {
+  const userId = String(getState().profilePage.userProfile?.userId)
+  const response = await socialNetworkApi.updateProfile(profile)
+  if (response.resultCode === 0) {
+    dispatch(getProfileTC(userId))
   }
 }

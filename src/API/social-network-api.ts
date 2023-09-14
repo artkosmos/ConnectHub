@@ -94,6 +94,14 @@ export const socialNetworkApi = {
     } catch (error) {
       throw new Error('Something went wrong\n' + error)
     }
+  },
+  async updateProfile(profile: any) {
+    try {
+      const response = await instance.put<ResponseType>(`profile`, profile)
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
   }
 }
 

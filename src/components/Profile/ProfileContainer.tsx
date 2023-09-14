@@ -4,7 +4,7 @@ import React from "react";
 import {
   getProfileStatusTC,
   getProfileTC,
-  ProfilePageType,
+  ProfilePageType, updateProfileInfoTC,
   updateProfilePhotoTC,
   updateProfileStatusTC
 } from "../../redux/profile-reducer";
@@ -54,6 +54,7 @@ type MapDispatchToProps = {
   getProfileStatusTC: (userId: string) => void
   updateProfileStatusTC: (status: string) => void
   updateProfilePhotoTC: (photo: File) => void
+  updateProfileInfoTC: (profile: any) => void
   isMyPage: boolean
 }
 
@@ -71,7 +72,8 @@ const actionCreators = {
   getProfileTC,
   getProfileStatusTC,
   updateProfileStatusTC,
-  updateProfilePhotoTC
+  updateProfilePhotoTC,
+  updateProfileInfoTC
 }
 
 export default compose<any>(
