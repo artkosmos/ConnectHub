@@ -7,6 +7,7 @@ export type ActionProfileType =
   | SetProfilePreloaderACType
   | SetProfileStatusACType
   | DeletePostACType
+  | setPhotoACType
 
 export type PostType = {
   id: number
@@ -46,6 +47,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return {...state, status: action.status}
     case "DELETE-POST":
       return {...state, posts: state.posts.filter(post => post.id !== action.postId)}
+    case "SET-PROFILE-PHOTO":
+      return {
+        ...state,
+        userProfile: state.userProfile ? {...state.userProfile, photos: action.photos} : state.userProfile
+      }
     default:
       return state
   }
@@ -92,6 +98,14 @@ export const deletePost = (postId: number) => {
   } as const
 }
 
+type setPhotoACType = ReturnType<typeof setPhoto>
+export const setPhoto = (photos: { small: string, large: string }) => {
+  return {
+    type: "SET-PROFILE-PHOTO",
+    photos
+  } as const
+}
+
 export const getProfileTC = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setProfilePreloader(true))
   const response = await socialNetworkApi.getProfile(userId)
@@ -112,5 +126,12 @@ export const updateProfileStatusTC = (status: string): AppThunk => async (dispat
   const response = await socialNetworkApi.updateProfileStatus(status)
   if (response.resultCode === 0) {
     dispatch(setProfileStatus(status))
+  }
+}
+
+export const updateProfilePhotoTC = (photo: File): AppThunk => async (dispatch: AppDispatch) => {
+  const response = await socialNetworkApi.uploadPhoto(photo)
+  if (response.resultCode === 0) {
+    dispatch(setPhoto(response.data))
   }
 }

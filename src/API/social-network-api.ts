@@ -50,7 +50,7 @@ export const socialNetworkApi = {
   },
   async logIn(data: LoginFormSubmitType) {
     try {
-      const response = await instance.post<ResponseType<{userId: number}>>(`auth/login`, data)
+      const response = await instance.post<ResponseType<{ userId: number }>>(`auth/login`, data)
       return response.data
     } catch (error) {
       throw new Error('Something went wrong\n' + error)
@@ -75,6 +75,21 @@ export const socialNetworkApi = {
   async updateProfileStatus(status: string) {
     try {
       const response = await instance.put<ResponseType>(`profile/status`, {status})
+      return response.data
+    } catch (error) {
+      throw new Error('Something went wrong\n' + error)
+    }
+  },
+  async uploadPhoto(photo: File) {
+    try {
+      const formData = new FormData()
+      formData.append('image', photo)
+      const response = await instance.put<ResponseType<{ small: string, large: string }>>(`profile/photo`, formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
       return response.data
     } catch (error) {
       throw new Error('Something went wrong\n' + error)

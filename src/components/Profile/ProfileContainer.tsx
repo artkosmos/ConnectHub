@@ -1,7 +1,13 @@
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import React from "react";
-import {getProfileStatusTC, getProfileTC, ProfilePageType, updateProfileStatusTC} from "../../redux/profile-reducer";
+import {
+  getProfileStatusTC,
+  getProfileTC,
+  ProfilePageType,
+  updateProfilePhotoTC,
+  updateProfileStatusTC
+} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ResponseProfileType} from "../../API/social-network-api";
 import {compose} from "redux";
@@ -26,7 +32,7 @@ class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType>
     this.props.getProfileStatusTC(userId)
   }
 
-  render = () => withRedirect(<Profile {...this.props}/>)
+  render = () => withRedirect(<Profile {...this.props} isMyPage={!this.props.match.params.userId}/>)
 }
 
 type PathParamsType = {
@@ -47,6 +53,8 @@ type MapDispatchToProps = {
   getProfileTC: (userId: string) => void
   getProfileStatusTC: (userId: string) => void
   updateProfileStatusTC: (status: string) => void
+  updateProfilePhotoTC: (photo: File) => void
+  isMyPage: boolean
 }
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToPropsType
@@ -56,13 +64,14 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => ({
   preloader: getProfilePreloader(state),
   isAuth: isAuthorized(state),
   status: getProfileStatus(state),
-  userId: getAuthUserId(state)
+  userId: getAuthUserId(state),
 })
 
 const actionCreators = {
   getProfileTC,
   getProfileStatusTC,
-  updateProfileStatusTC
+  updateProfileStatusTC,
+  updateProfilePhotoTC
 }
 
 export default compose<any>(
