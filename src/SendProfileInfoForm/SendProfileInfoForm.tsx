@@ -1,15 +1,16 @@
 import React from 'react';
 import {useFormik} from 'formik';
 import style from './SendProfileInfoForm.module.scss'
-import {ResponseProfileType} from "../API/social-network-api";
+import {ProfileInfoType} from "../API/social-network-api";
 
 type SendProfileInfoFormProps = {
   updateProfile: (profile: any) => void
   isEdit: (value: boolean) => void
-  userInfo: ResponseProfileType
+  userInfo: ProfileInfoType
+  setError: (error: string | null) => void
 }
 
-export const SendProfileInfoForm = ({userInfo, updateProfile, isEdit}: SendProfileInfoFormProps) => {
+export const SendProfileInfoForm = ({userInfo, updateProfile, isEdit, setError}: SendProfileInfoFormProps) => {
 
   const formik = useFormik({
     initialValues: {
@@ -24,8 +25,6 @@ export const SendProfileInfoForm = ({userInfo, updateProfile, isEdit}: SendProfi
         instagram: userInfo.contacts.instagram,
         youtube: userInfo.contacts.youtube,
         website: userInfo.contacts.website,
-        mainLink: userInfo.contacts.mainLink,
-        twitter: userInfo.contacts.twitter
       }
     },
     onSubmit: values => {
@@ -34,6 +33,7 @@ export const SendProfileInfoForm = ({userInfo, updateProfile, isEdit}: SendProfi
   })
   const editProfileInfoHandler = () => {
     isEdit(false)
+    setError(null)
   }
 
   const mappedContacts = Object.entries(userInfo.contacts).map((item, index) => {

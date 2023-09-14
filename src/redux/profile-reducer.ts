@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk} from "./redux-store";
-import {ResponseProfileType, socialNetworkApi} from "../API/social-network-api";
+import {ProfileInfoType, socialNetworkApi} from "../API/social-network-api";
 
 export type ActionProfileType =
   AddPostActionACType
@@ -8,6 +8,7 @@ export type ActionProfileType =
   | SetProfileStatusACType
   | DeletePostACType
   | setPhotoACType
+  | setErrorACType
 
 export type PostType = {
   id: number
@@ -17,9 +18,10 @@ export type PostType = {
 
 export type ProfilePageType = {
   posts: PostType[]
-  userProfile: null | ResponseProfileType
-  preloader: boolean,
+  userProfile: null | ProfileInfoType
+  preloader: boolean
   status: string
+  error: null | string
 }
 
 const initialState: ProfilePageType = {
@@ -31,7 +33,8 @@ const initialState: ProfilePageType = {
   ],
   userProfile: null,
   preloader: true,
-  status: ''
+  status: '',
+  error: null
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
@@ -52,6 +55,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         ...state,
         userProfile: state.userProfile ? {...state.userProfile, photos: action.photos} : state.userProfile
       }
+    case "SET-ERROR":
+      return {...state, error: action.error}
     default:
       return state
   }
@@ -67,7 +72,7 @@ export const addPost = (message: string) => {
 }
 
 export type SetUserProfileACType = ReturnType<typeof setUserProfile>
-export const setUserProfile = (profile: ResponseProfileType) => {
+export const setUserProfile = (profile: ProfileInfoType) => {
   return {
     type: "SET-USER-PROFILE",
     profile
@@ -106,6 +111,14 @@ export const setPhoto = (photos: { small: string, large: string }) => {
   } as const
 }
 
+type setErrorACType = ReturnType<typeof setError>
+export const setError = (error: string | null) => {
+  return {
+    type: "SET-ERROR",
+    error
+  } as const
+}
+
 export const getProfileTC = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
   dispatch(setProfilePreloader(true))
   const response = await socialNetworkApi.getProfile(userId)
@@ -138,10 +151,13 @@ export const updateProfilePhotoTC = (photo: File): AppThunk => async (dispatch: 
   }
 }
 
-export const updateProfileInfoTC = (profile: any): AppThunk => async (dispatch: AppDispatch, getState) => {
+export const updateProfileInfoTC = (profile: ProfileInfoType): AppThunk => async (dispatch: AppDispatch, getState) => {
   const userId = String(getState().profilePage.userProfile?.userId)
   const response = await socialNetworkApi.updateProfile(profile)
   if (response.resultCode === 0) {
     dispatch(getProfileTC(userId))
+    dispatch(setError(null))
+  } else {
+    dispatch(setError(response.messages[0]))
   }
 }

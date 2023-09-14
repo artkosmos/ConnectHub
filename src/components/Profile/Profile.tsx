@@ -36,7 +36,7 @@ function Profile(props: ProfilePropsType) {
               <span className={style.name}>{props.userProfile.fullName}</span>
               <ProfileStatus status={props.status} callBack={props.updateProfileStatusTC}/>
               <ProfileInfo userInfo={props.userProfile} isMyPage={props.isMyPage}
-                           updateProfile={props.updateProfileInfoTC}/>
+                           updateProfile={props.updateProfileInfoTC} error={props.error} setError={props.setError}/>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export const socialNetworkApi = {
   },
   async getProfile(userId: string) {
     try {
-      const response = await instance.get<ResponseProfileType>(`profile/${userId}`)
+      const response = await instance.get<ProfileInfoType>(`profile/${userId}`)
       return response.data
     } catch (error) {
       throw new Error('Something went wrong\n' + error)
@@ -95,7 +95,7 @@ export const socialNetworkApi = {
       throw new Error('Something went wrong\n' + error)
     }
   },
-  async updateProfile(profile: any) {
+  async updateProfile(profile: ProfileInfoType) {
     try {
       const response = await instance.put<ResponseType>(`profile`, profile)
       return response.data
@@ -105,7 +105,7 @@ export const socialNetworkApi = {
   }
 }
 
-export type ResponseProfileType = {
+export type ProfileInfoType = {
   userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: string

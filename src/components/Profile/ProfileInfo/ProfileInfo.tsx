@@ -1,12 +1,14 @@
 import style from "../Profile.module.scss";
-import {ResponseProfileType} from "../../../API/social-network-api";
+import {ProfileInfoType} from "../../../API/social-network-api";
 import React, {useState} from "react";
 import {SendProfileInfoForm} from "../../../SendProfileInfoForm/SendProfileInfoForm";
 
 type ProfileInfoPropsType = {
-  userInfo: ResponseProfileType
+  userInfo: ProfileInfoType
   isMyPage: boolean
   updateProfile: (profile: any) => void
+  error: string | null
+  setError: (error: string | null) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -23,7 +25,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
   return (
     <>
-      {isEdit && <SendProfileInfoForm updateProfile={props.updateProfile} isEdit={setIsEdit} userInfo={props.userInfo} />}
+      {isEdit && <SendProfileInfoForm setError={props.setError} updateProfile={props.updateProfile} isEdit={setIsEdit}
+                                      userInfo={props.userInfo}/>}
       {!isEdit && <>
         <span><b>About me:</b> {props.userInfo.aboutMe}</span>
         {props.userInfo.lookingForAJob &&
@@ -34,6 +37,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         </ul>
         <button onClick={editProfileInfoHandler}>Edit profile</button>
       </>}
+      {props.error && <span>{props.error}</span>}
     </>
   )
 }

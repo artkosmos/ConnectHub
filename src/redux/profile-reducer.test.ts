@@ -20,7 +20,8 @@ beforeEach(() => {
     ],
     userProfile: null,
     preloader: true,
-    status: ''
+    status: '',
+    error: null
   }
 })
 

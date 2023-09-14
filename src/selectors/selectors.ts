@@ -1,13 +1,14 @@
 import {StateType} from "../redux/redux-store";
-import {ResponseProfileType} from "../API/social-network-api";
+import {ProfileInfoType} from "../API/social-network-api";
 import {AppUserType} from "../redux/users-reducer";
 import {PostType} from "../redux/profile-reducer";
 import {DialogType, MessageType} from "../redux/dialogs-reducer";
 
-export const getUserProfile = (state: StateType): ResponseProfileType | null => state.profilePage.userProfile
+export const getUserProfile = (state: StateType): ProfileInfoType | null => state.profilePage.userProfile
 export const getProfilePreloader = (state: StateType): boolean => state.profilePage.preloader
 export const getProfileStatus = (state: StateType): string => state.profilePage.status
 export const getProfilePosts = (state: StateType): PostType[] => state.profilePage.posts
+export const getProfileError = (state: StateType): null | string => state.profilePage.error
 
 export const getAuthUserId = (state: StateType): number | undefined => state.auth.userId
 export const getAuthError = (state: StateType): null | string => state.auth.authError
