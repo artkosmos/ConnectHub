@@ -7,7 +7,11 @@ import {ProfileStatus} from "./ProfileInfo/ProfileStatus";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
-function Profile(props: ProfilePropsType) {
+type Props = ProfilePropsType & {
+  isMyPage: boolean
+}
+
+function Profile(props: Props) {
 
   if (!props.userProfile) {
     return <Preloader/>

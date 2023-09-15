@@ -6,7 +6,6 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import RouterProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/LoginContainer";
 import {useEffect} from "react";
@@ -15,6 +14,7 @@ import {AppDispatch, StateType} from "./redux/redux-store";
 import {checkAuthTC} from "./redux/auth-reducer";
 import {InitializationAppStatusType} from "./redux/app-reducer";
 import LinearProgress from '@mui/material/LinearProgress';
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 function App() {
@@ -39,8 +39,8 @@ function App() {
           <Menu/>
           <div className={style.contentWrapper}>
             <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
-            <Route exact path="/profile" component={RouterProfileContainer}/>
-            <Route exact path="/profile/:userId" component={RouterProfileContainer}/>
+            <Route exact path="/profile" component={ProfileContainer}/>
+            <Route exact path="/profile/:userId" component={ProfileContainer}/>
             <Route path="/dialogs" component={DialogsContainer}/>
             <Route path="/news" component={News}/>
             <Route path="/music" component={Music}/>

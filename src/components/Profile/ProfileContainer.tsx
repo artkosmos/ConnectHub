@@ -8,7 +8,7 @@ import {
   updateProfilePhotoTC,
   updateProfileStatusTC
 } from "../../redux/profile-reducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileInfoType} from "../../API/social-network-api";
 import {compose} from "redux";
 import {withRedirect} from "../../utils/redirectHOC";
@@ -24,6 +24,10 @@ import {
 class ProfileContainer extends React.Component<CommonPropsType, ProfilePageType> {
 
   componentDidMount() {
+    if (!this.props.isAuth) {
+      return <Redirect to={'/login'}/>
+    }
+
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = `${this.props.userId}`
@@ -57,7 +61,6 @@ type MapDispatchToProps = {
   updateProfilePhotoTC: (photo: File) => void
   updateProfileInfoTC: (profile: any) => void
   setError: (error: string | null) => void
-  isMyPage: boolean
 }
 
 export type ProfilePropsType = MapDispatchToProps & MapStateToPropsType
@@ -68,7 +71,7 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => ({
   isAuth: isAuthorized(state),
   status: getProfileStatus(state),
   userId: getAuthUserId(state),
-  error: getProfileError(state)
+  error: getProfileError(state),
 })
 
 const actionCreators = {
