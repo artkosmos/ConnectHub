@@ -1,11 +1,12 @@
 import style from "./Profile.module.scss"
-import {ProfilePropsType} from "./ProfileContainer";
 import {Preloader} from "../Preloader/Preloader";
 import React, {ChangeEvent} from "react";
 import avatar from "../Dialogs/DialogItem/avatar1.png";
 import {ProfileStatus} from "./ProfileInfo/ProfileStatus";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import editPhotoIcon from './editPhoto.png'
+import {ProfilePropsType} from "./ProfileContainer";
 
 type Props = ProfilePropsType & {
   isMyPage: boolean
@@ -28,23 +29,24 @@ function Profile(props: Props) {
       ? <Preloader/>
       : <div className={style.profileContent}>
         <img className={style.previewPicture}
-             src="https://mp2023.nyc3.digitaloceanspaces.com/689084892688/2021/06/24/thumbnails/a47tusiqw9d2au1a.jpg"
+             src="https://www.meme-arsenal.com/memes/8ea873a7311495c4848d17e7d0c1ac40.jpg"
              alt="preview"/>
         <div className={style.profileInfoWrapper}>
-          {props.isMyPage && <input type="file" onChange={uploadPhotoHandler}/>}
-          <div className={style.aboutPerson}>
+          <div className={style.editableAvatar}>
+            {props.isMyPage && <label className={style.uploadPhoto} htmlFor='uploadPhoto'>
+              <img src={editPhotoIcon} alt="edit photo"/>
+            </label>}
+            <input id={'uploadPhoto'} className={style.uploadInput} type="file" onChange={uploadPhotoHandler}/>
             <img className={style.avatar}
                  src={props.userProfile.photos.large || avatar}
                  alt="avatar"/>
-            <div className={style.info}>
-              <span className={style.name}>{props.userProfile.fullName}</span>
-              <ProfileStatus status={props.status} callBack={props.updateProfileStatusTC}/>
-              <ProfileInfo userInfo={props.userProfile} isMyPage={props.isMyPage}
-                           updateProfile={props.updateProfileInfoTC} error={props.error} setError={props.setError}/>
-            </div>
           </div>
+          <span className={style.name}>{props.userProfile.fullName}</span>
+          <ProfileStatus status={props.status} callBack={props.updateProfileStatusTC}/>
+          <ProfileInfo userInfo={props.userProfile} isMyPage={props.isMyPage}
+                       updateProfile={props.updateProfileInfoTC} error={props.error} setError={props.setError}/>
+          <MyPostsContainer/>
         </div>
-        <MyPostsContainer/>
       </div>
   )
 }

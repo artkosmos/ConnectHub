@@ -1,8 +1,8 @@
 .myPosts {
-  padding: 0.625rem 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin-top: 200px;
 
   &__published {
     display: flex;

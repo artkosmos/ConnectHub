@@ -1,0 +1,10 @@
+.statusWrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 100px;
+
+  .status {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
