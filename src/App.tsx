@@ -22,6 +22,7 @@ function App() {
   const dispatch = useDispatch<AppDispatch>()
   const initialization = useSelector<StateType, InitializationAppStatusType>(
     state => state.app.initialization)
+  const isAuth = useSelector<StateType, boolean>(state => state.auth.isLogIn)
 
   useEffect(() => {
     dispatch(checkAuthTC())
@@ -36,7 +37,7 @@ function App() {
       <div className={style.appWrapper}>
         <HeaderContainer/>
         <div className={style.menuAndContentWrapper}>
-          <Menu/>
+          {isAuth && <Menu/>}
           <div className={style.contentWrapper}>
             <Route exact path="/" render={() => <Redirect to={'/profile'}/>}/>
             <Route exact path="/profile" component={ProfileContainer}/>
@@ -46,14 +47,12 @@ function App() {
             <Route path="/music" component={Music}/>
             <Route path="/users" component={UsersContainer}/>
             <Route path="/settings" component={Settings}/>
-            <Route path="/login" component={Login}/>
           </div>
         </div>
+        <Route path="/login" component={Login}/>
       </div>
     </BrowserRouter>
-  );
+  )
 }
 
-// Route(встроенный компонент) позволяет отслеживать изменения url, показывая необходимый компонент
-// NavLink(встроенный компонент) позволяет менять url страницы не перезагружая ее целиком
-export default App;
+export default App
