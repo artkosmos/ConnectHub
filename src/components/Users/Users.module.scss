@@ -43,14 +43,8 @@
       .button {
         width: 6.875rem;
         height: 1.875rem;
-        background-color: #55abec;
         border-radius: 0.625rem;
         font-size: 0.875rem;
-        color: whitesmoke;
-
-        &:hover {
-          background-color: #1565c0;
-        }
 
         &:disabled {
           opacity: 0.5;
