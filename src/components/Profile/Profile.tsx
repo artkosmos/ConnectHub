@@ -2,6 +2,7 @@ import style from "./Profile.module.scss"
 import {Preloader} from "../Preloader/Preloader";
 import React, {ChangeEvent} from "react";
 import avatar from "../Dialogs/DialogItem/avatar1.png";
+import bg from './bg.jpg'
 import {ProfileStatus} from "./ProfileInfo/ProfileStatus";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
@@ -29,7 +30,7 @@ function Profile(props: Props) {
       ? <Preloader/>
       : <div className={style.profileContent}>
         <img className={style.previewPicture}
-             src="https://www.meme-arsenal.com/memes/8ea873a7311495c4848d17e7d0c1ac40.jpg"
+             src={bg}
              alt="preview"/>
         <div className={style.profileInfoWrapper}>
           <div className={style.editableAvatar}>
