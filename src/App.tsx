@@ -1,6 +1,6 @@
 import style from './App.module.scss';
 import Menu from "./components/Menu/Menu";
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -33,7 +33,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className={style.appWrapper}>
         <HeaderContainer/>
         <div className={style.menuAndContentWrapper}>
@@ -51,7 +51,7 @@ function App() {
         </div>
         <Route path="/login" component={Login}/>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
