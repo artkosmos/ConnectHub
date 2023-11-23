@@ -1,4 +1,4 @@
-# Social Network
-### Deploy link: https://artkosmos.github.io/Social-Network
+# ConnectHub
+#### Deploy link: https://artkosmos.github.io/ConnectHub
 
 

@@ -1,6 +1,6 @@
 {
-  "name": "social-network",
-  "homepage": "https://artkosmos.github.io/Social-Network",
+  "name": "social-network-people",
+  "homepage": "https://artkosmos.github.io/ConnectHub",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
