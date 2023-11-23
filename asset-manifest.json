@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Social-Network/static/css/main.c62762f7.css",
-    "main.js": "/Social-Network/static/js/main.3dc991b5.js",
-    "static/media/bg.jpg": "/Social-Network/static/media/bg.367fcfa1bcc8797aab25.jpg",
-    "static/media/background_messages.jpg": "/Social-Network/static/media/background_messages.b9c26ab075fa3bf3093c.jpg",
-    "static/media/preloader.svg": "/Social-Network/static/media/preloader.24d58b5bede7759267d64c6788b0bf3b.svg",
-    "static/media/twitter-seeklogo.com.svg": "/Social-Network/static/media/twitter-seeklogo.com.740c588fcf1776067d15107863dbf2bc.svg",
-    "index.html": "/Social-Network/index.html",
-    "main.c62762f7.css.map": "/Social-Network/static/css/main.c62762f7.css.map",
-    "main.3dc991b5.js.map": "/Social-Network/static/js/main.3dc991b5.js.map"
+    "main.css": "/ConnectHub/static/css/main.a30a2dd6.css",
+    "main.js": "/ConnectHub/static/js/main.30a028fe.js",
+    "static/media/bg.jpg": "/ConnectHub/static/media/bg.367fcfa1bcc8797aab25.jpg",
+    "static/media/background_messages.jpg": "/ConnectHub/static/media/background_messages.b9c26ab075fa3bf3093c.jpg",
+    "static/media/preloader.svg": "/ConnectHub/static/media/preloader.24d58b5bede7759267d64c6788b0bf3b.svg",
+    "static/media/twitter-seeklogo.com.svg": "/ConnectHub/static/media/twitter-seeklogo.com.740c588fcf1776067d15107863dbf2bc.svg",
+    "index.html": "/ConnectHub/index.html",
+    "main.a30a2dd6.css.map": "/ConnectHub/static/css/main.a30a2dd6.css.map",
+    "main.30a028fe.js.map": "/ConnectHub/static/js/main.30a028fe.js.map"
   },
   "entrypoints": [
-    "static/css/main.c62762f7.css",
-    "static/js/main.3dc991b5.js"
+    "static/css/main.a30a2dd6.css",
+    "static/js/main.30a028fe.js"
   ]
 }
