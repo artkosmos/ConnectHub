@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/ConnectHub/static/css/main.a30a2dd6.css",
-    "main.js": "/ConnectHub/static/js/main.30a028fe.js",
+    "main.js": "/ConnectHub/static/js/main.d808d40e.js",
     "static/media/bg.jpg": "/ConnectHub/static/media/bg.367fcfa1bcc8797aab25.jpg",
     "static/media/background_messages.jpg": "/ConnectHub/static/media/background_messages.b9c26ab075fa3bf3093c.jpg",
     "static/media/preloader.svg": "/ConnectHub/static/media/preloader.24d58b5bede7759267d64c6788b0bf3b.svg",
     "static/media/twitter-seeklogo.com.svg": "/ConnectHub/static/media/twitter-seeklogo.com.740c588fcf1776067d15107863dbf2bc.svg",
     "index.html": "/ConnectHub/index.html",
     "main.a30a2dd6.css.map": "/ConnectHub/static/css/main.a30a2dd6.css.map",
-    "main.30a028fe.js.map": "/ConnectHub/static/js/main.30a028fe.js.map"
+    "main.d808d40e.js.map": "/ConnectHub/static/js/main.d808d40e.js.map"
   },
   "entrypoints": [
     "static/css/main.a30a2dd6.css",
-    "static/js/main.30a028fe.js"
+    "static/js/main.d808d40e.js"
   ]
 }
